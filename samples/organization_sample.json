@@ -1,0 +1,14 @@
+{
+    "name": "Acme EdTech",
+    "website_url": "https://acme-edtech.com",
+    "description": "AI-powered learning platform scaling across Southeast Asia.",
+    "logo_url": "https://logo.dev/acme-edtech.com",
+    "founded_year": 2022,
+    "sector_id": 1,
+    "country_id": "ID",
+    "organization_type": "startup",
+    "segment_ids": [
+        101,
+        102
+    ]
+}

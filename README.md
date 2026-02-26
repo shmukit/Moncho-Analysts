@@ -5,7 +5,8 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
 ## Repository Contents
 - `instructions.md`: Core system prompt and guidelines for your AI agent.
 - `scripts/submit_data.ts`: Utility to submit your JSON output to the Moncho API.
-- `samples/`: Standardized JSON formats for Organizations, Landscapes, and Experts.
+- `samples/`: Standardized JSON formats for Organizations, Landscapes, Experts, and Products (see `samples/README.md`).
+- `skills/`: Research and extraction skills, including `taxonomy_mapping.md` for resolving sector/segment/landscape.
 - `.cursorrules` / `.antigravityrules`: Pre-configured rules for your IDE to follow.
 
 ## Setup
@@ -38,7 +39,7 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
    Get API keys from: [Tavily](https://tavily.com), [Exa](https://exa.ai), [Logo.dev](https://logo.dev). Keep `.env` in `.gitignore`.
 
 ## Workflow
-1. **Agent context**: Have your IDE agent read `README.md`, `analyst_instructions.md`, and the `skills/` and `samples/` files so it understands context, intent, and schemas.
+1. **Agent context**: Have your IDE agent read `README.md`, `analyst_instructions.md`, and the `skills/` (including `taxonomy_mapping.md`) and `samples/` files so it understands context, intent, schemas, and how to map to sector/segment/landscape.
 2. **Discovery** (see `analyst_instructions.md`): Discover orgs → select top by scoring rubrics → fetch logos (Logo.dev) → discover products → select top products → fetch product URLs.
 3. **Generate**: Ask the agent to generate a JSON file matching the format in `samples/`.
 4. **Validate**: Ensure the JSON is valid and accurate.

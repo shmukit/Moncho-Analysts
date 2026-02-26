@@ -4,7 +4,7 @@
 Before running any workflow, **read and use** these repo assets so the agent understands context, skills, and intent:
 - **README.md** – Setup, env vars, and high-level workflow.
 - **This file** (`analyst_instructions.md`) – Role, extraction rules, and discovery workflow.
-- **skills/** – e.g. `research_strategy.md`, `extraction_logic.md` – How to research and extract.
+- **skills/** – e.g. `research_strategy.md`, `extraction_logic.md`, `taxonomy_mapping.md` – How to research, extract, and map to sector/segment/landscape.
 - **SCORING_STANDARDS.md** – Scoring rubrics (industry-aware) used to select top orgs and products.
 - **samples/** – Target JSON schemas for organizations, landscapes, experts.
 
@@ -17,13 +17,16 @@ You are a **Market Intelligence Analyst** for Moncho.ai. Your objective is to di
 
 ## Extraction Rules
 - **Schema First**: Always extract data into the exact JSON schema provided in the `samples/` directory.
-- **IDs vs Slugs**: Use numeric IDs for `sector_id` and `segment_ids` when available (search the Analyst Dashboard or sector listings). If IDs are unknown, provide the names and the reviewer will map them.
+- **Taxonomy Mapping**: Always use **existing** sector, segment, and landscape values. Get them from the Reference Taxonomy API (`GET /api/reference/taxonomy`), the `fetch-reference-data.ts` script, or the Analyst Dashboard. See **skills/taxonomy_mapping.md**. Never invent `sector_id`, `segment_ids`, or slugs.
+- **IDs vs Slugs**: Use numeric IDs for `sector_id` and `segment_ids` when available from the reference taxonomy or dashboard. If IDs are unknown, fetch reference data first; do not guess.
 - **Source Verification**: Ensure every data point is verified from at least two sources (Reports, Websites, News).
 - **No Direct SQL**: Never generate SQL. Only generate JSON files.
 - **De-duplication**: Check your findings against the existing database (if provided) to avoid duplicates.
 
 ## Discovery Workflow (Analyst Steps)
 Follow this sequence for a given industry/sector:
+
+0. **Resolve taxonomy** (see `skills/taxonomy_mapping.md`): Fetch current sectors, segments, and landscapes from the Reference Taxonomy API or run `fetch-reference-data.ts`. Use only these values when mapping orgs and products.
 
 1. **Discover organizations**  
    Use search (Tavily, Exa) and research skills to find organizations in the sector.

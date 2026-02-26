@@ -1,0 +1,25 @@
+# Analyst Workbench – Agent Rules
+
+## Context and intent
+- You are working in the Moncho Analyst Workbench. Your job is to discover and submit high-quality market data (organizations, products, landscapes) in the formats defined in this repo.
+- Before running workflows or generating output, read and use the following so your behavior matches Moncho’s standards and schemas.
+
+## Required reading (in order)
+1. **README.md** – Setup, .env (Tavily, Exa, Logo.dev, Moncho API), and high-level workflow.
+2. **analyst_instructions.md** – Your role, extraction rules, and the step-by-step Discovery workflow.
+3. **skills/** – `research_strategy.md`, `extraction_logic.md` – How to research and extract.
+4. **SCORING_STANDARDS.md** – Scoring rubrics used to select top organizations and products (industry-aware).
+5. **samples/** – Target JSON schemas (organizations, landscapes, experts).
+
+Use these to align search, scoring, extraction, and submission with the intended workflow and quality bar.
+
+## Discovery workflow (summary)
+1. Discover organizations (Tavily/Exa).
+2. Select top organizations using scoring rubrics (industry-specific).
+3. Fetch logo URLs from Logo.dev for selected orgs.
+4. Discover those orgs’ products.
+5. Select top products using scoring rubrics.
+6. Fetch canonical URLs for those products.
+
+Then extract into the repo schemas, validate, and submit via `scripts/submit_data.ts`.
+

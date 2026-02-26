@@ -14,18 +14,35 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
    ```bash
    npm install ts-node typescript
    ```
-3. **Configure Environment**:
-   Create a `.env` file or export the following:
+3. **Configure Environment**  
+   Create a `.env` file in the repo root (do not commit it). Add the following variables for APIs used by the discovery workflow:
+
+   **Moncho API** (required for submission):
    ```bash
-   export MONCHO_API_URL="https://moncho.ai"
-   export MONCHO_AUTH_TOKEN="your_token_here"
+   MONCHO_API_URL="https://moncho.ai"
+   MONCHO_AUTH_TOKEN="your_token_here"
    ```
 
+   **Discovery & enrichment APIs** (required for the IDE agent’s discovery workflow):
+   ```bash
+   # Tavily – web search for discovering organizations and content
+   TAVILY_API_KEY="your_tavily_api_key"
+
+   # Exa – semantic search for companies, reports, and products
+   EXA_API_KEY="your_exa_api_key"
+
+   # Logo.dev – fetch organization/product logo URLs by domain
+   LOGO_DEV_API_KEY="your_logo_dev_api_key"
+   ```
+
+   Get API keys from: [Tavily](https://tavily.com), [Exa](https://exa.ai), [Logo.dev](https://logo.dev). Keep `.env` in `.gitignore`.
+
 ## Workflow
-1. **Research**: Use your IDE agent to research a sector using the guidelines in `instructions.md`.
-2. **Generate**: Ask the agent to generate a JSON file matching the format in `samples/`.
-3. **Validate**: Ensure the JSON is valid and accurate.
-4. **Submit**:
+1. **Agent context**: Have your IDE agent read `README.md`, `analyst_instructions.md`, and the `skills/` and `samples/` files so it understands context, intent, and schemas.
+2. **Discovery** (see `analyst_instructions.md`): Discover orgs → select top by scoring rubrics → fetch logos (Logo.dev) → discover products → select top products → fetch product URLs.
+3. **Generate**: Ask the agent to generate a JSON file matching the format in `samples/`.
+4. **Validate**: Ensure the JSON is valid and accurate.
+5. **Submit**:
    ```bash
    npx ts-node scripts/submit_data.ts --file your_output.json --type organization
    ```
@@ -33,3 +50,4 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
 ## Task Types
 1. **Data Review**: Log in to the [Analyst Dashboard](https://moncho.ai/analyst/dashboard) to review and edit existing data.
 2. **Data Input**: Use this workbench to research and input new data via the API.
+

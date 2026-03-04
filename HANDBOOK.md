@@ -128,13 +128,17 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/2026-01-25-onboardin
 2.  **Set Environment**: Run these commands with your credentials:
     ```bash
     export MONCHO_API_URL="https://app.moncho.ai"
-    export MONCHO_AUTH_TOKEN="your-token-here"
+    export MONCHO_AUTH_TOKEN="<your analyst API key>"  # copy from Analyst Dashboard → Workbench Access
     ```
-3.  **Submit**: Run the delivery script:
+3.  **Prepare JSON**:
+    - Shape your file like `samples/organization_sample.json`.
+    - Top level can be **one object** or an **array of objects**; each object becomes a separate change request.
+    - For **new** organizations, **omit** `id` (the system will generate one). For **updates**, include the existing organization `id`.
+4.  **Submit**: Run the delivery script:
     ```bash
     npm run submit -- --file data/pending/your-file.json --type organization
     ```
-4.  **Verification**: 
+5.  **Verification**: 
     - ✅ **Success**: Your data is now a **Change Request** in the system.
     - 🔍 **Review**: A Reviewer and Admin will check your work. 
     - 🏆 **Approval**: Once approved, your data is pushed to the main database, and your **Profile Stats** will update automatically.

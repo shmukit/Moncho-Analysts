@@ -13,6 +13,39 @@ import path from 'path';
 const API_URL = process.env.MONCHO_API_URL || 'http://localhost:3000';
 const AUTH_TOKEN = process.env.MONCHO_AUTH_TOKEN;
 
+async function submitRecord(entityType: string, record: any, index: number) {
+    console.log(`Submitting ${entityType} record #${index + 1} to ${API_URL}...`);
+
+    try {
+        const response = await fetch(`${API_URL}/api/analyst/change-requests`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${AUTH_TOKEN}`
+            },
+            body: JSON.stringify({
+                entity_type: entityType,
+                // If an explicit ID is present we treat this as an update.
+                // For new records we omit entity_id so the API can generate one.
+                entity_id: record.id || undefined,
+                suggested_changes: record,
+                current_data: record.current_data || {}
+            })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            console.log(`✅ Success! Change request submitted for record #${index + 1}.`);
+            console.log('Request ID:', result.data.id);
+        } else {
+            console.error(`❌ Failed for record #${index + 1}:`, result.error || result);
+        }
+    } catch (error) {
+        console.error(`❌ Network error for record #${index + 1}:`, error);
+    }
+}
+
 async function submitData() {
     const args = process.argv.slice(2);
     const filePathArg = args.indexOf('--file');
@@ -36,35 +69,18 @@ async function submitData() {
         process.exit(1);
     }
 
-    const jsonData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const raw = fs.readFileSync(filePath, 'utf8');
+    const jsonData = JSON.parse(raw);
 
-    console.log(`Submitting ${entityType} data to ${API_URL}...`);
+    const records = Array.isArray(jsonData) ? jsonData : [jsonData];
 
-    try {
-        const response = await fetch(`${API_URL}/api/analyst/change-requests`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${AUTH_TOKEN}`
-            },
-            body: JSON.stringify({
-                entity_type: entityType,
-                entity_id: jsonData.id || 'new', // Use ID if updating, 'new' if creating
-                suggested_changes: jsonData,
-                current_data: jsonData.current_data || {} // Optional if update
-            })
-        });
+    if (records.length === 0) {
+        console.error('Error: JSON file contains no records.');
+        process.exit(1);
+    }
 
-        const result = await response.json();
-
-        if (response.ok) {
-            console.log('✅ Success! Change request submitted.');
-            console.log('Request ID:', result.data.id);
-        } else {
-            console.error('❌ Failed:', result.error);
-        }
-    } catch (error) {
-        console.error('❌ Network error:', error);
+    for (let i = 0; i < records.length; i++) {
+        await submitRecord(entityType, records[i], i);
     }
 }
 

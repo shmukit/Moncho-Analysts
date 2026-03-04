@@ -21,7 +21,7 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
    **Moncho API** (required for submission):
    ```bash
    MONCHO_API_URL="https://moncho.ai"
-   MONCHO_AUTH_TOKEN="your_token_here"
+   MONCHO_AUTH_TOKEN="your_analyst_api_key_here" # copy from Analyst Dashboard → Workbench Access
    ```
 
    **Discovery & enrichment APIs** (required for the IDE agent’s discovery workflow):
@@ -47,6 +47,11 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
    ```bash
    npx ts-node scripts/submit_data.ts --file your_output.json --type organization
    ```
+
+   **Submission format rules**:
+   - You may send **one organization object** or an **array of organization objects**; the script will submit each object as a separate change request.
+   - For **new** organizations, **omit** the `id` field (the system will generate one). For **updates**, include the existing organization `id` from the database.
+   - Keep field names exactly as in `samples/organization_sample.json`; optional fields can be omitted.
 
 ## Task Types
 1. **Data Review**: Log in to the [Analyst Dashboard](https://moncho.ai/analyst/dashboard) to review and edit existing data.

@@ -7,7 +7,7 @@
 ## Required reading (in order)
 1. **README.md** – Setup, .env (Tavily, Exa, Logo.dev, Moncho API), and high-level workflow.
 2. **analyst_instructions.md** – Your role, extraction rules, and the step-by-step Discovery workflow.
-3. **skills/** – `research_strategy.md`, `extraction_logic.md` – How to research and extract.
+3. **skills/** – `research_strategy.md`, `extraction_logic.md`, `pdf_parsing.md` – How to research, extract, and parse PDF reports.
 4. **SCORING_STANDARDS.md** – Scoring rubrics used to select top organizations and products (industry-aware).
 5. **samples/** – Target JSON schemas (organizations, landscapes, experts).
 
@@ -22,4 +22,3 @@ Use these to align search, scoring, extraction, and submission with the intended
 6. Fetch canonical URLs for those products.
 
 Then extract into the repo schemas, validate, and submit via `scripts/submit_data.ts`.
-

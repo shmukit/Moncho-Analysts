@@ -148,3 +148,20 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/2026-01-25-onboardin
 
 ---
 **🎉 You are now ready to operate!**
+
+---
+
+## 4. Capabilities: Analysts vs Admins
+
+Use this table as the contract for who does what in the system.
+
+| Area | Analyst can | Admin / Core team can |
+| :--- | :--- | :--- |
+| **Discovery & research** | Use IDE + skills (`research_strategy`, `extraction_logic`, `extraction_toolkit`) to discover orgs, scrape directories, parse PDFs, enrich data. | Configure and evolve discovery agents and backend pipelines. |
+| **Taxonomy mapping** | Map orgs/products to existing sectors/segments/landscapes using `taxonomy_mapping` and reference data. | Create or change sectors, segments, landscapes, and taxonomy rules. |
+| **Data extraction & structuring** | Turn PDFs, websites, directories, CSVs into JSON matching `samples/` schemas. | Change schemas, add new entity types, and update data models. |
+| **Validation** | Run validation scripts and fix all JSON errors; follow `validation_submission` skill. | Define validation rules, CI checks, and “Judge” logic. |
+| **Submission** | Submit JSON as change requests via `scripts/submit_data.ts`; see and edit own requests. | Approve/reject requests, push data to production tables. |
+| **PDF/SML pipelines** | Understand high-level PDF → tables → SML behavior via `pdf_parsing` skill; request extractions when needed. | Run and modify SML harvesting pipelines, MinerU profiles, and normalizers in Moncho-V1. |
+| **Infrastructure & DB** | No direct DB or infra access. Work only via this repo and the Analyst Dashboard. | Run migrations, manage database and infra, change API behavior and access. |
+

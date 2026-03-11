@@ -4,7 +4,13 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
 
 ## Repository Contents
 - `instructions.md`: Core system prompt and guidelines for your AI agent.
-- `skills/`: Research and extraction skills — `research_strategy.md`, `extraction_logic.md`, `pdf_parsing.md` (PDF → structured tables for statistical reports).
+- `skills/`: Analyst skill pack:
+  - `research_strategy.md` – how to plan discovery and search.
+  - `extraction_logic.md` – how to extract and format JSON.
+  - `taxonomy_mapping.md` – how to map sectors/segments using reference taxonomy.
+  - `pdf_parsing.md` – how PDF → tables integration works and when to request it.
+  - `extraction_toolkit.md` – which extraction script to use (PDF, directory, CSV, discovery, enrichment).
+  - `validation_submission.md` – how to validate data and submit change requests safely.
 - `scripts/submit_data.ts`: Utility to submit your JSON output to the Moncho API.
 - `samples/`: Standardized JSON formats for Organizations, Landscapes, and Experts.
 - `.cursorrules` / `.antigravityrules`: Pre-configured rules for your IDE to follow.

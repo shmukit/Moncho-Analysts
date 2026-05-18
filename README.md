@@ -3,6 +3,8 @@
 Welcome to the Moncho Analyst Workbench. This repository contains the tools and instructions required for discovering and submitting market intelligence data to Moncho.ai.
 
 ## Repository Contents
+- `HANDBOOK.md`: Onboarding guide and operating manual.
+- `DASHBOARD_WALKTHROUGH.md`: Comprehensive walkthrough of the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard).
 - `instructions.md`: Core system prompt and guidelines for your AI agent.
 - `skills/`: Analyst skill pack:
   - `research_strategy.md` – how to plan discovery and search.
@@ -26,8 +28,8 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
 
    **Moncho API** (required for submission):
    ```bash
-   MONCHO_API_URL="https://moncho.ai"
-   MONCHO_AUTH_TOKEN="your_analyst_api_key_here" # copy from Analyst Dashboard → Workbench Access
+   MONCHO_API_URL="https://app.moncho.ai"
+   MONCHO_AUTH_TOKEN="your_copied_api_key_here" # copy from Analyst Dashboard → Workbench Access (see Walkthrough: DASHBOARD_WALKTHROUGH.md#3-managing-workbench-access-api-keys)
    ```
 
    **Discovery & enrichment APIs** (required for the IDE agent’s discovery workflow):
@@ -60,5 +62,5 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
    - Keep field names exactly as in `samples/organization_sample.json`; optional fields can be omitted.
 
 ## Task Types
-1. **Data Review**: Log in to the [Analyst Dashboard](https://moncho.ai/analyst/dashboard) to review and edit existing data.
+1. **Data Review**: Log in to the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) to review, curate, and edit existing data (see the [Dashboard Walkthrough](DASHBOARD_WALKTHROUGH.md) for details).
 2. **Data Input**: Use this workbench to research and input new data via the API.

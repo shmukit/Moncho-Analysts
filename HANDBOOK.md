@@ -10,6 +10,8 @@ Welcome to the data operations unit of Moncho. This handbook is your single sour
 3.  [The "Skill Pack" (System Instructions)](#2-the-skill-pack-system-instructions)
 4.  [Data Scoring & Quality](#data-scoring--quality)
 5.  [Mission 1: The First Hunt](#3-mission-1-the-first-hunt)
+6.  [Navigating the Analyst Dashboard](#4-navigating-the-analyst-dashboard)
+7.  [Capabilities: Analysts vs Admins](#5-capabilities-analysts-vs-admins)
 
 ---
 
@@ -24,8 +26,9 @@ Operating at Moncho involves two distinct activities:
 
 ### 📊 Hub 2: Data Management (The Dashboard)
 - **Where**: [app.moncho.ai/analyst/dashboard](https://app.moncho.ai/analyst/dashboard).
-- **Goal**: Monitoring, Profile Customization, and Portfolio Management.
-- **Outcome**: See your reputation stats, review your history, and update your public Bio/Projects.
+- **Goal**: Monitoring, API credential retrieval, profile customization, and portfolio management.
+- **Outcome**: View your reputation stats, copy your API key (Workbench Access token), monitor your Sherpa AI turn count limits, and track your submitted change requests.
+- **Walkthrough**: See the dedicated [Dashboard Walkthrough](DASHBOARD_WALKTHROUGH.md) for a step-by-step layout guide.
 
 ---
 
@@ -151,7 +154,21 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/2026-01-25-onboardin
 
 ---
 
-## 4. Capabilities: Analysts vs Admins
+## 4. Navigating the Analyst Dashboard
+**Goal**: Monitor your progress, retrieve credentials, and utilize curation tools.
+**Time**: 5 Minutes.
+
+The **Analyst Dashboard** is the command center for all your activities on Moncho. It hosts several essential components:
+1. **Workbench Access (API Key)**: You must copy your unique key from the "Workbench Access" card and save it in your local `.env` file as `MONCHO_AUTH_TOKEN` to run the local developer tools (Hub 1).
+2. **Curation Statistics**: Tracks your count of approved contributions and displays your reputation score, which is determined by the Judge Agent based on quality rationales.
+3. **Recent Activity Feed**: Follow the progress of your submitted change requests.
+4. **Sherpa AI turns**: Monitor your remaining daily and monthly chat turn count limits.
+
+To explore all interactive sidebar modules like the **Landscape Builder**, **Organizations Manager**, **Metadata Manager**, and **Reports**, please read our complete [Analyst Dashboard Walkthrough](DASHBOARD_WALKTHROUGH.md).
+
+---
+
+## 5. Capabilities: Analysts vs Admins
 
 Use this table as the contract for who does what in the system.
 

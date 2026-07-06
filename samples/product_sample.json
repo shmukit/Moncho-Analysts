@@ -1,1 +1,39 @@
-{"_comment":"Sample format for product data upload. Products live in table 'products'; images in 'product_media' (linked by product_id / group_label). Use product_name to link media to product when product_id is not yet known.","products":[{"product_name":"Gazi Flash Cards Animals","product_group":"Educational Aids","product_category":"Early Learning","product_description":"Flash cards for animal recognition and early learning.","hs_code":null},{"product_name":"Mystery Of Chemistry","product_group":"Science Kits","product_category":"Education","product_description":"Science kit for chemistry experiments.","hs_code":null}],"product_media":[{"product_name":"Gazi Flash Cards Animals","group_label":"Gazi-Flash-001","image_url":"https://example.com/images/gazi-flash-cards.jpg","media_type":"product_shot"},{"product_name":"Gazi Flash Cards Animals","group_label":"Gazi-Flash-001","image_url":"https://example.com/images/gazi-flash-logo.png","media_type":"logo"},{"product_name":"Mystery Of Chemistry","group_label":"Gazi-Chem-001","image_url":"https://example.com/images/mystery-chemistry-box.jpg","media_type":"product_shot"}]}
+{
+  "_comment": "Sample format for product data upload. Products live in table 'products'; images in 'product_media' (linked by product_id / group_label). Use product_name to link media to product when product_id is not yet known.",
+  "products": [
+    {
+      "product_name": "Gazi Flash Cards Animals",
+      "product_group": "Educational Aids",
+      "product_category": "Early Learning",
+      "product_description": "Flash cards for animal recognition and early learning.",
+      "hs_code": null
+    },
+    {
+      "product_name": "Mystery Of Chemistry",
+      "product_group": "Science Kits",
+      "product_category": "Education",
+      "product_description": "Science kit for chemistry experiments.",
+      "hs_code": null
+    }
+  ],
+  "product_media": [
+    {
+      "product_name": "Gazi Flash Cards Animals",
+      "group_label": "Gazi-Flash-001",
+      "image_url": "https://example.com/images/gazi-flash-cards.jpg",
+      "media_type": "product_shot"
+    },
+    {
+      "product_name": "Gazi Flash Cards Animals",
+      "group_label": "Gazi-Flash-001",
+      "image_url": "https://example.com/images/gazi-flash-logo.png",
+      "media_type": "logo"
+    },
+    {
+      "product_name": "Mystery Of Chemistry",
+      "group_label": "Gazi-Chem-001",
+      "image_url": "https://example.com/images/mystery-chemistry-box.jpg",
+      "media_type": "product_shot"
+    }
+  ]
+}

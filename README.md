@@ -2,8 +2,21 @@
 
 Welcome to the Moncho Analyst Workbench. This repository contains the tools and instructions required for discovering and submitting market intelligence data to Moncho.ai.
 
+## ICT Division grant — contract analysts (3 months)
+
+If you are joining as **Data Ops** or **GTM Ops** on the Bangladesh ICT grant, start here:
+
+1. [`ICT_GRANT_ONBOARDING.md`](ICT_GRANT_ONBOARDING.md) — shared onboarding steps
+2. [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) — tables and JSON shapes
+3. [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) or [`roles/GTM_OPS_ONBOARDING.md`](roles/GTM_OPS_ONBOARDING.md)
+4. [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](roles/TWO_MONTH_PLAN_TEMPLATE.md) — submit after discovery; founder approves
+
+Grant context: [`docs/07-projects/bangladesh-ict-division-research-grant/`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/)
+
 ## Repository Contents
 - `HANDBOOK.md`: Onboarding guide and operating manual.
+- `DATABASE_SCHEMA_OVERVIEW.md`: Analyst-facing DB tables and JSON shapes (ICT grant).
+- `SCORING_STANDARDS.md`: Organization quality rubric (1–5 dimensions).
 - `DASHBOARD_WALKTHROUGH.md`: Comprehensive walkthrough of the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard).
 - `instructions.md`: Core system prompt and guidelines for your AI agent.
 - `skills/`: Analyst skill pack:
@@ -18,6 +31,7 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
 - `.cursorrules` / `.antigravityrules`: Pre-configured rules for your IDE to follow.
 
 ## Setup
+0. **Activate analyst access** at [app.moncho.ai/analyst/apply](https://app.moncho.ai/analyst/apply) (one click, no application wait).
 1. **Clone this repository** (or download the zip).
 2. **Install dependencies**:
    ```bash

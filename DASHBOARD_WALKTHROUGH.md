@@ -16,26 +16,28 @@ This walkthrough explains how to apply, navigate the dashboard, manage your cred
 
 ---
 
-## 1. The Onboarding & Application Flow
+## 1. The Onboarding & Activation Flow
 
-If you are logging in to the Moncho platform for the first time, you must apply for analyst permissions.
+Analyst access is **instant** — no application form or admin approval wait.
 
 ```mermaid
 graph TD
-    A[Login to app.moncho.ai] --> B{Has Analyst Profile?}
-    B -- No --> C[Redirect to /analyst/apply]
-    B -- Yes --> D[Redirect to /analyst/dashboard]
-    C --> E[Submit Application Form]
-    E --> F[Admin/Reviewer Approves]
-    F --> D
+    A[Login to app.moncho.ai] --> B{Has analyst_profiles row?}
+    B -- No --> C[/analyst/apply]
+    C --> D[Click Become Analyst for Free]
+    D --> E[POST /api/analyst/activate]
+    E --> F[/analyst/dashboard?welcome=1]
+    B -- Yes --> F
 ```
 
-### Steps to Apply:
-1. Log in via your GitHub or Google account.
-2. If your account does not have an analyst profile, the system redirects you to `/analyst/apply`.
-3. Complete the form (Display Name, Bio, primary sector of interest).
-4. Once submitted, your profile goes to the **Admin/Reviewer Queue**.
-5. Upon approval, your system permissions are automatically synchronized, and your next login will take you straight to your **Analyst Dashboard**.
+### Steps to activate:
+1. Log in via email or Google.
+2. Visit **[app.moncho.ai/analyst/apply](https://app.moncho.ai/analyst/apply)** (or use the footer link).
+3. Click **Become Analyst for Free** — your profile is created immediately.
+4. You receive **3 days of full Analyst entitlements** (Sherpa 10/day, Data Terminal analyst quotas).
+5. **Keep free Analyst access forever** after **one approved submission**, or upgrade to Pro at any time.
+
+> Manual SQL grants in Supabase are legacy-only (e.g. promoting `senior_analyst` / `admin` roles).
 
 ---
 
@@ -67,7 +69,7 @@ The **Recent Activity** panel displays a timeline of your latest database sugges
 
 ### 🤖 Sherpa AI Assistant Widget
 Tracks your current usage of the Sherpa AI market researcher:
-- **Limits**: Standard analysts receive **10 questions/day** and **100 questions/month**.
+- **Limits**: Analysts receive **10 questions/day** and **60 questions/month** during trial or earned access.
 - The widget shows your real-time **Remaining Turns** for the day and the month.
 - Click **"Open Sherpa"** to access the in-app conversational assistant (`/sherpa`).
 

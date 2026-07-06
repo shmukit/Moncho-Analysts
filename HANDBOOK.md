@@ -36,9 +36,14 @@ Operating at Moncho involves two distinct activities:
 **Goal**: Get your computer ready to work with AI.
 **Time**: 15 Minutes.
 
-### Phase 1: Accounts
-1.  **GitHub**: Create an account at [github.com](https://github.com) and send your username to the Admin.
-2.  **Access**: Wait for the email invitation to join the `Moncho-V1` repository.
+### Phase 0: Activate Analyst Dashboard
+1.  Log in at [app.moncho.ai](https://app.moncho.ai) — you land on `/dashboard` immediately (personalization is optional).
+2.  Visit [/analyst/apply](https://app.moncho.ai/analyst/apply) and click **Become Analyst for Free**.
+3.  Copy your API key from **Workbench Access** on the analyst dashboard.
+
+### Phase 1: Accounts (Workbench)
+1.  Use your own local folder or the Moncho-Analysts workbench repo — **no Moncho-V1 repo access required**.
+2.  Configure `MONCHO_AUTH_TOKEN` from the dashboard API key card.
 
 ### Phase 2: Tools
 1.  **Your AI IDE**: Download an AI-powered IDE like **Cursor**, **Antigravity**, **Windsurf**, or **VS Code** with AI extensions. This is your "Workbench".
@@ -134,7 +139,7 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/2026-01-25-onboardin
     export MONCHO_AUTH_TOKEN="<your analyst API key>"  # copy from Analyst Dashboard → Workbench Access
     ```
 3.  **Prepare JSON**:
-    - Shape your file like `samples/organization_sample.json`.
+    - Shape your file like `docs/analyst/samples/organization_sample.json`.
     - Top level can be **one object** or an **array of objects**; each object becomes a separate change request.
     - For **new** organizations, **omit** `id` (the system will generate one). For **updates**, include the existing organization `id`.
 4.  **Submit**: Run the delivery script:
@@ -181,4 +186,3 @@ Use this table as the contract for who does what in the system.
 | **Submission** | Submit JSON as change requests via `scripts/submit_data.ts`; see and edit own requests. | Approve/reject requests, push data to production tables. |
 | **PDF/SML pipelines** | Understand high-level PDF → tables → SML behavior via `pdf_parsing` skill; request extractions when needed. | Run and modify SML harvesting pipelines, MinerU profiles, and normalizers in Moncho-V1. |
 | **Infrastructure & DB** | No direct DB or infra access. Work only via this repo and the Analyst Dashboard. | Run migrations, manage database and infra, change API behavior and access. |
-

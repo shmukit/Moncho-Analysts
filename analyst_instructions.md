@@ -4,12 +4,7 @@
 Before running any workflow, **read and use** these repo assets so the agent understands context, skills, and intent:
 - **README.md** – Setup, env vars, and high-level workflow.
 - **This file** (`analyst_instructions.md`) – Role, extraction rules, and discovery workflow.
-- **skills/** –  
-  - `research_strategy.md`, `extraction_logic.md` – How to research and extract.  
-  - `taxonomy_mapping.md` – How to use reference taxonomy for sectors/segments.  
-  - `pdf_parsing.md` – How PDF → tables integration works and when to request it.  
-  - `extraction_toolkit.md` – Which extraction script to use (PDF, directory, CSV, discovery, enrichment).  
-  - `validation_submission.md` – How to validate JSON and submit change requests safely.
+- **skills/** – e.g. `research_strategy.md`, `extraction_logic.md`, `pdf_parsing.md` – How to research, extract, and parse PDF reports.
 - **SCORING_STANDARDS.md** – Scoring rubrics (industry-aware) used to select top orgs and products.
 - **samples/** – Target JSON schemas for organizations, landscapes, experts.
 

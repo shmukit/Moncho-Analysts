@@ -14,15 +14,31 @@
 | **~1 million BD data points** | ≥1,000,000 rows in `market_facts` and related tables, `country=BD` |
 | **Two-sided platform** | Analyst workbench + consumer Sherpa usable |
 
-**Ten grant sectors:** Finance, Agriculture, Education, ICT/ITES, Energy, Health, Logistics, E-commerce, Sports, RMG/Textiles.
+## 2. Ten priority sectors (all analyst work)
 
-Full detail: [`docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md)
+Every Coverage Snapshot, org harvest, and content plan must reference these **10 sectors**:
+
+| # | Sector | Moncho slug(s) |
+|---|--------|----------------|
+| 1 | Finance / Banking | `financial-services` |
+| 2 | Agriculture | `agri-agro-processing`, `fisheries` |
+| 3 | Education | `k12-education`, `post-secondary-education` |
+| 4 | ICT / ITES | `ict-services` |
+| 5 | Energy | `energy` |
+| 6 | Health | `healthcare` |
+| 7 | Logistics | `port-and-maritime-sector` |
+| 8 | E-commerce | `retail` |
+| 9 | Sports | `indoor-sports` |
+| 10 | RMG / Textiles | `ready-made-garments-rmg`, `circular-economy-textiles` |
+
+Full table with target slugs and notes: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)  
+Grant plan: [`PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md)
 
 September report frames work as **Phase 1 in progress**, not finished.
 
 ---
 
-## 2. What you get (Day 0)
+## 3. What you get (Day 0)
 
 | Item | Notes |
 |------|-------|
@@ -46,7 +62,7 @@ September report frames work as **Phase 1 in progress**, not finished.
 
 ---
 
-## 3. What we need from you (Day 0)
+## 4. What we need from you (Day 0)
 
 - [ ] Signed contract
 - [ ] Bank account details
@@ -62,7 +78,7 @@ September report frames work as **Phase 1 in progress**, not finished.
 1. Contract + bank details.
 2. Moncho login; analyst profile; save API key.
 3. Clone repo; Cursor + `.env` (never commit).
-4. Read this file + your role doc + [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md).
+4. Read this file + [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) + your role doc + [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md).
 5. Skim [`HANDBOOK.md`](HANDBOOK.md) and grant [`PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md).
 
 ### Step 2 — Discovery (before big execution)
@@ -84,7 +100,7 @@ npx tsx scripts/tests/sherpa-pipeline-audit.ts --country Bangladesh
 npx tsx scripts/tests/backfill-status.ts
 ```
 
-**Deliverable:** **Coverage Snapshot** (2–4 pages) — facts, gaps, proposed priority sectors, blockers.
+**Deliverable:** **Coverage Snapshot** (2–4 pages) — **one row per grant sector (all 10)**, facts, gaps, depth grade, blockers.
 
 *Note: Bangladesh trade data is already ingested. Trade bulk is not a Data Ops workstream.*
 
@@ -130,6 +146,7 @@ Support [`PROGRESS_REPORT_TEMPLATE.md`](https://github.com/shmukit/Moncho-V1/blo
 
 | Doc | Use |
 |-----|-----|
+| [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) | **10 grant sectors** — slugs and Moncho mapping |
 | [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) | Tables and JSON shapes (start here) |
 | [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) | Org quality rubric |
 | [`PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md) | Grant KPIs |

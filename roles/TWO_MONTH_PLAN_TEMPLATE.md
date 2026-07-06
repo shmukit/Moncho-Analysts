@@ -6,7 +6,24 @@
 
 ## 1. Coverage snapshot summary
 
-*What Moncho has today vs what we can achieve in ~2 months.*
+*What Moncho has today across **all 10 grant sectors** — see [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md).*
+
+### Sector coverage (fill one row per sector)
+
+| # | Sector | Depth (🟢/🟡/🔴) | Your focus in ~2 months |
+|---|--------|-------------------|-------------------------|
+| 1 | Finance / Banking | | |
+| 2 | Agriculture | | |
+| 3 | Education | | |
+| 4 | ICT / ITES | | |
+| 5 | Energy | | |
+| 6 | Health | | |
+| 7 | Logistics | | |
+| 8 | E-commerce | | |
+| 9 | Sports | | |
+| 10 | RMG / Textiles | | |
+
+Brief notes (facts, gaps, blockers):
 
 -
 

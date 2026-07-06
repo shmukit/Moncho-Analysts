@@ -6,6 +6,27 @@
 
 ---
 
+## Ten priority sectors (grant scope)
+
+All discovery and data work covers these **10 sectors**. Grade each in your Coverage Snapshot (🟢/🟡/🔴):
+
+| # | Sector | Moncho slug(s) |
+|---|--------|----------------|
+| 1 | Finance / Banking | `financial-services` |
+| 2 | Agriculture | `agri-agro-processing`, `fisheries` |
+| 3 | Education | `k12-education`, `post-secondary-education` |
+| 4 | ICT / ITES | `ict-services` |
+| 5 | Energy | `energy` |
+| 6 | Health | `healthcare` |
+| 7 | Logistics | `port-and-maritime-sector` |
+| 8 | E-commerce | `retail` |
+| 9 | Sports | `indoor-sports` |
+| 10 | RMG / Textiles | `ready-made-garments-rmg`, `circular-economy-textiles` |
+
+Details: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
+
+---
+
 ## Primary goals
 
 ### 1. Org and product quality (5 sectors first)
@@ -47,9 +68,9 @@ Save audit output: `docs/07-projects/bangladesh-ict-division-research-grant/SECT
 **Coverage Snapshot must answer:**
 
 1. BD fact count today (trade vs non-trade breakdown).
-2. Per grant sector: landscape status, org count, product count, quality grade (🟢/🟡/🔴).
-3. Where org/product scoring is weakest.
-4. What is achievable in ~2 months vs Phase 2.
+2. **All 10 grant sectors:** landscape status, org count, product count, quality grade (🟢/🟡/🔴).
+3. Where org/product scoring is weakest (by sector).
+4. Which sectors to deepen first in ~2 months vs scaffold later.
 
 ---
 

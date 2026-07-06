@@ -8,6 +8,28 @@
 
 ---
 
+## Ten priority sectors (content mapping)
+
+Grant scope is **10 BD sectors**. Map posts and newsletter issues to sector stories where possible:
+
+| # | Sector | GTM content hooks |
+|---|--------|-------------------|
+| 1 | Finance / Banking | Fintech, MFS, digital payments |
+| 2 | Agriculture | Agri VC series, fisheries, agro-processing |
+| 3 | Education | EdTech, enrollment stats (when data-backed) |
+| 4 | ICT / ITES | Services export, freelancer economy |
+| 5 | Energy | Power, renewables, fuel |
+| 6 | Health | Pharma, providers, devices |
+| 7 | Logistics | Ports, freight, corridors |
+| 8 | E-commerce | Platforms, retail, consumer |
+| 9 | Sports | Equipment, facilities |
+| 10 | RMG / Textiles | Import substitution HS posts, RMG value chain |
+
+Import substitution series spans many sectors via HS codes. Agri VC series covers **Agriculture** primarily.  
+Full slug map: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
+
+---
+
 ## Goals (first ~2 months)
 
 | Goal | Done when | Not a goal yet |
@@ -23,6 +45,7 @@
 
 ## Step 1 — Discovery checklist
 
+- [ ] Read [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) — all 10 grant sectors
 - [ ] Read grant [`PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md) (context)
 - [ ] Read [`BD_IMPORT_SUBSTITUTION_LINKEDIN_SERIES.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/03-product-and-design/BD_IMPORT_SUBSTITUTION_LINKEDIN_SERIES.md)
 - [ ] Open `sample-data/bd-import-substitution/linkedin-posts.json`

@@ -41,57 +41,73 @@ graph TD
 
 ---
 
-## 2. The Central Dashboard Overview
+## 2. The Central Dashboard Overview (Command Center)
 
-Once approved, the dashboard home page displays crucial real-time operational statistics and integration tools.
+The dashboard is your **Analyst Command Center** — awareness and orientation, not a duplicate of My Work.
 
 ```
-+-------------------------------------------------------------------------------+
-|                           Welcome back, [Display Name]                        |
-|                  You have [X] new items pending your review today.            |
-+---------------------+----------------------------------+----------------------+
-| Verified Orgs       | Reputation Score                 | Pending Approvals    |
-|       [ 42 ]        |            [ 88 / 100 ]          |        [ 3 ]         |
-| 42 approved total   | Top 1% Senior Analyst            | Waiting for review   |
-+---------------------+----------------------------------+----------------------+
++------------------------------------------------------------------------+
+| IDENTITY: Name · Verified Analyst · Reputation · Profile link          |
++------------------------------------------------------------------------+
+| Welcome back · pending count · Sherpa quota (single strip)             |
++------------------------------------------------------------------------+
+| TODAY: Market Pulse (per coverage sector) · Knowledge Graph Growth     |
++------------------------------------------------------------------------+
+| CONTINUE: What's Next (one CTA) · AI Suggestions                       |
++------------------------------------------------------------------------+
+| YOUR WORK: Knowledge Assets · Activity Timeline                        |
++------------------------------------------------------------------------+
+| MY COVERAGE: sector cards (coverage %, freshness, gaps)               |
++------------------------------------------------------------------------+
+| QUICK ACTIONS: Run workflow · Data Terminal · Suggest edit · Reports   |
++------------------------------------------------------------------------+
 ```
 
-### 📈 Curation & Reputation Metrics
-The top row of the dashboard tracks your performance metrics:
-- **Verified Organizations**: The total number of organization profiles you have successfully verified or submitted that have been approved.
-- **Reputation Score**: A score from `0` to `100` that measures the overall quality of your submissions. 
-  > [!TIP]
-  > Submissions are evaluated by the **Judge Agent** across 5 dimensions: *Innovation, Market Traction, Competitiveness, Product Depth,* and *Social Proof*. Consistent, high-fidelity rationales will push your Reputation Score up and unlock premium ranks like **Senior Analyst**.
-- **Pending Approvals**: The number of your submissions currently in the review queue waiting for a reviewer or administrator to merge them.
+### Zones
 
-### 📝 Recent Activity Feed
-The **Recent Activity** panel displays a timeline of your latest database suggestions (Added or Updated entities), complete with timestamps and current statuses (e.g., `pending`, `reviewed`, `approved`, `rejected`).
+- **Identity strip**: Reputation score/rank, **distinct org edits approved**, reports published, link to public profile (`/a/[username]`).
+- **Today**: Market Pulse shows 7-day events for sectors you cover. Graph Growth shows platform-wide 24h deltas (orgs, products, prices, experts, policies, value chains).
+- **Continue**: One state-driven **What's Next** card. **AI Suggestions** surface pending candidate facts from your queue and covered sectors (up to 3).
+- **Your work**: Recent knowledge assets (briefs, exports) and a unified activity timeline (submissions, Sherpa, announcements).
+- **My coverage**: Domains you own — configure up to 6 sectors in **Settings → Coverage**.
 
-### 🤖 Sherpa AI Assistant Widget
-Tracks your current usage of the Sherpa AI market researcher:
-- **Limits**: Analysts receive **10 questions/day** and **60 questions/month** during trial or earned access.
-- The widget shows your real-time **Remaining Turns** for the day and the month.
-- Click **"Open Sherpa"** to access the in-app conversational assistant (`/sherpa`).
+### What moved off the dashboard
+
+- **Full workflow launcher** → My Work (`/analyst/work?tab=workflows`)
+- **API keys** → Settings (`/analyst/settings`)
+- **Duplicate KPI cards** and Sherpa sidebar widget → removed
+
+> Full UACs: [ANALYST_DASHBOARD_UAC.md](../03-product-and-design/ANALYST_DASHBOARD_UAC.md)
 
 ---
 
 ## 3. Managing Workbench Access (API Keys)
 
-To run the local developer tools (Hub 1) and submit data using scripts, you need your unique API credential.
+API keys are on **Settings**, not the dashboard.
+
+To run local developer tools (Hub 1) and submit data using scripts, you need your unique API credential.
 
 > [!WARNING]
 > Your API key grants write permission to create change requests under your name. Keep it completely secret and never commit it to public repositories.
 
 ### Configuring Your Key:
-1. Locate the **Workbench Access** card on your dashboard.
-2. Click to reveal and copy your API Key.
-3. In your local clone of the `Moncho-Analysts` workbench repository, create a `.env` file in the root directory.
-4. Add the key as follows:
+1. Open **Settings** in the sidebar (`/analyst/settings`).
+2. Under **Developer**, reveal and copy your API Key (or generate one).
+
+### Coverage sectors (Market Pulse + My Coverage)
+1. In **Settings → Coverage**, select up to **6 sectors** you research.
+2. If you completed consumer onboarding, sectors you follow may be **pre-filled automatically** (from `user_sectors` or your profile preferences). You can change them anytime.
+3. Click **Save coverage** — this writes `coverage_sector_slugs` on your analyst profile.
+4. Reload the dashboard to see **Market Pulse** and **My Coverage** cards for those sectors.
+
+### Local workbench key
+1. In your local clone of the `Moncho-Analysts` workbench repository, create a `.env` file in the root directory.
+2. Add the key as follows:
    ```env
    MONCHO_API_URL="https://app.moncho.ai"
    MONCHO_AUTH_TOKEN="your_copied_api_key_here"
    ```
-5. Ensure your `.env` is listed in your `.gitignore` to prevent leaks.
+3. Ensure your `.env` is listed in your `.gitignore` to prevent leaks.
 
 ---
 
@@ -101,12 +117,15 @@ The sidebar navigation provides access to specific database curation modules:
 
 | Sidebar Module | Path | Purpose |
 | :--- | :--- | :--- |
-| **Dashboard** | `/analyst/dashboard` | Main command center, metrics, activity feed, and API key manager. |
+| **Dashboard** | `/analyst/dashboard` | Command Center — market pulse, what's next, assets, activity, coverage. |
+| **My Work** | `/analyst/work` | Workflow launcher, in-progress threads, intelligence, submissions, exports. |
+| **Settings** | `/analyst/settings` | API keys (Developer) and coverage sector editor (max 6). |
 | **Review Queue** | `/analyst/review` | *[Senior Analysts/Admins only]* Evaluate and vote on pending analyst submissions. |
 | **Organizations** | `/analyst/organizations` | Search and browse the database. Suggest inline edits for metadata, websites, descriptions, and rationales. |
 | **Reports** | `/analyst/reports` | View and manage rich Market Sizing / SML (Structured Market Landscape) reports. |
-| **Products** | `/analyst/products` | Curate product listings, pricing maps, and product positioning data. |
-| **Metadata Manager**| `/analyst/metadata` | View global taxonomies (sectors, segments, countries) to ensure exact slug mappings. |
+| **Products** | `/analyst/products` | Curate `product_metrics` rows (pricing, variants, segment placement). Not the `products` catalog table. |
+| **Metadata Manager**| `/analyst/metadata` | Sectors, segments, countries, **taxonomy standards**, and **HS codes** (read + suggest edits). |
+| **Value Chain** | `/analyst/value-chain` | Manage stages, gaps, and HS→stage mappings per pilot; preview consumer tabs (chain, exporters, gaps). |
 | **Landscape Builder**| `/analyst/landscapes` | Interactive visual tool to drag, drop, and map organizations onto sector layouts. |
 | **Sherpa AI** | `/sherpa` | Deep research agent. Run top-down and bottom-up market sizing operations directly in the browser. |
 | **Public Profile** | `/a/[username]` | Shareable portfolio displaying your reputation, bio, and key verified contributions. |

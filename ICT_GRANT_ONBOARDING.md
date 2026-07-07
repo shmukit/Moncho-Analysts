@@ -16,23 +16,22 @@
 
 ## 2. Ten priority sectors (all analyst work)
 
-Every Coverage Snapshot, org harvest, and content plan must reference these **10 sectors**:
+Every Coverage Snapshot, org harvest, and content plan must reference these **10 sectors**.
 
-| # | Sector | Moncho slug(s) |
-|---|--------|----------------|
-| 1 | Finance / Banking | `financial-services` |
-| 2 | Agriculture | `agri-agro-processing`, `fisheries` |
-| 3 | Education | `k12-education`, `post-secondary-education` |
-| 4 | ICT / ITES | `ict-services` |
-| 5 | Energy | `energy` |
-| 6 | Health | `healthcare` |
-| 7 | Logistics | `port-and-maritime-sector` |
-| 8 | E-commerce | `retail` |
-| 9 | Sports | `indoor-sports` |
-| 10 | RMG / Textiles | `ready-made-garments-rmg`, `circular-economy-textiles` |
+**Verified** against `metadata_sector` (`npm run db:sectors`, 2026-07-07). Full table: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md).
 
-Full table with target slugs and notes: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)  
-Grant plan: [`PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md)
+| # | Sector | Moncho slug(s) | Landscapes |
+|---|--------|----------------|------------|
+| 1 | Finance / Banking | `financial-services` | 6 |
+| 2 | Agriculture | `agri-agro-processing`, `fisheries` | 13, 2 |
+| 3 | Education | `k12-education`, `post-secondary-education` | 6, 6 |
+| 4 | ICT / ITES | `ict-services` | 5 |
+| 5 | Energy | `energy` | 6 |
+| 6 | Health | `healthcare` | 15 |
+| 7 | Logistics | `port-and-maritime-sector` | 5 |
+| 8 | E-commerce | `retail` | **0** (empty shell) |
+| 9 | Sports | `indoor-sports` | 1 |
+| 10 | RMG / Textiles | `ready-made-garments-rmg`, `circular-economy-textiles` | 3, 5 |
 
 September report frames work as **Phase 1 in progress**, not finished.
 

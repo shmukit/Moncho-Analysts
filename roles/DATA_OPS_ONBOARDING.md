@@ -8,22 +8,24 @@
 
 ## Ten priority sectors (grant scope)
 
-All discovery and data work covers these **10 sectors**. Grade each in your Coverage Snapshot (🟢/🟡/🔴):
+All discovery and data work covers these **10 sectors**. Grade each in your Coverage Snapshot (🟢/🟡/🔴).
 
-| # | Sector | Moncho slug(s) |
-|---|--------|----------------|
-| 1 | Finance / Banking | `financial-services` |
-| 2 | Agriculture | `agri-agro-processing`, `fisheries` |
-| 3 | Education | `k12-education`, `post-secondary-education` |
-| 4 | ICT / ITES | `ict-services` |
-| 5 | Energy | `energy` |
-| 6 | Health | `healthcare` |
-| 7 | Logistics | `port-and-maritime-sector` |
-| 8 | E-commerce | `retail` |
-| 9 | Sports | `indoor-sports` |
-| 10 | RMG / Textiles | `ready-made-garments-rmg`, `circular-economy-textiles` |
+**Verified** against `metadata_sector` (`npm run db:sectors`, 2026-07-07). See [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) for full notes.
 
-Details: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
+| # | Sector | Moncho slug(s) | Landscapes (verified) |
+|---|--------|----------------|------------------------|
+| 1 | Finance / Banking | `financial-services` | 6 |
+| 2 | Agriculture | `agri-agro-processing`, `fisheries` | 13, 2 |
+| 3 | Education | `k12-education`, `post-secondary-education` | 6, 6 |
+| 4 | ICT / ITES | `ict-services` | 5 |
+| 5 | Energy | `energy` | 6 |
+| 6 | Health | `healthcare` | 15 |
+| 7 | Logistics | `port-and-maritime-sector` | 5 (`logistics` slug exists but **0** landscapes) |
+| 8 | E-commerce | `retail` | **0** — empty shell; landscape work needed |
+| 9 | Sports | `indoor-sports` | 1 |
+| 10 | RMG / Textiles | `ready-made-garments-rmg`, `circular-economy-textiles` | 3, 5 |
+
+Do **not** use empty shells `agriculture`, `education`, or `logistics` for mapped work.
 
 ---
 

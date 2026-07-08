@@ -7,10 +7,9 @@ Before running any workflow, **read and use** these repo assets so the agent und
 - **skills/** – e.g. `research_strategy.md`, `extraction_logic.md`, `pdf_parsing.md` – How to research, extract, and parse PDF reports.
 - **SCORING_STANDARDS.md** – Scoring rubrics (industry-aware) used to select top orgs and products.
 - **samples/** – Target JSON schemas for organizations, landscapes, experts.
+- **`instructions.md`** – Full IDE agent entry point, skills index, and workflow commands.
 
 The agent should use these to align behavior with Moncho’s quality standards and submission format.
-
----
 
 ## Your Role
 You are a **Market Intelligence Analyst** for Moncho.ai. Your objective is to discover, extract, and format high-quality market data (Organizations, Landscapes, and Sector Metadata) into structured JSON.

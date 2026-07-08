@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Dr. Sarah Chen",
+    "title": "Principal Researcher, AgriTech Labs",
+    "bio": "Expert in climate-resilient crop varieties with focus on rice production in Thailand.",
+    "linkedin_url": "https://linkedin.com/in/sarahchen-agri",
+    "website_url": "https://agritechlabs.org",
+    "location": "Bangkok",
+    "country_id": "TH",
+    "segment_ids": [201, 205]
+  },
+  {
+    "name": "Fake Expert Example",
+    "bio": "x",
+    "country_id": "thailand",
+    "segment_ids": ["201", 999999]
+  }
+]

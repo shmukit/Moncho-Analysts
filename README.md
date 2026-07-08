@@ -19,7 +19,11 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 - `DATABASE_SCHEMA_OVERVIEW.md`: Analyst-facing DB tables and JSON shapes (ICT grant).
 - `SCORING_STANDARDS.md`: Organization quality rubric (1–5 dimensions).
 - `DASHBOARD_WALKTHROUGH.md`: Comprehensive walkthrough of the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard).
-- `instructions.md`: Core system prompt and guidelines for your AI agent.
+- `instructions.md`: **Read first** — IDE agent entry point and workflow map.
+- `analyst_instructions.md`: Role, extraction rules, discovery workflow.
+- `scripts/utils/validate-analyst-data.ts`: Canonical validation (handbook path).
+- `scripts/submit_data.ts`: Submit JSON to Moncho API (QA-gated).
+- `scripts/extraction/`: Discovery, CSV, PDF, enrichment tools.
 - `skills/`: Analyst skill pack:
   - `research_strategy.md` – how to plan discovery and search.
   - `extraction_logic.md` – how to extract and format JSON.
@@ -27,9 +31,8 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
   - `pdf_parsing.md` – how PDF → tables integration works and when to request it.
   - `extraction_toolkit.md` – which extraction script to use (PDF, directory, CSV, discovery, enrichment).
   - `validation_submission.md` – how to validate data and submit change requests safely.
-- `scripts/submit_data.ts`: Utility to submit your JSON output to the Moncho API.
-- `samples/`: Standardized JSON formats for Organizations, Landscapes, and Experts.
-- `.cursorrules` / `.antigravityrules`: Pre-configured rules for your IDE to follow.
+- `samples/`: JSON schemas for Organizations, Products, Landscapes, Experts.
+- `.cursorrules`: IDE system rules (analyst + QA).
 
 ## Setup
 0. **Activate analyst access** at [app.moncho.ai/analyst/apply](https://app.moncho.ai/analyst/apply) (one click, no application wait).
@@ -66,10 +69,59 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 2. **Discovery** (see `analyst_instructions.md`): Discover orgs → select top by scoring rubrics → fetch logos (Logo.dev) → discover products → select top products → fetch product URLs.
 3. **Generate**: Ask the agent to generate a JSON file matching the format in `samples/`.
 4. **Validate**: Ensure the JSON is valid and accurate.
-5. **Submit**:
+5. **Validate** (handbook path):
    ```bash
-   npx ts-node scripts/submit_data.ts --file your_output.json --type organization
+   npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization
    ```
+6. **QA Review** (full pipeline):
+   ```bash
+   npm install
+   npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization
+   npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization --deep-check
+   ```
+   Reports are written to `data/qa-reports/`. Fix any `FAIL` records before submitting.
+7. **Submit**:
+   ```bash
+   npm run submit -- --file data/pending/your_output.json --type organization
+   ```
+
+## QA Agent Pipeline (Version 3)
+
+Full two-stage automated QA per `MonchoQAAgent/Version3/README.md`:
+
+| Stage | Script | What it does |
+|-------|--------|--------------|
+| 1 — Mechanical | `scripts/qa_reviewer.ts` | Schema, URLs, duplicates, slugs, **exact landscape/expert ID validation** |
+| 2 — Agentic | `scripts/deep_fact_check.ts` | Tavily/Exa search + Anthropic LLM entailment on rationales |
+| Orchestrator | `scripts/qa_agent.ts` | Runs both stages + **unified report** + executive summary |
+
+**Reference ID enforcement** (never guess sector/segment IDs):
+- `data/reference/valid-sector-ids.json`
+- `data/reference/valid-segment-ids.json`
+
+**Run examples:**
+```bash
+# Organizations — full pipeline
+npx tsx scripts/qa_agent.ts --file data/pending/test-batch.json --type organization --deep-check
+
+# Landscape — catches fake UUIDs and guessed IDs
+npx tsx scripts/qa_agent.ts --file data/pending/test-landscape-real.json --type landscape
+
+# Expert profiles
+npx tsx scripts/qa_agent.ts --file data/pending/test-expert-real.json --type expert
+
+# Cost-controlled deep-check
+npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --deep-check --only-flagged --sample-rate 0.2
+
+# Verify agent logic (no API keys)
+npm run qa:test
+```
+
+**Reports in `data/qa-reports/`:**
+- `*-qa-report.json` — mechanical PASS/FLAGGED/FAIL
+- `*-factcheck-report.json` — per-claim ai_verified / requires_human_review
+- `*-unified-qa-report.json` — **merged per-record final status**
+- `*-executive-summary.json` — what to do next
 
    **Submission format rules**:
    - You may send **one organization object** or an **array of organization objects**; the script will submit each object as a separate change request.

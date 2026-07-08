@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Anthropic",
+    "website_url": "https://www.anthropic.com",
+    "description": "AI safety and research company building reliable, interpretable, and steerable AI systems for enterprise and consumer use, focused on responsible frontier model development.",
+    "sector_slug": "artificial-intelligence",
+    "segment_slugs": ["llm-providers"],
+    "hq_country_slug": "united-states",
+    "founded_year": 2021,
+    "innovation_rationale": "Pioneered Constitutional AI, an RLHF alternative that reduced harmful outputs by using AI-generated feedback instead of purely human labels.",
+    "market_traction_rationale": "Raised a $13B Series F round in March 2025, valuing the company at approximately $61.5B."
+  },
+  {
+    "name": "TotallyRealCompanyXYZ",
+    "website_url": "https://this-domain-should-not-exist-qa-test-12345.com",
+    "description": "A great and innovative platform for everything, serving customers worldwide with a strong team and cutting edge technology across many industries.",
+    "sector_slug": "FinTech",
+    "segment_slugs": ["P2P Lending"],
+    "founded_year": 1650,
+    "innovation_rationale": "Very innovative solution with a strong team.",
+    "market_traction_rationale": "Good market position with great potential."
+  },
+  {
+    "name": "Anthropic PBC",
+    "website_url": "https://www.anthropic.com",
+    "description": "AI safety and research company building reliable, interpretable, and steerable AI systems for enterprise and consumer use, focused on responsible frontier model development.",
+    "sector_slug": "artificial-intelligence",
+    "innovation_rationale": "Same company re-listed to test duplicate detection logic in the QA script."
+  }
+]

@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Bangladesh EdTech Landscape",
+    "sector_slug": "edtech",
+    "segments": [
+      { "slug": "k12-lms", "name": "K-12 LMS", "tam_usd": 45000000 },
+      { "slug": "Test Prep", "name": "Test Prep", "tam_usd": -5 }
+    ]
+  },
+  {
+    "name": "Dr. Fatima Rahman",
+    "linkedin_url": "https://www.linkedin.com/in/example-fatima-rahman",
+    "bio": "EdTech researcher focused on K-12 curriculum design in South Asia, formerly at BRAC University.",
+    "segment_slugs": ["k12-lms", "Test Prep"]
+  },
+  {
+    "name": "No Contact Expert"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "sectors": [
+    { "id": 1, "slug": "edtech", "name": "EdTech" },
+    { "id": 5, "slug": "fintech", "name": "Fintech" }
+  ],
+  "segments": [
+    { "id": 101, "slug": "lms", "name": "LMS", "sector_id": 1 },
+    { "id": 102, "slug": "ai-tutoring", "name": "AI Tutoring", "sector_id": 1 },
+    { "id": 201, "slug": "payment-processing", "name": "Payment Processing", "sector_id": 5 },
+    { "id": 205, "slug": "p2p-lending", "name": "P2P Lending", "sector_id": 5 },
+    { "id": 301, "slug": "e-wallets", "name": "E-Wallets", "sector_id": 5 }
+  ],
+  "sector_slugs": ["edtech", "fintech", "saas", "design-software", "artificial-intelligence"],
+  "segment_slugs": ["lms", "ai-tutoring", "coding-bootcamp", "payment-processing", "p2p-lending", "e-wallets", "collaboration-tools", "ui-design-tools", "llm-providers"],
+  "country_slugs": ["indonesia", "vietnam", "thailand", "bangladesh", "united-states", "singapore"]
+}

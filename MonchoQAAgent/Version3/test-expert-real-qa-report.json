@@ -1,0 +1,53 @@
+{
+  "file": "data/pending/test-expert-real.json",
+  "generated_at": "2026-07-06T22:03:40.766Z",
+  "batch_warning": "⚠️  50% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.",
+  "summary": {
+    "total": 2,
+    "pass": 0,
+    "flagged": 1,
+    "fail": 1
+  },
+  "records": [
+    {
+      "record_id": "Dr. Sarah Chen",
+      "record_type": "expert",
+      "status": "FLAGGED",
+      "checks": {
+        "schema": "pass",
+        "url_website": {
+          "url": "https://agritechlabs.org",
+          "ok": false,
+          "status": 403,
+          "final_url": "https://agritechlabs.org/",
+          "error": "HTTP 403 (may be bot-protection, not a dead link — verify manually)",
+          "latency_ms": 294
+        },
+        "duplicate_of": null,
+        "rationale_quality": {}
+      },
+      "reasons": [
+        "website_url unreachable: HTTP 403 (may be bot-protection, not a dead link — verify manually)"
+      ],
+      "requires_human_review": true
+    },
+    {
+      "record_id": "Fake Expert Example",
+      "record_type": "expert",
+      "status": "FAIL",
+      "checks": {
+        "schema": "fail",
+        "duplicate_of": null,
+        "rationale_quality": {}
+      },
+      "reasons": [
+        "missing both `linkedin_url` and `website_url` — need at least one checkable identity source",
+        "country_id \"thailand\" should be a 2-letter ISO code (e.g. \"TH\"), not a slug or full name",
+        "segment_ids contains a non-integer value: \"201\"",
+        "segment_id 999999 not found in reference segment list — confirm this wasn't guessed",
+        "bio word count 1 looks off (expected ~8-60)"
+      ],
+      "requires_human_review": true
+    }
+  ]
+}

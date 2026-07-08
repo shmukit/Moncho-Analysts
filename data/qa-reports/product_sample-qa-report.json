@@ -1,0 +1,47 @@
+{
+  "file": "E:\\Users\\Waifuzzama\\Downloads\\MONCHO-AI\\Moncho-Analysts\\samples\\product_sample.json",
+  "generated_at": "2026-07-07T21:14:15.651Z",
+  "batch_warning": null,
+  "summary": {
+    "total": 2,
+    "pass": 1,
+    "flagged": 1,
+    "fail": 0
+  },
+  "records": [
+    {
+      "record_id": "Ruangbelajar Premium",
+      "record_type": "product",
+      "status": "PASS",
+      "checks": {
+        "schema": "pass",
+        "duplicate_of": null,
+        "rationale_quality": {}
+      },
+      "reasons": [],
+      "requires_human_review": false
+    },
+    {
+      "record_id": "Ruangbelajar Premium",
+      "record_type": "product_media",
+      "status": "FLAGGED",
+      "checks": {
+        "schema": "pass",
+        "url_image": {
+          "url": "https://www.ruangguru.com/favicon.ico",
+          "ok": false,
+          "status": 404,
+          "final_url": "https://www.ruangguru.com/favicon.ico",
+          "error": "HTTP 404",
+          "latency_ms": 182
+        },
+        "duplicate_of": null,
+        "rationale_quality": {}
+      },
+      "reasons": [
+        "image_url unreachable: HTTP 404"
+      ],
+      "requires_human_review": true
+    }
+  ]
+}

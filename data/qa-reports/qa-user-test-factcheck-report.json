@@ -1,0 +1,323 @@
+{
+  "file": "E:\\Users\\Waifuzzama\\Downloads\\MONCHO-AI\\Moncho-Analysts\\data\\pending\\qa-user-test.json",
+  "generated_at": "2026-07-07T19:54:14.175Z",
+  "confidence_threshold": 0.75,
+  "summary": {
+    "total_claims_checked": 10,
+    "ai_verified": 2,
+    "requires_human_review": 8
+  },
+  "note": "ai_verified means the AI found corroborating evidence above the confidence threshold. This does not replace Senior Analyst review or Admin approval.",
+  "results": [
+    {
+      "orgName": "Ruangguru",
+      "field": "innovation_rationale",
+      "claim": "Pioneered live one-to-many online tutoring in Indonesia, reaching 22 million registered learners by 2023.",
+      "recordIndex": 0,
+      "verdict": "unclear",
+      "confidence": 0.4,
+      "evidence": [
+        {
+          "url": "https://www.globalprivatecapital.org/edtech-spotlight-ruangguru",
+          "note": "tavily: Edtech Spotlight: Ruangguru – GPCA"
+        },
+        {
+          "url": "https://solve.mit.edu/challenges/elevateprize/solutions/30261",
+          "note": "tavily: MIT Solve"
+        },
+        {
+          "url": "https://east.vc/news/from-portfolios/iman-usman",
+          "note": "tavily: Every student has the same learning opportunities: Iman Usman, Ruangguru"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:0/3"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Ruangguru",
+      "field": "market_traction_rationale",
+      "claim": "Raised $150M Series C in 2021 led by Tiger Global and General Atlantic at a reported $1B+ valuation.",
+      "recordIndex": 0,
+      "verdict": "unclear",
+      "confidence": 0.65,
+      "evidence": [
+        {
+          "url": "https://www.generalatlantic.com/media-article/ruangguru-completes-150m-series-c-transaction-led-by-general-atlantic-and-ggv-capital",
+          "note": "tavily: Ruangguru Completes $150M Series C Transaction Led by General Atlantic and GGV Capital | General Atlantic"
+        },
+        {
+          "url": "https://www.globalprivatecapital.org/edtech-spotlight-ruangguru",
+          "note": "tavily: Edtech Spotlight: Ruangguru – GPCA"
+        },
+        {
+          "url": "https://www.prnewswire.com/news-releases/ruangguru-secures-usd-55-million-new-investment-led-by-tiger-global-management-301273891.html",
+          "note": "tavily: Ruangguru Secures USD 55 Million New Investment Led by Tiger Global Management"
+        }
+      ],
+      "explanation": "Partial evidence found (company + some facts) but not all claim details corroborated.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:4/5"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Ruangguru",
+      "field": "competitiveness_rationale",
+      "claim": "Dominant K-12 brand in Indonesia with localized Bahasa content and partnerships with 300+ schools nationwide.",
+      "recordIndex": 0,
+      "verdict": "supported",
+      "confidence": 0.85,
+      "evidence": [
+        {
+          "url": "https://solve.mit.edu/challenges/elevateprize/solutions/30261",
+          "note": "tavily: MIT Solve"
+        },
+        {
+          "url": "https://www.globalprivatecapital.org/edtech-spotlight-ruangguru",
+          "note": "tavily: Edtech Spotlight: Ruangguru - GPCA"
+        },
+        {
+          "url": "https://www.ruangguru.com/company-credentials",
+          "note": "tavily: Company Credentials PT. Ruang Raya Indonesia | Ruangguru"
+        }
+      ],
+      "explanation": "Company name and key numeric facts from the claim appear in retrieved web evidence.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:2/2"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Ruangguru",
+      "field": "product_depth_rationale",
+      "claim": "Offers Ruangbelajar LMS, Brain Academy offline centers, and UTBK test-prep across web and mobile apps.",
+      "recordIndex": 0,
+      "verdict": "unclear",
+      "confidence": 0.4,
+      "evidence": [
+        {
+          "url": "https://businessmodelcanvastemplate.com/blogs/how-it-works/ruangguru-how-it-works",
+          "note": "tavily: How Does Ruangguru Company Work? – businessmodelcanvastemplate.com"
+        },
+        {
+          "url": "https://www.ruangguru.com/company-credentials",
+          "note": "tavily: Company Credentials PT. Ruang Raya Indonesia"
+        },
+        {
+          "url": "https://www.ruangguru.com/utbk-snbt",
+          "note": "tavily: Siap UTBK-SNBT 2026 & Lolos di Kampus Impian bersama Ruangguru"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Ruangguru",
+      "field": "social_proof_rationale",
+      "claim": "Named to Forbes Asia 100 to Watch list in 2020 and featured in Google Play Best of 2019 Indonesia.",
+      "recordIndex": 0,
+      "verdict": "supported",
+      "confidence": 0.85,
+      "evidence": [
+        {
+          "url": "https://solve.mit.edu/challenges/elevateprize/solutions/30261",
+          "note": "tavily: MIT Solve"
+        },
+        {
+          "url": "https://www.forbes.com/sites/forbesasiateam/2021/08/09/forbes-asia-100-to-watch",
+          "note": "tavily: Forbes Asia 100 To Watch"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=AAchm2_veNU",
+          "note": "tavily: Ruangguru: Indonesia’s edtech revolution"
+        }
+      ],
+      "explanation": "Company name and key numeric facts from the claim appear in retrieved web evidence.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:3/3"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "CoderSchool",
+      "field": "innovation_rationale",
+      "claim": "First Vietnamese bootcamp to offer income-share agreements tied to graduate job placement since 2018.",
+      "recordIndex": 1,
+      "verdict": "unclear",
+      "confidence": 0.35,
+      "evidence": [
+        {
+          "url": "https://medium.com/meratas-income-share-agreements/10-coding-bootcamps-that-offer-an-income-share-agreement-to-fund-your-education-44864cfdb998",
+          "note": "tavily: 10 Coding Bootcamps That Offer an Income Share Agreement to Fund Your Education"
+        },
+        {
+          "url": "https://tripleten.com/blog/posts/should-i-use-an-income-share-agreement-to-fund-my-coding-bootcamp",
+          "note": "tavily: Income Share Agreement (ISA) for Coding Bootcamps: Pros & Cons"
+        },
+        {
+          "url": "https://medium.com/meratas-income-share-agreements/13-coding-bootcamps-that-offer-an-income-share-agreement-to-fund-your-education-7853486b2cec",
+          "note": "tavily: 13 Coding Bootcamps That Offer an Income Share Agreement to Fund Your Education"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_not_clearly_mentioned",
+        "matched_facts:0/1"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "CoderSchool",
+      "field": "market_traction_rationale",
+      "claim": "Graduated 3,000+ students across Vietnam with reported 85% job placement within 6 months of completion.",
+      "recordIndex": 1,
+      "verdict": "unclear",
+      "confidence": 0.65,
+      "evidence": [
+        {
+          "url": "https://techcrunch.com/2021/09/15/vietnam-based-coderschool-gets-2-6m-pre-series-a-to-scale-online-course-platform",
+          "note": "tavily: Vietnam-based startup CoderSchool gets $2.6M pre-Series A to scale online course platform | TechCrunch"
+        },
+        {
+          "url": "https://www.globalprivatecapital.org/app/uploads/2021/09/Press-Release_CoderSchool-Pre-SeriesA_160921.pdf",
+          "note": "tavily: [PDF] Press Release_CoderSchool Pre-SeriesA_160921"
+        },
+        {
+          "url": "https://skillcrush.com/blog/job-placement-rates",
+          "note": "tavily: What You Need to Know About Coding Bootcamps Job Placement Rates"
+        }
+      ],
+      "explanation": "Partial evidence found (company + some facts) but not all claim details corroborated.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:2/3"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "TotallyFakeEdTechQA",
+      "field": "innovation_rationale",
+      "claim": "Very innovative solution with a strong team and great technology.",
+      "recordIndex": 2,
+      "verdict": "unclear",
+      "confidence": 0.35,
+      "evidence": [
+        {
+          "url": "https://ed-techgroup.com",
+          "note": "tavily: The Ed-Tech Group, Inc. 501c3 - Stackable Credentials for Information Technology Careers, Comptia+ Stackable Credential Job Certification & Placement, I"
+        },
+        {
+          "url": "https://www.ciocoverage.com/10-best-innovative-edtech-companies-to-watch-2025",
+          "note": "tavily: 10 Best Innovative EdTech Companies To Watch 2025 – CIOCoverage- Driven for Technology Leaders"
+        },
+        {
+          "url": "https://www.fastcompany.com/91497186/education-most-innovative-companies-2026",
+          "note": "tavily: The most innovative education companies of 2026"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_not_clearly_mentioned",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "TotallyFakeEdTechQA",
+      "field": "market_traction_rationale",
+      "claim": "Good market position with excellent growth potential in the region.",
+      "recordIndex": 2,
+      "verdict": "unclear",
+      "confidence": 0.35,
+      "evidence": [
+        {
+          "url": "https://market.us/report/edtech-market",
+          "note": "tavily: EdTech Market Size, Share, Trends | CAGR of 13.9%"
+        },
+        {
+          "url": "https://www.businessresearchinsights.com/market-reports/education-technology-ed-tech-market-118565",
+          "note": "tavily: Education Technology (Ed Tech) Market Growth, Trends, 2035"
+        },
+        {
+          "url": "https://www.marketsandmarkets.com/Market-Reports/educational-technology-ed-tech-market-1066.html",
+          "note": "tavily: Edtech and Smart Classrooms Market Report 2025-2030, by Solution, Geo, Tech"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_not_clearly_mentioned",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Ruangguru Indonesia",
+      "field": "innovation_rationale",
+      "claim": "Duplicate entry added intentionally to test whether the QA agent catches same-domain duplicates in one batch.",
+      "recordIndex": 3,
+      "verdict": "unclear",
+      "confidence": 0.4,
+      "evidence": [
+        {
+          "url": "https://solve.mit.edu/challenges/elevateprize/solutions/30261",
+          "note": "tavily: Ruangguru - MIT Solve"
+        },
+        {
+          "url": "https://businessmodelcanvastemplate.com/blogs/how-it-works/ruangguru-how-it-works",
+          "note": "tavily: How Does Ruangguru Work? A Quick Guide"
+        },
+        {
+          "url": "https://fintechnews.id/108354/digital-transformation/uob-ruangguru-digital-education-initiative",
+          "note": "tavily: UOB and Ruangguru Launch 5 Year Digital Education ..."
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    }
+  ]
+}

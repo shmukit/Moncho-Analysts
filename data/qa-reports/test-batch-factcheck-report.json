@@ -1,0 +1,168 @@
+{
+  "file": "E:\\Users\\Waifuzzama\\Downloads\\MONCHO-AI\\Moncho-Analysts\\data\\pending\\test-batch.json",
+  "generated_at": "2026-07-07T19:50:45.361Z",
+  "confidence_threshold": 0.75,
+  "summary": {
+    "total_claims_checked": 5,
+    "ai_verified": 1,
+    "requires_human_review": 4
+  },
+  "note": "ai_verified means the AI found corroborating evidence above the confidence threshold. This does not replace Senior Analyst review or Admin approval.",
+  "results": [
+    {
+      "orgName": "Anthropic",
+      "field": "innovation_rationale",
+      "claim": "Pioneered Constitutional AI, an RLHF alternative that reduced harmful outputs by using AI-generated feedback instead of purely human labels.",
+      "recordIndex": 0,
+      "verdict": "unclear",
+      "confidence": 0.4,
+      "evidence": [
+        {
+          "url": "https://arxiv.org/html/2504.04918v1",
+          "note": "tavily: Constitution or Collapse? Exploring Constitutional AI with Llama 3-8B"
+        },
+        {
+          "url": "https://digi-con.org/on-constitutional-ai",
+          "note": "tavily: On ‘Constitutional’ AI"
+        },
+        {
+          "url": "https://blog.bluedot.org/p/what-is-constitutional-ai",
+          "note": "tavily: What is Constitutional AI? - by Sarah - BlueDot Impact"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Anthropic",
+      "field": "market_traction_rationale",
+      "claim": "Raised a $13B Series F round in March 2025, valuing the company at approximately $61.5B.",
+      "recordIndex": 0,
+      "verdict": "supported",
+      "confidence": 0.85,
+      "evidence": [
+        {
+          "url": "https://finance.yahoo.com/news/anthropic-secures-13b-series-f-094048133.html",
+          "note": "tavily: Anthropic secures $13B Series F funding at $183bn valuation"
+        },
+        {
+          "url": "https://www.anthropic.com/news/anthropic-raises-series-f-at-usd183b-post-money-valuation",
+          "note": "tavily: Anthropic raises $13B Series F at $183B post-money valuation"
+        },
+        {
+          "url": "https://www.cnbc.com/2025/07/29/anthropic-in-talks-to-raise-fresh-capital-at-170-billion-valuation.html",
+          "note": "tavily: Anthropic in talks to raise fresh capital at $170 billion valuation"
+        }
+      ],
+      "explanation": "Company name and key numeric facts from the claim appear in retrieved web evidence.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:5/5"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "TotallyRealCompanyXYZ",
+      "field": "innovation_rationale",
+      "claim": "Very innovative solution with a strong team.",
+      "recordIndex": 1,
+      "verdict": "unclear",
+      "confidence": 0.35,
+      "evidence": [
+        {
+          "url": "https://octopusinvestments.com/our-products/xyz-reality-company-story",
+          "note": "tavily: XYZ Reality company story | Octopus Investments"
+        },
+        {
+          "url": "https://writeseed.com/blog/letter-introducing-a-company",
+          "note": "tavily: Article Title: Revolutionizing the Industry: Introducing XYZ Company's Innovative Solutions Dear Readers, We are thrilled to introduce XYZ Company, a cu"
+        },
+        {
+          "url": "https://www.xyzreality.com/meet-the-team",
+          "note": "tavily: Meet the team - XYZ Reality"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_not_clearly_mentioned",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "TotallyRealCompanyXYZ",
+      "field": "market_traction_rationale",
+      "claim": "Good market position with great potential.",
+      "recordIndex": 1,
+      "verdict": "unclear",
+      "confidence": 0.35,
+      "evidence": [
+        {
+          "url": "https://www.chartmill.com/stock/quote/XYZ/fundamental-analysis",
+          "note": "tavily: XYZ Fundamental Analysis & Valuation | Fair Value & Financial Strength | ChartMill.com"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=ABxIV92k1Vk",
+          "note": "tavily: XYZ Stock: The TRUTH Behind The Numbers - May 2025 Analysis"
+        },
+        {
+          "url": "https://finance.yahoo.com/markets/stocks/articles/block-xyz-incredible-growth-stock-164501596.html",
+          "note": "tavily: Block (XYZ) is an Incredible Growth Stock: 3 Reasons Why"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_not_clearly_mentioned",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Anthropic PBC",
+      "field": "innovation_rationale",
+      "claim": "Same company re-listed to test duplicate detection logic in the QA script.",
+      "recordIndex": 2,
+      "verdict": "unclear",
+      "confidence": 0.4,
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Anthropic",
+          "note": "tavily: Anthropic - Wikipedia"
+        },
+        {
+          "url": "https://www.plunkettresearch.com/company-profile/anthropic-pbc",
+          "note": "tavily: Anthropic PBC Private Profile-Financials-Revenues-Growth-Market-Description"
+        },
+        {
+          "url": "https://www.anthropic.com",
+          "note": "tavily: Home \\ Anthropic"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-07-07T21:14:15.741Z",
+  "mechanical": {
+    "total": 2,
+    "pass": 1,
+    "flagged": 1,
+    "fail": 0
+  },
+  "fact_check": null,
+  "unified": {
+    "total": 2,
+    "pass": 1,
+    "flagged": 1,
+    "fail": 0,
+    "ready_for_submission": 2,
+    "claims_ai_verified": 0,
+    "claims_need_review": 0
+  },
+  "batch_warning": null,
+  "recommended_actions": [
+    "Review 1 FLAGGED record(s) for vague rationales or slug issues.",
+    "2/2 record(s) ready for submission after unified review."
+  ],
+  "human_review_queue": [
+    {
+      "type": "mechanical",
+      "record_id": "Ruangbelajar Premium",
+      "status": "FLAGGED",
+      "reasons": [
+        "image_url unreachable: HTTP 404"
+      ]
+    }
+  ]
+}

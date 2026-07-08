@@ -1,0 +1,35 @@
+{
+  "file": "E:\\Users\\Waifuzzama\\Downloads\\MONCHO-AI\\Moncho-Analysts\\samples\\organization_slug_sample.json",
+  "generated_at": "2026-07-07T19:16:55.690Z",
+  "pipeline": "moncho-qa-v3",
+  "batch_warning": "⚠️  100% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.",
+  "summary": {
+    "total": 1,
+    "pass": 0,
+    "flagged": 0,
+    "fail": 1,
+    "ready_for_submission": 0,
+    "claims_ai_verified": 0,
+    "claims_need_review": 0
+  },
+  "records": [
+    {
+      "record_id": "Example Org (slug-based handbook format)",
+      "record_type": "organization",
+      "mechanical_status": "FAIL",
+      "final_status": "FAIL",
+      "mechanical_reasons": [
+        "description word count 11 (expected 20-50)",
+        "website_url unreachable: fetch failed"
+      ],
+      "fact_check": {
+        "claims_checked": 0,
+        "ai_verified": 0,
+        "requires_human_review": 0,
+        "claims": []
+      },
+      "requires_human_review": true,
+      "ready_for_submission": false
+    }
+  ]
+}

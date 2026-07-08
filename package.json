@@ -1,0 +1,24 @@
+{
+  "name": "moncho-analysts",
+  "private": true,
+  "scripts": {
+    "validate": "tsx scripts/utils/validate-analyst-data.ts",
+    "qa": "tsx scripts/qa_agent.ts",
+    "qa:mechanical": "tsx scripts/qa_reviewer.ts",
+    "qa:deep": "tsx scripts/deep_fact_check.ts",
+    "qa:test": "tsx test/mock_deep_fact_check_v2.ts",
+    "qa:batch": "tsx scripts/qa_batch.ts",
+    "qa:gate": "tsx scripts/qa_agent.ts",
+    "submit": "tsx scripts/submit_data.ts",
+    "reference": "tsx scripts/extraction/fetch-reference-data.ts",
+    "discover": "tsx scripts/extraction/run-discovery-agent.ts"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "tsx": "^4.20.3"
+  }
+}

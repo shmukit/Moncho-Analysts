@@ -1,0 +1,56 @@
+{
+  "file": "data/pending/test-landscape-expert.json",
+  "generated_at": "2026-07-06T21:14:40.629Z",
+  "batch_warning": "⚠️  100% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.",
+  "summary": {
+    "total": 3,
+    "pass": 0,
+    "flagged": 0,
+    "fail": 3
+  },
+  "records": [
+    {
+      "record_id": "Bangladesh EdTech Landscape",
+      "record_type": "landscape",
+      "status": "FAIL",
+      "checks": {
+        "schema": "fail",
+        "duplicate_of": null,
+        "rationale_quality": {}
+      },
+      "reasons": [
+        "segments[1].slug \"Test Prep\" is not kebab-case",
+        "segments[1].tam_usd must be a positive number, got -5"
+      ],
+      "requires_human_review": true
+    },
+    {
+      "record_id": "Dr. Fatima Rahman",
+      "record_type": "expert",
+      "status": "FAIL",
+      "checks": {
+        "schema": "fail",
+        "duplicate_of": null,
+        "rationale_quality": {}
+      },
+      "reasons": [
+        "segment slug \"Test Prep\" is not kebab-case"
+      ],
+      "requires_human_review": true
+    },
+    {
+      "record_id": "No Contact Expert",
+      "record_type": "unknown",
+      "status": "FAIL",
+      "checks": {
+        "schema": "fail",
+        "duplicate_of": null,
+        "rationale_quality": {}
+      },
+      "reasons": [
+        "unable to determine record type (organization/product/landscape/expert)"
+      ],
+      "requires_human_review": true
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "file": "data/pending/test-batch.json",
+  "generated_at": "2026-07-06T21:14:30.494Z",
+  "batch_warning": "⚠️  67% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.",
+  "summary": {
+    "total": 3,
+    "pass": 0,
+    "flagged": 1,
+    "fail": 2
+  },
+  "records": [
+    {
+      "record_id": "Anthropic",
+      "record_type": "organization",
+      "status": "FLAGGED",
+      "checks": {
+        "schema": "pass",
+        "url_website": {
+          "url": "https://www.anthropic.com",
+          "ok": false,
+          "status": 403,
+          "final_url": "https://www.anthropic.com/",
+          "error": "HTTP 403 (may be bot-protection, not a dead link — verify manually)",
+          "latency_ms": 64
+        },
+        "duplicate_of": null,
+        "rationale_quality": {
+          "innovation_rationale": "ok",
+          "market_traction_rationale": "ok"
+        }
+      },
+      "reasons": [
+        "website_url unreachable: HTTP 403 (may be bot-protection, not a dead link — verify manually)"
+      ],
+      "requires_human_review": true
+    },
+    {
+      "record_id": "TotallyRealCompanyXYZ",
+      "record_type": "organization",
+      "status": "FAIL",
+      "checks": {
+        "schema": "fail",
+        "url_website": {
+          "url": "https://this-domain-should-not-exist-qa-test-12345.com",
+          "ok": false,
+          "status": null,
+          "final_url": null,
+          "error": "fetch failed",
+          "latency_ms": 39
+        },
+        "duplicate_of": null,
+        "rationale_quality": {
+          "innovation_rationale": "vague",
+          "market_traction_rationale": "vague"
+        }
+      },
+      "reasons": [
+        "sector_slug \"FinTech\" is not kebab-case",
+        "segment slug \"P2P Lending\" is not kebab-case",
+        "founded_year 1650 looks implausible",
+        "website_url unreachable: fetch failed",
+        "innovation_rationale uses vague phrase \"strong team\" with no concrete fact",
+        "market_traction_rationale uses vague phrase \"good market\" with no concrete fact"
+      ],
+      "requires_human_review": true
+    },
+    {
+      "record_id": "Anthropic PBC",
+      "record_type": "organization",
+      "status": "FAIL",
+      "checks": {
+        "schema": "pass",
+        "url_website": {
+          "url": "https://www.anthropic.com",
+          "ok": false,
+          "status": 403,
+          "final_url": "https://www.anthropic.com/",
+          "error": "HTTP 403 (may be bot-protection, not a dead link — verify manually)",
+          "latency_ms": 64
+        },
+        "duplicate_of": "batch:Anthropic",
+        "rationale_quality": {
+          "innovation_rationale": "vague"
+        }
+      },
+      "reasons": [
+        "website_url unreachable: HTTP 403 (may be bot-protection, not a dead link — verify manually)",
+        "likely duplicate of batch:Anthropic",
+        "description identical to another record in this batch (possible copy-paste)",
+        "innovation_rationale has no verifiable fact (no number/date/%/named entity)"
+      ],
+      "requires_human_review": true
+    }
+  ]
+}

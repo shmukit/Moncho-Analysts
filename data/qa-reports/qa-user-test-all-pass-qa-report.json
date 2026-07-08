@@ -1,0 +1,94 @@
+{
+  "file": "E:\\Users\\Waifuzzama\\Downloads\\MONCHO-AI\\Moncho-Analysts\\data\\pending\\qa-user-test-all-pass.json",
+  "generated_at": "2026-07-07T21:13:08.621Z",
+  "batch_warning": null,
+  "summary": {
+    "total": 3,
+    "pass": 3,
+    "flagged": 0,
+    "fail": 0
+  },
+  "records": [
+    {
+      "record_id": "Stripe",
+      "record_type": "organization",
+      "status": "PASS",
+      "checks": {
+        "schema_variant": "slug-based",
+        "schema": "pass",
+        "url_website": {
+          "url": "https://stripe.com",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://stripe.com/",
+          "error": null,
+          "latency_ms": 702
+        },
+        "duplicate_of": null,
+        "rationale_quality": {
+          "innovation_rationale": "ok",
+          "market_traction_rationale": "ok",
+          "competitiveness_rationale": "ok",
+          "product_depth_rationale": "ok",
+          "social_proof_rationale": "ok"
+        }
+      },
+      "reasons": [],
+      "requires_human_review": false
+    },
+    {
+      "record_id": "Notion",
+      "record_type": "organization",
+      "status": "PASS",
+      "checks": {
+        "schema_variant": "slug-based",
+        "schema": "pass",
+        "url_website": {
+          "url": "https://www.notion.so",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://www.notion.so/",
+          "error": null,
+          "latency_ms": 1847
+        },
+        "duplicate_of": null,
+        "rationale_quality": {
+          "innovation_rationale": "ok",
+          "market_traction_rationale": "ok",
+          "competitiveness_rationale": "ok",
+          "product_depth_rationale": "ok",
+          "social_proof_rationale": "ok"
+        }
+      },
+      "reasons": [],
+      "requires_human_review": false
+    },
+    {
+      "record_id": "Figma",
+      "record_type": "organization",
+      "status": "PASS",
+      "checks": {
+        "schema_variant": "slug-based",
+        "schema": "pass",
+        "url_website": {
+          "url": "https://www.figma.com",
+          "ok": true,
+          "status": 200,
+          "final_url": "https://www.figma.com/",
+          "error": null,
+          "latency_ms": 198
+        },
+        "duplicate_of": null,
+        "rationale_quality": {
+          "innovation_rationale": "ok",
+          "market_traction_rationale": "ok",
+          "competitiveness_rationale": "ok",
+          "product_depth_rationale": "ok",
+          "social_proof_rationale": "ok"
+        }
+      },
+      "reasons": [],
+      "requires_human_review": false
+    }
+  ]
+}

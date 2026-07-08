@@ -52,8 +52,8 @@ Operating at Moncho involves two distinct activities:
 ### Phase 3: Connect
 1.  Open **GitHub Desktop**.
 2.  Click **File** -> **Clone Repository**.
-3.  Select `Moncho-V1` or paste the URL provided.
-4.  Clone it to a folder like `Documents/Moncho-Work`.
+3.  Select **Moncho-Analysts** (or paste the URL founder shared).
+4.  Clone it to a folder like `Documents/Moncho-Workbench`.
 5.  Open this folder in your **AI IDE**.
 
 ---

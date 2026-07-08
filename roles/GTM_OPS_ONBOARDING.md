@@ -35,7 +35,7 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
 | Goal | Done when | Not a goal yet |
 |------|-----------|----------------|
 | **Import substitution LinkedIn series** | Posts 1–8 published (Ready to Capture tier) | Arbitrary follower targets |
-| **Agri value chain LinkedIn series** | Mini-series started from export-pilot / agri JSON | Social → signup quotas |
+| **Agri value chain LinkedIn series** | Mini-series started from agri / export-pilot JSON | Social → signup quotas |
 | **Newsletter reactivated** | Existing list audited; ≥1 send to current subscribers | New subscriber growth targets |
 | **Reels (optional)** | Short videos from carousel hooks where low effort | YouTube scale targets |
 | **Student access** | `/student-access` mentioned in sends or posts | Managed cohort |
@@ -46,10 +46,8 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
 ## Step 1 — Discovery checklist
 
 - [ ] Read [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) — all 10 grant sectors
-- [ ] Read grant [`PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md) (context)
-- [ ] Read [`BD_IMPORT_SUBSTITUTION_LINKEDIN_SERIES.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/03-product-and-design/BD_IMPORT_SUBSTITUTION_LINKEDIN_SERIES.md)
-- [ ] Open `sample-data/bd-import-substitution/linkedin-posts.json`
-- [ ] Inventory agri VC assets: `sample-data/bd-agri-vc-linkedin/` (if present) + [`bd-export-pilots/`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bd-export-pilots/) docs
+- [ ] Ask founder for the **import substitution** and **agri VC** briefs + JSON files (they may share a folder or paste into this workbench under `sample-data/`)
+- [ ] Open any `sample-data/` LinkedIn/JSON assets present in this repo
 - [ ] Find **existing newsletter tool + subscriber list** (ask founder — no new platform required)
 - [ ] Audit site: `/pricing`, `/student-access`, contact form; note PostHog access if granted
 - [ ] Baseline: subscriber count, last send date, any prior post performance
@@ -64,17 +62,17 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
 
 ## Content sources
 
-| Series | Brief | Data |
-|--------|-------|------|
-| **Import substitution** | [`BD_IMPORT_SUBSTITUTION_LINKEDIN_SERIES.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/03-product-and-design/BD_IMPORT_SUBSTITUTION_LINKEDIN_SERIES.md) | `sample-data/bd-import-substitution/linkedin-posts.json` |
-| **Agri value chain** | [`BD_EXPORT_VALUE_CHAIN_ANALYSIS_PLAYBOOK.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/03-product-and-design/BD_EXPORT_VALUE_CHAIN_ANALYSIS_PLAYBOOK.md) | `sample-data/bd-agri-vc-linkedin/` + `bd-export-pilots` |
+| Series | Where to get it | Notes |
+|--------|-----------------|-------|
+| **Import substitution** | Founder shares brief + `linkedin-posts.json` | Every claim must match shared JSON/sources |
+| **Agri value chain** | Founder shares agri VC JSON / pilot notes | Primarily Agriculture sector |
 | **Reels** | Repurpose carousel slides 1 + 3 | 20–30s vertical; CapCut or equivalent |
 
-**Publish order (import series):** Post 1 framework → Posts 2–8 (Ready to Capture) → Near-Term (9–15) → Horizon (16–20) per JSON `publish_schedule`.
+**Publish order (import series):** Post 1 framework → Posts 2–8 (Ready to Capture) → later tiers only after founding schedule.
 
-**Visual format:** 1080×1350 carousel, 5 slides — hook + import $ · why now · capability + C/S/A badge · bottlenecks · demand countries + CTA. See brief § Visual system.
+**Visual format:** 1080×1350 carousel, 5 slides — hook + import $ · why now · capability badge · bottlenecks · demand countries + CTA.
 
-**Copy rules:** Every post follows brief § Copy template. Hashtags: `#BangladeshManufacturing #ImportSubstitution #ExportDiversification #EconomicComplexity #MadeInBangladesh #Moncho`
+**Copy rules:** Follow the brief the founder shares. Suggested hashtags: `#BangladeshManufacturing #ImportSubstitution #ExportDiversification #EconomicComplexity #MadeInBangladesh #Moncho`
 
 ---
 
@@ -83,7 +81,7 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
 | Channel | Suggested cadence | Primary asset |
 |---------|-------------------|---------------|
 | LinkedIn carousels | ~2× / week | Import substitution JSON (posts 1–8 first) |
-| Agri VC series | ~1× / week | Agri JSON + export pilot docs |
+| Agri VC series | ~1× / week | Agri JSON + founder notes |
 | Newsletter | Biweekly (existing list) | 1 sector pulse + 1 HS card + CTA — **reactivate subscribers, not growth targets** |
 | YouTube / LinkedIn reel | ~1× / week if bandwidth | Repurpose slides 1+3 |
 | Student access | Ongoing in CTAs | `/student-access` — self-serve only |
@@ -91,7 +89,7 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
 **UTM pattern (when linking to site):**  
 `utm_source=linkedin|newsletter|youtube&utm_campaign=<series>&utm_content=<post_id>`
 
-**PostHog events to watch (if access granted):** `student_verified`, signup with UTM, newsletter clicks. See [`POSTHOG_TRACKING_GUIDE.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/06-operations/POSTHOG_TRACKING_GUIDE.md).
+**PostHog:** if founder grants access, watch `student_verified`, signup with UTM, newsletter clicks. Ask founder for the event list; do not chase external docs.
 
 ---
 
@@ -113,7 +111,7 @@ Timing is flexible; order is a default, not a calendar.
 ## Hard rules
 
 - Public posts: **data claims must match Moncho JSON/sources** (no invented import $).
-- Policy/tax scores in JSON are placeholders until verified — note in post or skip.
+- Policy/tax scores in JSON may be placeholders until verified — note in post or skip.
 - Founder spot-checks posts before publish (first tranche; then async).
 - Students: **no managed cohort** — university email self-serve only.
 - **No** paid-pilot promises, demo booking targets, or lead quotas.

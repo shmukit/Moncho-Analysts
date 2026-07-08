@@ -2,9 +2,8 @@
 
 **Scope:** All contract analyst work on Bangladesh market intelligence aligns to these **10 sectors** through June 2027.
 
-**Source:** [`PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md) §3
-
-**Slug verification:** Checked against live `metadata_sector` via `npm run db:info` and `npm run db:sectors` → [`scripts/db/sectors-dump.json`](https://github.com/shmukit/Moncho-V1/blob/main/scripts/db/sectors-dump.json). Re-run before major planning if DB changed.
+**Source:** ICT Division grant project plan (founder holds the full plan).  
+**Slug / landscape status:** Verified in production (2026-07-07). Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for live sector and org views. Ask the founder if counts look stale.
 
 ---
 
@@ -47,4 +46,4 @@
 
 ---
 
-*Last updated: 2026-07-07 (DB-verified)*
+*Last updated: 2026-07-08 (DB-verified)*

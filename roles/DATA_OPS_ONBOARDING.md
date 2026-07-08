@@ -10,7 +10,7 @@
 
 All discovery and data work covers these **10 sectors**. Grade each in your Coverage Snapshot (🟢/🟡/🔴).
 
-**Verified** against `metadata_sector` (`npm run db:sectors`, 2026-07-07). See [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) for full notes.
+See [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) for slugs and landscape counts. Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for live org/product coverage — you do **not** need database CLI access.
 
 | # | Sector | Moncho slug(s) | Landscapes (verified) |
 |---|--------|----------------|------------------------|
@@ -37,7 +37,7 @@ Pick **5 priority sectors** in your Coverage Snapshot (evidence-based). For each
 
 | Deliverable | Standard |
 |-------------|----------|
-| **Quality-scored organizations** | Each org scored with [`SCORING_STANDARDS.md`](../SCORING_STANDARDS.md) (five dimensions, 1–5 + rationale). Only map orgs above your agreed threshold. |
+| **Quality-scored organizations** | Each org scored with [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) (five dimensions, 1–5 + rationale). Only map orgs above your agreed threshold. |
 | **Quality-scored products** | Name, category, description, source URL, pricing/spec where public. Reject thin listings. |
 | **Landscape positioning** | Orgs placed on correct segments via change requests or handoff JSON. |
 
@@ -57,19 +57,16 @@ Pick **5 priority sectors** in your Coverage Snapshot (evidence-based). For each
 
 ## Step 1 — Discovery checklist
 
-Save audit output: `docs/07-projects/bangladesh-ict-division-research-grant/SECTOR_DEPTH_BASELINE_2026-07.md`
+Save your Coverage Snapshot notes in this workbench (branch + PR) or share the file with founder. Suggested filename: `SECTOR_DEPTH_BASELINE_<YYYY-MM>.md`.
 
-- [ ] `npm run db:info`
-- [ ] `npm run sectors:audit-ontology`
-- [ ] `npx tsx scripts/tests/sherpa-pipeline-audit.ts --country Bangladesh`
-- [ ] `npx tsx scripts/tests/backfill-status.ts`
-- [ ] Read [`DATABASE_SCHEMA_OVERVIEW.md`](../DATABASE_SCHEMA_OVERVIEW.md)
-- [ ] Read [`BD_MARKET_SIZING_DATA_ASSESSMENT.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/03-product-and-design/BD_MARKET_SIZING_DATA_ASSESSMENT.md)
-- [ ] Read [`bd-export-pilots/DATA_INVENTORY.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bd-export-pilots/DATA_INVENTORY.md)
+- [ ] Read [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md)
+- [ ] Review [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) landscape counts
+- [ ] Use [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) to spot-check org/product depth per grant sector
+- [ ] Ask founder only if you need a BD `market_facts` summary count (not available as a dashboard CLI)
 
 **Coverage Snapshot must answer:**
 
-1. BD fact count today (trade vs non-trade breakdown).
+1. What coverage you can see on the dashboard per grant sector (orgs, products, landscapes). For national fact totals, ask founder once.
 2. **All 10 grant sectors:** landscape status, org count, product count, quality grade (🟢/🟡/🔴).
 3. Where org/product scoring is weakest (by sector).
 4. Which sectors to deepen first in ~2 months vs scaffold later.
@@ -78,7 +75,7 @@ Save audit output: `docs/07-projects/bangladesh-ict-division-research-grant/SECT
 
 ## Org scoring rubric
 
-Use [`SCORING_STANDARDS.md`](../SCORING_STANDARDS.md):
+Use [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md):
 
 1. Innovation & differentiation  
 2. Market traction & growth  
@@ -127,15 +124,15 @@ Score 0–2 each; ≥7/10 = strong sector readiness:
 | **E. Non-trade facts** | Draft `market_facts` seeds for gaps (founder merges) |
 | **F. QA** | Provenance check; gap table for Sep report |
 
-**Playbooks:** [`SECTOR_ONBOARDING_CHECKLIST.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/04-ai-and-agents/SECTOR_ONBOARDING_CHECKLIST.md) · [`bd-export-pilots/RUNBOOK.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bd-export-pilots/RUNBOOK.md) (value chain only)
+Use workbench `skills/` and `samples/` for discovery and JSON shape. For value-chain or sector playbooks beyond this repo, ask the founder.
 
 ---
 
 ## Hard rules
 
 - **No direct injection** — all JSON/SQL to founder for review.
-- Never edit existing `supabase/migrations/` files.
-- Read [`DATABASE_AGENT_REFERENCE.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/02-architecture-and-tech/DATABASE_AGENT_REFERENCE.md) before drafting SQL.
+- Never edit existing production migration files.
+- Ask founder before drafting raw SQL that affects production schema.
 - Blocked **>1–2 hours** on AI-assisted work → ask founder.
 
 ---

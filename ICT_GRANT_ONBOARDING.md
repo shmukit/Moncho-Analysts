@@ -90,12 +90,13 @@ September report frames work as **Phase 1 in progress**, not finished.
 | Org/product depth per grant sector | Import + agri series briefs; carousel/reel readiness |
 | Gaps: official stats, pricing, VC, competitive maps | Channel baseline; kill/scale hypotheses |
 
-**Data Ops discovery** (no database CLI — use the app):
+**Data Ops discovery** (no database CLI — use the app and MCP):
 
 - [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for live orgs, products, and sector coverage
+- [**Analyst Discovery MCP**](ANALYST_DISCOVERY_MCP.md) in Cursor for taxonomy, coverage, duplicate checks, and capped `market_facts` lookup
 - Sector status in [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
 - Schema shapes in [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md)
-- Ask founder only if a national fact count or export is missing from the dashboard
+- Ask founder only if a national fact count or export is missing from the dashboard and MCP
 
 **Deliverable:** **Coverage Snapshot** (2–4 pages) — **one row per grant sector (all 10)**, facts, gaps, depth grade, blockers.
 

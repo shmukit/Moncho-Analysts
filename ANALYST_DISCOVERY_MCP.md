@@ -96,15 +96,9 @@ MONCHO_API_URL="https://app.moncho.ai"
 MONCHO_AUTH_TOKEN="your_api_key_here"
 ```
 
-### 2. Build the MCP server (one time)
+### 2. MCP server via npm (no build step)
 
-From the **Moncho-V1** repo (founder or CI build; analysts receive a pre-built path or npm tarball):
-
-```bash
-cd packages/analyst-discovery-mcp
-npm install
-npm run build
-```
+The MCP server is published to npm. **No Moncho-V1 access, no local build, no Node build tooling beyond npx.**
 
 ### 3. Cursor MCP config
 
@@ -114,8 +108,8 @@ Add to `.cursor/mcp.json` in your **Moncho-Analysts** workspace (or user-level M
 {
   "mcpServers": {
     "moncho-discovery": {
-      "command": "node",
-      "args": ["/absolute/path/to/Moncho-V1/packages/analyst-discovery-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "@moncho-ai/analyst-discovery-mcp"],
       "env": {
         "MONCHO_API_URL": "https://app.moncho.ai",
         "MONCHO_AUTH_TOKEN": "${env:MONCHO_AUTH_TOKEN}"
@@ -125,9 +119,9 @@ Add to `.cursor/mcp.json` in your **Moncho-Analysts** workspace (or user-level M
 }
 ```
 
-Use an absolute path to `dist/index.js`. Point `MONCHO_AUTH_TOKEN` at your local `.env` value or paste via Cursor's env UI.
+This same config shape (`command: npx`, `args: ["-y", "@moncho-ai/analyst-discovery-mcp"]`) works in Claude Desktop, Claude Code (`claude mcp add`), Windsurf, VS Code MCP extensions, and any other host that supports local stdio MCP servers — not just Cursor.
 
-Restart Cursor after saving.
+Point `MONCHO_AUTH_TOKEN` at your local `.env` value or paste via your host's env UI. Restart your IDE/host after saving.
 
 ---
 
@@ -189,7 +183,7 @@ Duplicate guard: `POST /api/analyst/change-requests` returns **409** if a high-c
 | 429 rate limit | Read the structured MCP response: `Retry after`, `Limit tier`, and `Guidance` lines; wait, then narrow filters |
 | `unknown_resource` | Use hyphenated names: `hs-codes`, `market-facts`, `taxonomy-standards` |
 | `filter_required` on market-facts | Add `mode=summary` or a search filter |
-| MCP not listed in Cursor | Check absolute path to `dist/index.js`; run `npm run build` |
+| MCP not listed in Cursor | Check `npx` resolves `@moncho-ai/analyst-discovery-mcp`; run `npx -y @moncho-ai/analyst-discovery-mcp` in a terminal to confirm it installs and starts |
 
 ---
 

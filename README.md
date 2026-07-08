@@ -12,6 +12,7 @@ If you are joining as **Data Ops** or **GTM Ops** on the Bangladesh ICT grant, s
 4. [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) or [`roles/GTM_OPS_ONBOARDING.md`](roles/GTM_OPS_ONBOARDING.md)
 5. [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](roles/TWO_MONTH_PLAN_TEMPLATE.md) — submit after discovery; founder approves
 6. [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md) — **IDE discovery MCP** (coverage, duplicates, market_facts)
+7. [`MCP_SETUP_AFTER_MERGE.md`](MCP_SETUP_AFTER_MERGE.md) — **post-merge MCP setup** (send to analysts after workbench merge)
 
 Grant KPIs and deeper engineering docs stay with the founder. Use this workbench for day-to-day instructions.
 

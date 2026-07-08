@@ -3,7 +3,7 @@
 **Scope:** All contract analyst work on Bangladesh market intelligence aligns to these **10 sectors** through June 2027.
 
 **Source:** ICT Division grant project plan (founder holds the full plan).  
-**Slug verification:** Checked against live `metadata_sector` via `npm run db:info` / `npm run db:sectors` (2026-07-07). Re-check with founder if DB changed.
+**Slug / landscape status:** Verified in production (2026-07-07). Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for live sector and org views. Ask the founder if counts look stale.
 
 ---
 

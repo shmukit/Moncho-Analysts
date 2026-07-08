@@ -1,51 +1,21 @@
 # Skill: PDF Parsing & Table Extraction
 
-Use when an analyst needs **structured tables or market facts from statistical PDFs** (education yearbooks, HIES, DGDA reports, insurance profiles). The Moncho pipeline turns PDFs into JSON tables and optionally into SML facts.
+Use when you need **structured tables or market facts from statistical PDFs** (education yearbooks, HIES, DGDA reports, etc.).
+
+You do **not** run database harvest CLIs. Those stay with the founder / data team.
 
 ## 1. When to Use This
 
-- **Source**: Official statistical reports (BANBEIS, BBS, DGDA, ICII, WHO, etc.) as PDF.
-- **Goal**: Get machine-readable tables (headers + rows) or normalized market facts instead of manual copy-paste.
-- **Output**: Either raw extraction JSON (`report` + `tables[]`) or rows in `market_facts` (SML) after normalization.
+- **Source**: Official statistical reports (BANBEIS, BBS, DGDA, etc.) as PDF.
+- **Goal**: Get machine-readable tables instead of manual copy-paste.
+- **Your job**: Prepare the request + descriptor; founder runs extraction and returns JSON tables or seeded facts.
 
-## 2. How to Run Extraction (Moncho-V1)
+## 2. What You Prepare
 
-If you have access to the main Moncho repo (`Moncho-V1`):
+Send the founder:
 
-```bash
-# From project root — pick profile to match the PDF's sector
-npm run harvest -- --pdf path/to/report.pdf --profile PROFILE_ID
-
-# Examples
-npm run harvest -- --pdf sample-data/Bangladesh-Education-Fact-Sheets_V7.pdf --profile BANBEIS_EDU_STATS
-npm run harvest -- --pdf path/to/bbs.pdf --profile BBS_HIES
-npm run harvest -- --pdf path/to/report.pdf --profile ICII_INSURANCE --source-url "https://example.com/report.pdf"
-```
-
-**Custom report (different country/publisher):** use a report descriptor file:
-
-```bash
-npm run harvest -- --pdf path/to/report.pdf --report path/to/report.json
-```
-
-**Debug:** add `--debug` to see per-table accept/reject reasons.
-
-**Prerequisites:** Python 3.10+, MinerU (`uv pip install -U "mineru[all]"` or use `scripts/harvesting/setup_venv.sh`). See `scripts/harvesting/README.md` in Moncho-V1.
-
-## 3. Available Profiles
-
-| Profile             | Report type              | Typical country | Metric examples                    |
-|---------------------|--------------------------|-----------------|------------------------------------|
-| `BANBEIS_EDU_STATS` | Education statistics     | Bangladesh      | students_total, institutions_total |
-| `BBS_HIES`          | Household income/expense | Bangladesh      | households, median_household_income_usd |
-| `DGDA_PHARMACIES`   | Pharmacies / outlets     | Bangladesh      | pharmacy_outlets, hospital_beds    |
-| `ICII_INSURANCE`    | Insurance (premium, etc.) | Set via --report | insurance penetration, premiums    |
-
-For a different country or publisher, use `--report path/to/report.json` with the same `extraction_profile_id` as the profile (e.g. `ICII_INSURANCE_V2024`).
-
-## 4. Report Descriptor (for custom or requested runs)
-
-When requesting extraction from the data team or using `--report`, provide a JSON like:
+1. PDF path or download URL  
+2. A short report descriptor:
 
 ```json
 {
@@ -61,20 +31,24 @@ When requesting extraction from the data team or using `--report`, provide a JSO
 
 Required: `country`, `title`, `year`, `url`, `extraction_profile_id`. Optional: `iso_code`, `publisher`.
 
-## 5. Extraction Output Shape
+Common profiles (founder picks the match):
 
-The pipeline writes a JSON file next to the PDF (e.g. `report_sml_extraction.json`) with:
+| Profile             | Report type              | Typical use |
+|---------------------|--------------------------|-------------|
+| `BANBEIS_EDU_STATS` | Education statistics     | Students, institutions |
+| `BBS_HIES`          | Household income/expense | Households, income |
+| `DGDA_PHARMACIES`   | Pharmacies / outlets     | Outlets, beds |
+| `ICII_INSURANCE`    | Insurance                | Premiums, penetration |
 
-- **report**: Same as report descriptor (country, title, year, url, etc.).
-- **tables**: Array of `{ id, header[], rows[][], caption?, pageNumber?, section_path? }`.
+## 3. What You Get Back
 
-Use this to:
-- Interpret shared extraction files.
-- Map specific tables/columns to your analysis or to SML facts (the pipeline can also upsert into `market_facts` when a normalizer exists for the profile).
+Extraction JSON usually has:
 
-## 6. If You Only Have the Analyst Repo
+- **report**: country, title, year, url, etc.
+- **tables**: `{ id, header[], rows[][], caption?, pageNumber? }`
 
-- **Prepare a report descriptor** (see §4) and the PDF path; request extraction from the data team or run the pipeline in Moncho-V1 when you have access.
-- **When given an extraction JSON**: Use the `report` and `tables` structure to pull out the numbers you need; align with the schemas in `samples/` or with SML fact shape if you are feeding market sizing.
+Use those tables for research notes or for drafting org/product / fact JSON that matches `samples/`. Submit via change request or hand the file to founder — do not expect harvest scripts in this workbench.
 
-Full pipeline details (filter pipeline, profiles, normalizers): see **Moncho-V1** `docs/04-ai-and-agents/PDF_INGESTION_PIPELINE.md`.
+## 4. Day-to-day data access
+
+For coverage of orgs, products, and sectors: use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard), not CLIs.

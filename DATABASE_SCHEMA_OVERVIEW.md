@@ -71,9 +71,7 @@ Other layers you may hear about (founder-owned): `value_chain_*`, `taxonomy_stan
 
 ## Discovery (read-only)
 
-Prefer the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for browsing orgs, products, and sector coverage.
-
-If the founder grants read-only DB / script access, they will share which commands to run. Do not expect those scripts inside this workbench alone.
+Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for browsing orgs, products, and sector coverage. You do **not** need database CLI or Moncho-V1 script access for day-to-day work.
 
 ---
 

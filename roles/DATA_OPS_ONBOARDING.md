@@ -10,7 +10,7 @@
 
 All discovery and data work covers these **10 sectors**. Grade each in your Coverage Snapshot (🟢/🟡/🔴).
 
-**Verified** against `metadata_sector` (`npm run db:sectors`, 2026-07-07). See [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) for full notes.
+See [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) for slugs and landscape counts. Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for live org/product coverage — you do **not** need database CLI access.
 
 | # | Sector | Moncho slug(s) | Landscapes (verified) |
 |---|--------|----------------|------------------------|
@@ -62,11 +62,11 @@ Save your Coverage Snapshot notes in this workbench (branch + PR) or share the f
 - [ ] Read [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md)
 - [ ] Review [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) landscape counts
 - [ ] Use [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) to spot-check org/product depth per grant sector
-- [ ] Ask founder for any BD inventory notes or audit access you need (do not chase external GitHub paths)
+- [ ] Ask founder only if you need a BD `market_facts` summary count (not available as a dashboard CLI)
 
 **Coverage Snapshot must answer:**
 
-1. BD fact count today (trade vs non-trade breakdown) — ask founder for count if you lack DB access.
+1. What coverage you can see on the dashboard per grant sector (orgs, products, landscapes). For national fact totals, ask founder once.
 2. **All 10 grant sectors:** landscape status, org count, product count, quality grade (🟢/🟡/🔴).
 3. Where org/product scoring is weakest (by sector).
 4. Which sectors to deepen first in ~2 months vs scaffold later.

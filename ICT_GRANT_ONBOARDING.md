@@ -18,7 +18,7 @@
 
 Every Coverage Snapshot, org harvest, and content plan must reference these **10 sectors**.
 
-**Verified** against `metadata_sector` (`npm run db:sectors`, 2026-07-07). Full table: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md).
+Sector slugs and landscape counts: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md). Browse live coverage in the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard).
 
 | # | Sector | Moncho slug(s) | Landscapes |
 |---|--------|----------------|------------|
@@ -56,7 +56,7 @@ September report frames work as **Phase 1 in progress**, not finished.
 | Secrets | Founder shares `.env` via secure channel only |
 | Async comms | WhatsApp (or agreed channel) — no fixed sync calendar |
 
-**Data Ops:** read-only DB access for audit scripts only if founder grants.  
+**Data Ops:** use the Analyst Dashboard for live data. No database CLI access required.  
 **GTM:** optional; no extra tooling required beyond what Moncho already has.
 
 ---
@@ -90,10 +90,12 @@ September report frames work as **Phase 1 in progress**, not finished.
 | Org/product depth per grant sector | Import + agri series briefs; carousel/reel readiness |
 | Gaps: official stats, pricing, VC, competitive maps | Channel baseline; kill/scale hypotheses |
 
-**Data Ops discovery** (ask founder if you need read-only DB or audit command access):
+**Data Ops discovery** (no database CLI — use the app):
 
-- Coverage Snapshot from dashboard + known sector status in [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
+- [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for live orgs, products, and sector coverage
+- Sector status in [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
 - Schema shapes in [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md)
+- Ask founder only if a national fact count or export is missing from the dashboard
 
 **Deliverable:** **Coverage Snapshot** (2–4 pages) — **one row per grant sector (all 10)**, facts, gaps, depth grade, blockers.
 

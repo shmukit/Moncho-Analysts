@@ -1,0 +1,385 @@
+{
+  "file": "E:\\Users\\Waifuzzama\\Downloads\\MONCHO-AI\\Moncho-Analysts\\data\\pending\\workflow-demo-large-injection.json",
+  "generated_at": "2026-07-08T20:19:17.347Z",
+  "confidence_threshold": 0.75,
+  "summary": {
+    "total_claims_checked": 12,
+    "ai_verified": 2,
+    "requires_human_review": 10
+  },
+  "note": "ai_verified means the AI found corroborating evidence above the confidence threshold. This does not replace Senior Analyst review or Admin approval.",
+  "results": [
+    {
+      "orgName": "Ruangguru",
+      "field": "innovation_rationale",
+      "claim": "Pioneered live one-to-many online tutoring in Indonesia, reaching 22 million registered learners by 2023.",
+      "recordIndex": 3,
+      "verdict": "unclear",
+      "confidence": 0.65,
+      "evidence": [
+        {
+          "url": "https://solve.mit.edu/challenges/elevateprize/solutions/30261",
+          "note": "tavily: Ruangguru"
+        },
+        {
+          "url": "https://www.globalprivatecapital.org/edtech-spotlight-ruangguru",
+          "note": "tavily: Edtech Spotlight: Ruangguru – GPCA"
+        },
+        {
+          "url": "https://www.ruangguru.com/blog/ruangguru-secures-usd-55-million-new-investment-led-by-tiger-global-management",
+          "note": "tavily: Ruangguru Secures USD 55 Million New Investment Led by Tiger Global Management"
+        }
+      ],
+      "explanation": "Partial evidence found (company + some facts) but not all claim details corroborated.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:2/3"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Ruangguru",
+      "field": "market_traction_rationale",
+      "claim": "Raised $150M Series C in 2021 led by Tiger Global and General Atlantic at a reported $1B+ valuation.",
+      "recordIndex": 3,
+      "verdict": "unclear",
+      "confidence": 0.65,
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Ruangguru",
+          "note": "tavily: Ruangguru - Wikipedia"
+        },
+        {
+          "url": "https://www.generalatlantic.com/media-article/ruangguru-completes-150m-series-c-transaction-led-by-general-atlantic-and-ggv-capital",
+          "note": "tavily: Ruangguru Completes $150M Series C Transaction Led by General Atlantic and GGV Capital | General Atlantic"
+        },
+        {
+          "url": "https://www.globalprivatecapital.org/edtech-spotlight-ruangguru",
+          "note": "tavily: Edtech Spotlight: Ruangguru – GPCA"
+        }
+      ],
+      "explanation": "Partial evidence found (company + some facts) but not all claim details corroborated.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:4/5"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Ruangguru",
+      "field": "competitiveness_rationale",
+      "claim": "Dominant K-12 brand in Indonesia with localized Bahasa content and partnerships with 300+ schools nationwide.",
+      "recordIndex": 3,
+      "verdict": "supported",
+      "confidence": 0.85,
+      "evidence": [
+        {
+          "url": "https://solve.mit.edu/challenges/elevateprize/solutions/30261",
+          "note": "tavily: Ruangguru"
+        },
+        {
+          "url": "https://www.globalprivatecapital.org/edtech-spotlight-ruangguru",
+          "note": "tavily: Edtech Spotlight: Ruangguru – GPCA"
+        },
+        {
+          "url": "https://east.vc/id/berita/from-portfolios/ruangguru-advances-education-access-in-indonesia-by-leveraging-technology",
+          "note": "tavily: Ruangguru advances education access in Indonesia by leveraging technology - East Ventures"
+        }
+      ],
+      "explanation": "Company name and key numeric facts from the claim appear in retrieved web evidence.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:2/2"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Ruangguru",
+      "field": "product_depth_rationale",
+      "claim": "Offers Ruangbelajar LMS, Brain Academy offline centers, and UTBK test-prep across web and mobile apps.",
+      "recordIndex": 3,
+      "verdict": "unclear",
+      "confidence": 0.4,
+      "evidence": [
+        {
+          "url": "https://www.edtechmarketplace-asia.com/solutionlist-1/ruangguru",
+          "note": "tavily: Ruangguru"
+        },
+        {
+          "url": "https://www.ruangguru.com",
+          "note": "tavily: Ruangguru: Aplikasi Bimbel Online Interaktif Terbaik #1 ..."
+        },
+        {
+          "url": "https://apps.apple.com/sa/app/ruangguru-app-belajar-no-1/id1099742206",
+          "note": "tavily: ‎Ruangguru – App Belajar No.1 App - App Store"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "TotallyFakeEdTechQA",
+      "field": "innovation_rationale",
+      "claim": "Very innovative solution with a strong team and great technology.",
+      "recordIndex": 5,
+      "verdict": "unclear",
+      "confidence": 0.35,
+      "evidence": [
+        {
+          "url": "https://innovativeedtechconsulting.com",
+          "note": "tavily: EdTech Consulting for Empowering Educators"
+        },
+        {
+          "url": "https://www.linkedin.com/posts/kevintureski_very-pleased-to-receive-this-recognition-activity-7320485606076137472-UroK",
+          "note": "tavily: Very pleased to receive this recognition. Lots of innovative work by a great team! | Kevin Tureski | 18 comments"
+        },
+        {
+          "url": "https://ed-techgroup.com",
+          "note": "tavily: The Ed-Tech Group, Inc. 501c3 - Stackable Credentials for Information Technology Careers, Comptia+ Stackable Credential Job Certification & Placement, I"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_not_clearly_mentioned",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "TotallyFakeEdTechQA",
+      "field": "market_traction_rationale",
+      "claim": "Good market position with excellent growth potential in the region.",
+      "recordIndex": 5,
+      "verdict": "unclear",
+      "confidence": 0.35,
+      "evidence": [
+        {
+          "url": "https://market.us/report/edtech-market",
+          "note": "tavily: EdTech Market Size, Share, Trends | CAGR of 13.9%"
+        },
+        {
+          "url": "https://www.businessresearchinsights.com/market-reports/education-technology-ed-tech-market-118565",
+          "note": "tavily: Education Technology (Ed Tech) Market Growth, Trends, 2035"
+        },
+        {
+          "url": "https://www.marketsandmarkets.com/Market-Reports/educational-technology-ed-tech-market-1066.html",
+          "note": "tavily: Edtech and Smart Classrooms Market Report 2025-2030, by Solution, Geo, Tech"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_not_clearly_mentioned",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Ruangguru Indonesia",
+      "field": "innovation_rationale",
+      "claim": "Duplicate entry added intentionally to test whether the QA agent catches same-domain duplicates in one batch.",
+      "recordIndex": 6,
+      "verdict": "unclear",
+      "confidence": 0.4,
+      "evidence": [
+        {
+          "url": "https://solve.mit.edu/challenges/elevateprize/solutions/30261",
+          "note": "tavily: MIT Solve"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=AAchm2_veNU",
+          "note": "tavily: Ruangguru: Indonesia’s edtech revolution"
+        },
+        {
+          "url": "https://www.tutopiya.com/tools/for-schools/school-blog/ai-buddy-vs-ruangguru-indonesia-school-learning-platform-comparison",
+          "note": "tavily: AI Buddy vs Ruangguru Indonesia Comparison: Which School Learning Platform Fits International Schools Best?"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Anthropic",
+      "field": "innovation_rationale",
+      "claim": "Pioneered Constitutional AI, an RLHF alternative that reduced harmful outputs by using AI-generated feedback instead of purely human labels.",
+      "recordIndex": 7,
+      "verdict": "unclear",
+      "confidence": 0.4,
+      "evidence": [
+        {
+          "url": "https://digi-con.org/on-constitutional-ai",
+          "note": "tavily: On ‘Constitutional’ AI"
+        },
+        {
+          "url": "https://blog.bluedot.org/p/what-is-constitutional-ai",
+          "note": "tavily: What is Constitutional AI? - by Sarah - BlueDot Impact"
+        },
+        {
+          "url": "https://argilla.io/blog/mantisnlp-rlhf-part-4",
+          "note": "tavily: RLHF and alternatives: RLAIF"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Anthropic",
+      "field": "market_traction_rationale",
+      "claim": "Raised a $13B Series F round in March 2025, valuing the company at approximately $61.5B.",
+      "recordIndex": 7,
+      "verdict": "supported",
+      "confidence": 0.85,
+      "evidence": [
+        {
+          "url": "https://finance.yahoo.com/news/anthropic-secures-13b-series-f-094048133.html",
+          "note": "tavily: Anthropic secures $13B Series F funding at $183bn valuation"
+        },
+        {
+          "url": "https://www.anthropic.com/news/anthropic-raises-series-f-at-usd183b-post-money-valuation",
+          "note": "tavily: Anthropic raises $13B Series F at $183B post-money valuation"
+        },
+        {
+          "url": "https://www.cnbc.com/2025/07/29/anthropic-in-talks-to-raise-fresh-capital-at-170-billion-valuation.html",
+          "note": "tavily: Anthropic in talks to raise fresh capital at $170 billion valuation - CNBC"
+        }
+      ],
+      "explanation": "Company name and key numeric facts from the claim appear in retrieved web evidence.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:5/5"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "TotallyRealCompanyXYZ",
+      "field": "innovation_rationale",
+      "claim": "Very innovative solution with a strong team.",
+      "recordIndex": 8,
+      "verdict": "unclear",
+      "confidence": 0.35,
+      "evidence": [
+        {
+          "url": "https://octopusinvestments.com/our-products/xyz-reality-company-story",
+          "note": "tavily: XYZ Reality company story | Octopus Investments"
+        },
+        {
+          "url": "https://writeseed.com/blog/letter-introducing-a-company",
+          "note": "tavily: Article Title: Revolutionizing the Industry: Introducing XYZ Company's Innovative Solutions Dear Readers, We are thrilled to introduce XYZ Company, a cu"
+        },
+        {
+          "url": "https://uk.linkedin.com/company/xyz-reality",
+          "note": "tavily: XYZ Reality - Transforming how projects are planned, built, and delivered with the ultimate construction delivery platform."
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_not_clearly_mentioned",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "TotallyRealCompanyXYZ",
+      "field": "market_traction_rationale",
+      "claim": "Good market position with great potential.",
+      "recordIndex": 8,
+      "verdict": "unclear",
+      "confidence": 0.35,
+      "evidence": [
+        {
+          "url": "https://www.chartmill.com/stock/quote/XYZ/fundamental-analysis",
+          "note": "tavily: XYZ Fundamental Analysis & Valuation | Fair Value & Financial Strength | ChartMill.com"
+        },
+        {
+          "url": "https://www.stocktitan.net/overview/XYZ",
+          "note": "tavily: XYZ Stock Price, News & Analysis | Block"
+        },
+        {
+          "url": "https://www.marketbeat.com/stocks/NYSE/XYZ",
+          "note": "tavily: Block (XYZ) Stock Price, News & Analysis"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_not_clearly_mentioned",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    },
+    {
+      "orgName": "Anthropic PBC",
+      "field": "innovation_rationale",
+      "claim": "Same company re-listed to test duplicate detection logic in the QA script.",
+      "recordIndex": 9,
+      "verdict": "unclear",
+      "confidence": 0.4,
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Anthropic",
+          "note": "tavily: Anthropic - Wikipedia"
+        },
+        {
+          "url": "https://www.plunkettresearch.com/company-profile/anthropic-pbc",
+          "note": "tavily: Anthropic PBC Private Profile-Financials-Revenues-Growth-Market-Description"
+        },
+        {
+          "url": "https://www.anthropic.com",
+          "note": "tavily: Home \\ Anthropic"
+        }
+      ],
+      "explanation": "Search returned results but could not confidently match the specific claim facts.",
+      "agent_steps": [
+        "agent:start",
+        "search_pass_1:5_results",
+        "heuristic_judge:start",
+        "org_mentioned_in_evidence",
+        "matched_facts:0/0"
+      ],
+      "error": null
+    }
+  ]
+}

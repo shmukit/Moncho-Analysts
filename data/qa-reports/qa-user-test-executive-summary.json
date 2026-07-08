@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-07-07T20:12:29.899Z",
+  "generated_at": "2026-07-08T20:11:13.934Z",
   "mechanical": {
     "total": 4,
-    "pass": 1,
-    "flagged": 1,
+    "pass": 0,
+    "flagged": 2,
     "fail": 2
   },
   "fact_check": null,
   "unified": {
     "total": 4,
-    "pass": 1,
-    "flagged": 1,
+    "pass": 0,
+    "flagged": 2,
     "fail": 2,
     "ready_for_submission": 2,
     "claims_ai_verified": 0,
@@ -19,11 +19,19 @@
   "batch_warning": "⚠️  50% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.",
   "recommended_actions": [
     "Fix 2 mechanical FAIL record(s) before submission.",
-    "Review 1 FLAGGED record(s) for vague rationales or slug issues.",
+    "Review 2 FLAGGED record(s) for vague rationales or slug issues.",
     "⚠️  50% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.",
     "2/4 record(s) ready for submission after unified review."
   ],
   "human_review_queue": [
+    {
+      "type": "mechanical",
+      "record_id": "Ruangguru",
+      "status": "FLAGGED",
+      "reasons": [
+        "two-source rule: provide `source_urls` with at least 2 independent URLs supporting key claims (per analyst_instructions)"
+      ]
+    },
     {
       "type": "mechanical",
       "record_id": "CoderSchool",
@@ -32,6 +40,7 @@
         "missing `competitiveness_rationale` (required for Moncho 5-dimension scoring rubric)",
         "missing `product_depth_rationale` (required for Moncho 5-dimension scoring rubric)",
         "missing `social_proof_rationale` (required for Moncho 5-dimension scoring rubric)",
+        "two-source rule: provide `source_urls` with at least 2 independent URLs supporting key claims (per analyst_instructions)",
         "missing field `competitiveness_rationale` (recommended per reference sample)",
         "missing field `product_depth_rationale` (recommended per reference sample)",
         "missing field `social_proof_rationale` (recommended per reference sample)"
@@ -49,6 +58,9 @@
         "missing `competitiveness_rationale` (required for Moncho 5-dimension scoring rubric)",
         "missing `product_depth_rationale` (required for Moncho 5-dimension scoring rubric)",
         "missing `social_proof_rationale` (required for Moncho 5-dimension scoring rubric)",
+        "sector_slug \"EdTech\" not in reference taxonomy — confirm or leave empty",
+        "segment_slug \"K-12 Learning\" not in reference taxonomy — confirm or leave empty",
+        "two-source rule: provide `source_urls` with at least 2 independent URLs supporting key claims (per analyst_instructions)",
         "missing field `hq_country_slug` (recommended per reference sample)",
         "missing field `competitiveness_rationale` (recommended per reference sample)",
         "missing field `product_depth_rationale` (recommended per reference sample)",
@@ -67,6 +79,7 @@
         "missing `competitiveness_rationale` (required for Moncho 5-dimension scoring rubric)",
         "missing `product_depth_rationale` (required for Moncho 5-dimension scoring rubric)",
         "missing `social_proof_rationale` (required for Moncho 5-dimension scoring rubric)",
+        "two-source rule: provide `source_urls` with at least 2 independent URLs supporting key claims (per analyst_instructions)",
         "missing field `market_traction_rationale` (recommended per reference sample)",
         "missing field `competitiveness_rationale` (recommended per reference sample)",
         "missing field `product_depth_rationale` (recommended per reference sample)",

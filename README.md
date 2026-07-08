@@ -87,6 +87,8 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 
 ## QA Agent Pipeline (Version 3)
 
+**Full documentation:** [`scripts/README.md`](scripts/README.md) — agentic QA setup, commands, flags, and scale guidance.
+
 Full two-stage automated QA per `MonchoQAAgent/Version3/README.md`:
 
 | Stage | Script | What it does |

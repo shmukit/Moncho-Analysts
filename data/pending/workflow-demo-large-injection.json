@@ -1,0 +1,208 @@
+[
+  {
+    "name": "Stripe",
+    "website_url": "https://stripe.com",
+    "description": "Global payments infrastructure company providing APIs for online checkout, billing, subscriptions, and marketplace payouts for internet businesses of every size worldwide.",
+    "sector_slug": "fintech",
+    "segment_slugs": [
+      "payment-processing"
+    ],
+    "hq_country_slug": "united-states",
+    "founded_year": 2010,
+    "innovation_rationale": "Launched Stripe Atlas in 2016, letting founders incorporate Delaware C-corps and open US bank accounts entirely online.",
+    "market_traction_rationale": "Processed over $1 trillion in payment volume in 2023 across millions of merchant accounts globally.",
+    "competitiveness_rationale": "Operates in 46 countries with support for 135+ currencies and direct card network partnerships with Visa and Mastercard.",
+    "product_depth_rationale": "Product suite spans Payments, Billing, Connect payouts, Radar fraud tools, and Atlas incorporation services.",
+    "social_proof_rationale": "Ranked #1 on the Forbes Cloud 100 in 2023 and used by Amazon, Shopify, and Google for online payments.",
+    "source_urls": [
+      "https://stripe.com",
+      "https://www.forbes.com/cloud100/"
+    ]
+  },
+  {
+    "name": "Notion",
+    "website_url": "https://www.notion.so",
+    "description": "All-in-one workspace platform combining notes, wikis, tasks, and databases for teams and individuals building docs and project workflows collaboratively online.",
+    "sector_slug": "saas",
+    "segment_slugs": [
+      "collaboration-tools"
+    ],
+    "hq_country_slug": "united-states",
+    "founded_year": 2016,
+    "innovation_rationale": "Pioneered block-based docs where text, tables, and embeds share one editable canvas, reaching 30M users by 2022.",
+    "market_traction_rationale": "Raised $275M Series E in 2021 led by Coatue and Sequoia at a $10B valuation reported by TechCrunch.",
+    "competitiveness_rationale": "Replaced separate Confluence, Trello, and Google Docs stacks for 50% of Y Combinator startups per 2023 survey data.",
+    "product_depth_rationale": "Ships Notion AI, Calendar, Sites publishing, and 10,000+ community templates across Free, Plus, and Enterprise tiers.",
+    "social_proof_rationale": "Named to TIME100 Most Influential Companies list in 2023 and adopted by Figma, Pixar, and Nike internal teams.",
+    "source_urls": [
+      "https://www.notion.so",
+      "https://techcrunch.com"
+    ]
+  },
+  {
+    "name": "Figma",
+    "website_url": "https://www.figma.com",
+    "description": "Browser-based collaborative design platform for UI, UX, and product teams to create prototypes, design systems, and handoff specs in real time together.",
+    "sector_slug": "design-software",
+    "segment_slugs": [
+      "ui-design-tools"
+    ],
+    "hq_country_slug": "united-states",
+    "founded_year": 2012,
+    "innovation_rationale": "Introduced multiplayer canvas editing in 2017, letting 3+ designers co-edit the same Figma file simultaneously in-browser.",
+    "market_traction_rationale": "Grew to 4 million users by 2022 and reported $400M ARR before Adobe's abandoned $20B acquisition in 2023.",
+    "competitiveness_rationale": "Captured 77% of new UI design tool adoption among startups versus Sketch per 2022 State of Design survey.",
+    "product_depth_rationale": "Offers Figma Design, FigJam whiteboards, Dev Mode inspect, and Slides presentation tools in one platform.",
+    "social_proof_rationale": "Won Fast Company Most Innovative Companies 2022 and powers design workflows at Microsoft, Uber, and Airbnb.",
+    "source_urls": [
+      "https://www.figma.com",
+      "https://www.fastcompany.com"
+    ]
+  },
+  {
+    "name": "Ruangguru",
+    "website_url": "https://www.ruangguru.com",
+    "description": "Indonesia's largest EdTech platform offering online tutoring, test prep, and school management tools for K-12 students across Southeast Asia and beyond.",
+    "sector_slug": "edtech",
+    "segment_slugs": [
+      "lms",
+      "ai-tutoring"
+    ],
+    "hq_country_slug": "indonesia",
+    "founded_year": 2014,
+    "innovation_rationale": "Pioneered live one-to-many online tutoring in Indonesia, reaching 22 million registered learners by 2023.",
+    "market_traction_rationale": "Raised $150M Series C in 2021 led by Tiger Global and General Atlantic at a reported $1B+ valuation.",
+    "competitiveness_rationale": "Dominant K-12 brand in Indonesia with localized Bahasa content and partnerships with 300+ schools nationwide.",
+    "product_depth_rationale": "Offers Ruangbelajar LMS, Brain Academy offline centers, and UTBK test-prep across web and mobile apps.",
+    "social_proof_rationale": "Named to Forbes Asia 100 to Watch list in 2020 and featured in Google Play Best of 2019 Indonesia."
+  },
+  {
+    "name": "CoderSchool",
+    "website_url": "https://coderschool.vn",
+    "description": "Vietnam-based coding bootcamp providing full-stack and data science programs for career switchers and university graduates in Ho Chi Minh City.",
+    "sector_slug": "edtech",
+    "segment_slugs": [
+      "coding-bootcamp"
+    ],
+    "hq_country_slug": "vietnam",
+    "founded_year": 2015,
+    "innovation_rationale": "First Vietnamese bootcamp to offer income-share agreements tied to graduate job placement since 2018.",
+    "market_traction_rationale": "Graduated 3,000+ students across Vietnam with reported 85% job placement within 6 months of completion."
+  },
+  {
+    "name": "TotallyFakeEdTechQA",
+    "website_url": "https://this-website-does-not-exist-qa-test-99999.com",
+    "description": "An amazing innovative platform with a strong team serving customers worldwide across many industries with cutting edge technology.",
+    "sector_slug": "EdTech",
+    "segment_slugs": [
+      "K-12 Learning"
+    ],
+    "founded_year": 1842,
+    "innovation_rationale": "Very innovative solution with a strong team and great technology.",
+    "market_traction_rationale": "Good market position with excellent growth potential in the region."
+  },
+  {
+    "name": "Ruangguru Indonesia",
+    "website_url": "https://www.ruangguru.com",
+    "description": "Indonesia's largest EdTech platform offering online tutoring, test prep, and school management tools for K-12 students across Southeast Asia and beyond.",
+    "sector_slug": "edtech",
+    "segment_slugs": [
+      "lms"
+    ],
+    "hq_country_slug": "indonesia",
+    "founded_year": 2014,
+    "innovation_rationale": "Duplicate entry added intentionally to test whether the QA agent catches same-domain duplicates in one batch."
+  },
+  {
+    "name": "Anthropic",
+    "website_url": "https://www.anthropic.com",
+    "description": "AI safety and research company building reliable, interpretable, and steerable AI systems for enterprise and consumer use, focused on responsible frontier model development.",
+    "sector_slug": "artificial-intelligence",
+    "segment_slugs": [
+      "llm-providers"
+    ],
+    "hq_country_slug": "united-states",
+    "founded_year": 2021,
+    "innovation_rationale": "Pioneered Constitutional AI, an RLHF alternative that reduced harmful outputs by using AI-generated feedback instead of purely human labels.",
+    "market_traction_rationale": "Raised a $13B Series F round in March 2025, valuing the company at approximately $61.5B."
+  },
+  {
+    "name": "TotallyRealCompanyXYZ",
+    "website_url": "https://this-domain-should-not-exist-qa-test-12345.com",
+    "description": "A great and innovative platform for everything, serving customers worldwide with a strong team and cutting edge technology across many industries.",
+    "sector_slug": "FinTech",
+    "segment_slugs": [
+      "P2P Lending"
+    ],
+    "founded_year": 1650,
+    "innovation_rationale": "Very innovative solution with a strong team.",
+    "market_traction_rationale": "Good market position with great potential."
+  },
+  {
+    "name": "Anthropic PBC",
+    "website_url": "https://www.anthropic.com",
+    "description": "AI safety and research company building reliable, interpretable, and steerable AI systems for enterprise and consumer use, focused on responsible frontier model development.",
+    "sector_slug": "artificial-intelligence",
+    "innovation_rationale": "Same company re-listed to test duplicate detection logic in the QA script."
+  },
+  {
+    "name": "Stripe",
+    "website_url": "https://stripe.com",
+    "description": "Global payments infrastructure company providing APIs for online checkout, billing, subscriptions, and marketplace payouts for internet businesses of every size worldwide.",
+    "sector_slug": "fintech",
+    "segment_slugs": [
+      "payment-processing"
+    ],
+    "hq_country_slug": "united-states",
+    "founded_year": 2010,
+    "innovation_rationale": "Launched Stripe Atlas in 2016, letting founders incorporate Delaware C-corps and open US bank accounts entirely online.",
+    "market_traction_rationale": "Processed over $1 trillion in payment volume in 2023 across millions of merchant accounts globally.",
+    "competitiveness_rationale": "Operates in 46 countries with support for 135+ currencies and direct card network partnerships with Visa and Mastercard.",
+    "product_depth_rationale": "Product suite spans Payments, Billing, Connect payouts, Radar fraud tools, and Atlas incorporation services.",
+    "social_proof_rationale": "Ranked #1 on the Forbes Cloud 100 in 2023 and used by Amazon, Shopify, and Google for online payments.",
+    "source_urls": [
+      "https://stripe.com",
+      "https://www.forbes.com/cloud100/"
+    ]
+  },
+  {
+    "name": "Notion",
+    "website_url": "https://www.notion.so",
+    "description": "All-in-one workspace platform combining notes, wikis, tasks, and databases for teams and individuals building docs and project workflows collaboratively online.",
+    "sector_slug": "saas",
+    "segment_slugs": [
+      "collaboration-tools"
+    ],
+    "hq_country_slug": "united-states",
+    "founded_year": 2016,
+    "innovation_rationale": "Pioneered block-based docs where text, tables, and embeds share one editable canvas, reaching 30M users by 2022.",
+    "market_traction_rationale": "Raised $275M Series E in 2021 led by Coatue and Sequoia at a $10B valuation reported by TechCrunch.",
+    "competitiveness_rationale": "Replaced separate Confluence, Trello, and Google Docs stacks for 50% of Y Combinator startups per 2023 survey data.",
+    "product_depth_rationale": "Ships Notion AI, Calendar, Sites publishing, and 10,000+ community templates across Free, Plus, and Enterprise tiers.",
+    "social_proof_rationale": "Named to TIME100 Most Influential Companies list in 2023 and adopted by Figma, Pixar, and Nike internal teams.",
+    "source_urls": [
+      "https://www.notion.so",
+      "https://techcrunch.com"
+    ]
+  },
+  {
+    "name": "Figma",
+    "website_url": "https://www.figma.com",
+    "description": "Browser-based collaborative design platform for UI, UX, and product teams to create prototypes, design systems, and handoff specs in real time together.",
+    "sector_slug": "design-software",
+    "segment_slugs": [
+      "ui-design-tools"
+    ],
+    "hq_country_slug": "united-states",
+    "founded_year": 2012,
+    "innovation_rationale": "Introduced multiplayer canvas editing in 2017, letting 3+ designers co-edit the same Figma file simultaneously in-browser.",
+    "market_traction_rationale": "Grew to 4 million users by 2022 and reported $400M ARR before Adobe's abandoned $20B acquisition in 2023.",
+    "competitiveness_rationale": "Captured 77% of new UI design tool adoption among startups versus Sketch per 2022 State of Design survey.",
+    "product_depth_rationale": "Offers Figma Design, FigJam whiteboards, Dev Mode inspect, and Slides presentation tools in one platform.",
+    "social_proof_rationale": "Won Fast Company Most Innovative Companies 2022 and powers design workflows at Microsoft, Uber, and Airbnb.",
+    "source_urls": [
+      "https://www.figma.com",
+      "https://www.fastcompany.com"
+    ]
+  }
+]

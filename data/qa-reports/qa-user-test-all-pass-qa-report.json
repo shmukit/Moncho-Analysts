@@ -1,6 +1,6 @@
 {
   "file": "E:\\Users\\Waifuzzama\\Downloads\\MONCHO-AI\\Moncho-Analysts\\data\\pending\\qa-user-test-all-pass.json",
-  "generated_at": "2026-07-07T21:13:08.621Z",
+  "generated_at": "2026-07-08T20:11:10.309Z",
   "batch_warning": null,
   "summary": {
     "total": 3,
@@ -22,7 +22,7 @@
           "status": 200,
           "final_url": "https://stripe.com/",
           "error": null,
-          "latency_ms": 702
+          "latency_ms": 599
         },
         "duplicate_of": null,
         "rationale_quality": {
@@ -49,7 +49,7 @@
           "status": 200,
           "final_url": "https://www.notion.so/",
           "error": null,
-          "latency_ms": 1847
+          "latency_ms": 713
         },
         "duplicate_of": null,
         "rationale_quality": {
@@ -76,7 +76,7 @@
           "status": 200,
           "final_url": "https://www.figma.com/",
           "error": null,
-          "latency_ms": 198
+          "latency_ms": 81
         },
         "duplicate_of": null,
         "rationale_quality": {

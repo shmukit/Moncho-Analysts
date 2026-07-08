@@ -52,7 +52,7 @@ September report frames work as **Phase 1 in progress**, not finished.
 | Item | Purpose |
 |------|---------|
 | Moncho app + analyst dashboard | [app.moncho.ai/analyst/apply](https://app.moncho.ai/analyst/apply) → Workbench API key |
-| GitHub | Data Ops: `Moncho-V1` (branch/PR). GTM: workbench + docs as needed |
+| GitHub | This workbench repo ([Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts)). Create a branch and open a PR; do not push to `main`. |
 | Secrets | Founder shares `.env` via secure channel only |
 | Async comms | WhatsApp (or agreed channel) — no fixed sync calendar |
 
@@ -70,15 +70,15 @@ September report frames work as **Phase 1 in progress**, not finished.
 
 ---
 
-## 4. Onboarding steps
+## 5. Onboarding steps
 
 ### Step 1 — Access and orientation
 
 1. Contract + bank details.
 2. Moncho login; analyst profile; save API key.
-3. Clone repo; Cursor + `.env` (never commit).
+3. Clone **this** workbench repo; Cursor + `.env` (never commit).
 4. Read this file + [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) + your role doc + [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md).
-5. Skim [`HANDBOOK.md`](HANDBOOK.md) and grant [`PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md).
+5. Skim [`HANDBOOK.md`](HANDBOOK.md).
 
 ### Step 2 — Discovery (before big execution)
 
@@ -86,18 +86,14 @@ September report frames work as **Phase 1 in progress**, not finished.
 
 | Data Ops | GTM Ops |
 |----------|---------|
-| BD `market_facts` and sector coverage | LinkedIn JSON (`bd-import-substitution`, agri VC), newsletter list |
+| BD `market_facts` and sector coverage | LinkedIn JSON under `sample-data/` (import substitution, agri VC if present), newsletter list |
 | Org/product depth per grant sector | Import + agri series briefs; carousel/reel readiness |
 | Gaps: official stats, pricing, VC, competitive maps | Channel baseline; kill/scale hypotheses |
 
-**Data Ops commands** (repo root):
+**Data Ops discovery** (ask founder if you need read-only DB or audit command access):
 
-```bash
-npm run db:info
-npm run sectors:audit-ontology
-npx tsx scripts/tests/sherpa-pipeline-audit.ts --country Bangladesh
-npx tsx scripts/tests/backfill-status.ts
-```
+- Coverage Snapshot from dashboard + known sector status in [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
+- Schema shapes in [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md)
 
 **Deliverable:** **Coverage Snapshot** (2–4 pages) — **one row per grant sector (all 10)**, facts, gaps, depth grade, blockers.
 
@@ -111,16 +107,16 @@ Use [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](roles/TWO_MONTH_PLAN_TEMPLATE.md): outc
 
 - Async updates when something ships or blocks.
 - **No direct production injection.** All JSON and SQL files go to founder for review; founder merges.
-- Data Ops: new migration files only (never edit existing) — see [`AGENTS.md`](https://github.com/shmukit/Moncho-V1/blob/main/AGENTS.md).
+- Data Ops: hand off drafts via PR or file to founder; never edit existing production migrations yourself.
 - GTM: founder spot-checks public copy before publish (first tranche).
 
 ### Step 5 — Grant checkpoint prep
 
-Support [`PROGRESS_REPORT_TEMPLATE.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROGRESS_REPORT_TEMPLATE.md).
+Help draft your sections for the September ICT progress report. Founder owns the final template and submission.
 
 ---
 
-## 5. Role split
+## 6. Role split
 
 | Area | Data Ops | GTM Ops | Founder |
 |------|----------|---------|---------|
@@ -131,7 +127,7 @@ Support [`PROGRESS_REPORT_TEMPLATE.md`](https://github.com/shmukit/Moncho-V1/blo
 
 ---
 
-## 6. Rules
+## 7. Rules
 
 1. **Quality over volume** — scored orgs/products on landscapes beat unscored bulk.
 2. **Provenance** — source URL on every fact and org/product field you assert.
@@ -141,20 +137,20 @@ Support [`PROGRESS_REPORT_TEMPLATE.md`](https://github.com/shmukit/Moncho-V1/blo
 
 ---
 
-## 7. Key docs
+## 8. Docs in this workbench (start here)
 
 | Doc | Use |
 |-----|-----|
 | [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) | **10 grant sectors** — slugs and Moncho mapping |
-| [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) | Tables and JSON shapes (start here) |
+| [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) | Tables and JSON shapes |
 | [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) | Org quality rubric |
-| [`PROJECT_PLAN.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROJECT_PLAN.md) | Grant KPIs |
-| [`BD_IMPORT_SUBSTITUTION_LINKEDIN_SERIES.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/03-product-and-design/BD_IMPORT_SUBSTITUTION_LINKEDIN_SERIES.md) | GTM: import substitution series |
-| [`BD_EXPORT_VALUE_CHAIN_ANALYSIS_PLAYBOOK.md`](../03-product-and-design/BD_EXPORT_VALUE_CHAIN_ANALYSIS_PLAYBOOK.md) | GTM: agri VC series context |
-| [`BD_MARKET_SIZING_DATA_ASSESSMENT.md`](../03-product-and-design/BD_MARKET_SIZING_DATA_ASSESSMENT.md) | BD capability today |
-| [`DATABASE_AGENT_REFERENCE.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/02-architecture-and-tech/DATABASE_AGENT_REFERENCE.md) | Full table index (Data Ops) |
-| [`AGENTS.md`](https://github.com/shmukit/Moncho-V1/blob/main/AGENTS.md) | Repo rules |
+| [`DASHBOARD_WALKTHROUGH.md`](DASHBOARD_WALKTHROUGH.md) | Analyst dashboard |
+| [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) | Data Ops role |
+| [`roles/GTM_OPS_ONBOARDING.md`](roles/GTM_OPS_ONBOARDING.md) | GTM Ops role |
+| [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](roles/TWO_MONTH_PLAN_TEMPLATE.md) | Plan for founder approval |
+
+Longer engineering / grant internal docs are **not** in this repo. Ask the founder when you need them.
 
 ---
 
-*Last updated: 2026-07-06*
+*Last updated: 2026-07-08*

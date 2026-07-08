@@ -1,7 +1,6 @@
 # Database schema overview (analyst workbench)
 
-**Purpose:** What tables and JSON shapes analysts touch when researching orgs, products, and sector data.  
-**Full reference (engineering):** [`docs/02-architecture-and-tech/DATABASE_AGENT_REFERENCE.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/02-architecture-and-tech/DATABASE_AGENT_REFERENCE.md)
+**Purpose:** What tables and JSON shapes analysts touch when researching orgs, products, and sector data.
 
 Analysts **do not inject SQL** into production. You produce JSON (or draft SQL files) for founder review; founder merges after approval.
 
@@ -14,7 +13,7 @@ Analysts **do not inject SQL** into production. You produce JSON (or draft SQL f
 | **Organization** | `metadata_organization`, `organization_to_segment_map` | [`samples/organization_sample.json`](samples/organization_sample.json) |
 | **Product** | `products`, `product_media`, `product_metrics` | [`samples/product_sample.json`](samples/product_sample.json) |
 | **Landscape / segment** | `metadata_sector`, `segments`, `landscape_versions`, `sector_segments` | [`samples/landscape_sample.json`](samples/landscape_sample.json) |
-| **Market facts (SML)** | `market_facts` | Harvest/seed shape per [`STATISTICAL_MEMORY_LAYER.md`](https://github.com/shmukit/Moncho-V1/blob/main/docs/04-ai-and-agents/STATISTICAL_MEMORY_LAYER.md) — founder ingests |
+| **Market facts (SML)** | `market_facts` | Draft seed/JSON for founder ingest (not self-merged) |
 
 ---
 
@@ -66,20 +65,15 @@ Atomic metrics: trade, BBS, SMI, surveys, pricing proxies.
 
 **Bangladesh trade:** OEC import/export rows are **already ingested**. Data Ops does not re-run bulk trade ingest; focus on org/product quality, official stats gaps, and sector mapping.
 
-Other layers: `value_chain_*` (export pilots), `taxonomy_standards` (ISIC), `hs_codes` (product taxonomy).
+Other layers you may hear about (founder-owned): `value_chain_*`, `taxonomy_standards` (ISIC), `hs_codes`. Ask founder for details when needed.
 
 ---
 
-## Commands (read-only discovery)
+## Discovery (read-only)
 
-From Moncho-V1 repo root (founder grants access):
+Prefer the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for browsing orgs, products, and sector coverage.
 
-```bash
-npm run db:info
-npm run db:sectors
-npm run sectors:audit-ontology
-npx tsx scripts/tests/backfill-status.ts
-```
+If the founder grants read-only DB / script access, they will share which commands to run. Do not expect those scripts inside this workbench alone.
 
 ---
 
@@ -91,4 +85,4 @@ npx tsx scripts/tests/backfill-status.ts
 4. Submit change request via `scripts/submit_data.ts` **or** hand JSON/SQL file to founder for review.
 5. Founder approves → production merge.
 
-*Last updated: 2026-07-06*
+*Last updated: 2026-07-08*

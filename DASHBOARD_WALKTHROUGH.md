@@ -77,7 +77,7 @@ The dashboard is your **Analyst Command Center** — awareness and orientation, 
 - **API keys** → Settings (`/analyst/settings`)
 - **Duplicate KPI cards** and Sherpa sidebar widget → removed
 
-> Full UACs: [ANALYST_DASHBOARD_UAC.md](../03-product-and-design/ANALYST_DASHBOARD_UAC.md)
+> Formal UAC details: ask founder if you need acceptance-criteria docs beyond this walkthrough.
 
 ---
 

@@ -58,7 +58,7 @@ Measurable outcomes, not task lists.
 
 ## 4. Grant checkpoint — your Sep report section
 
-Which [`PROGRESS_REPORT_TEMPLATE`](https://github.com/shmukit/Moncho-V1/blob/main/docs/07-projects/bangladesh-ict-division-research-grant/PROGRESS_REPORT_TEMPLATE.md) sections will you draft?
+Which sections will you draft for the September ICT progress report? (Founder owns the final template.)
 
 -
 

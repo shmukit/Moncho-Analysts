@@ -5,7 +5,8 @@ Before running any workflow, **read and use** these repo assets so the agent und
 - **README.md** – Setup, env vars, and high-level workflow.
 - **This file** (`analyst_instructions.md`) – Role, extraction rules, and discovery workflow.
 - **skills/** – e.g. `research_strategy.md`, `extraction_logic.md`, `pdf_parsing.md` – How to research, extract, and parse PDF reports.
-- **SCORING_STANDARDS.md** – Scoring rubrics (industry-aware) used to select top orgs and products.
+- **SCORING_STANDARDS.md** – Universal org rubric (1–5, five dimensions).
+- **PRODUCT_ORG_RUBRICS.md** – Production-system rubric reference: product pass/fail gate, normalization units, and sector depth readiness score already used in Moncho.
 - **samples/** – Target JSON schemas for organizations, landscapes, experts.
 - **`instructions.md`** – Full IDE agent entry point, skills index, and workflow commands.
 
@@ -31,7 +32,7 @@ Follow this sequence for a given industry/sector:
    Use search (Tavily, Exa) and research skills to find organizations in the sector.
 
 2. **Select top organizations**  
-   Apply scoring rubrics from `SCORING_STANDARDS.md` (and any industry-specific rubrics) to score and select the top organizations.
+   Apply scoring rubrics from `SCORING_STANDARDS.md` to score and select the top organizations.
 
 3. **Fetch logo URLs**  
    For each selected organization, fetch logo URL from Logo.dev (using the org’s domain).
@@ -40,7 +41,7 @@ Follow this sequence for a given industry/sector:
    For each selected org, discover its products (via search and site research).
 
 5. **Select top products**  
-   Apply scoring rubrics (industry-specific) to score and select the top products per org.
+   Apply the production-system product gate and quality expectations to select the top products per org.
 
 6. **Fetch URLs for those products**  
    Resolve and store the canonical product/page URLs for each selected product.

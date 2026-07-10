@@ -100,6 +100,21 @@ To run local developer tools (Hub 1) and submit data using scripts, you need you
 3. Click **Save coverage** — this writes `coverage_sector_slugs` on your analyst profile.
 4. Reload the dashboard to see **Market Pulse** and **My Coverage** cards for those sectors.
 
+### Public profile (`/a/[username]`)
+
+Your shareable analyst portfolio at `/a/{username}` (link from the dashboard identity strip or sidebar **Public Profile**).
+
+| Section | What it shows |
+|---------|----------------|
+| Stats | Distinct org edits approved, maps curated, reputation score/rank |
+| Contribution Activity | GitHub-style heatmap from verified `audit_logs` |
+| Recent Contributions | Last 20 approved/completed edits with entity-aware labels |
+| Portfolio Projects | Links and descriptions you add via **Edit Portfolio** |
+
+Empty states guide you to submit work or add bio/projects. The placeholder **Contact Analyst** card was removed until a real enquiry flow ships.
+
+Apply migration `20260709030000_analyst_profile_projects.sql` if portfolio saves fail (adds `analyst_profiles.projects` jsonb column).
+
 ### Local workbench key
 1. In your local clone of the `Moncho-Analysts` workbench repository, create a `.env` file in the root directory.
 2. Add the key as follows:
@@ -128,7 +143,7 @@ The sidebar navigation provides access to specific database curation modules:
 | **Value Chain** | `/analyst/value-chain` | Manage stages, gaps, and HS→stage mappings per pilot; preview consumer tabs (chain, exporters, gaps). |
 | **Landscape Builder**| `/analyst/landscapes` | Interactive visual tool to drag, drop, and map organizations onto sector layouts. |
 | **Sherpa AI** | `/sherpa` | Deep research agent. Run top-down and bottom-up market sizing operations directly in the browser. |
-| **Public Profile** | `/a/[username]` | Shareable portfolio displaying your reputation, bio, and key verified contributions. |
+| **Public Profile** | `/a/[username]` | Shareable portfolio: reputation, org edits, contribution heatmap, recent verified edits, and portfolio projects. Edit via **Edit Profile** on your own page. API keys and coverage stay in **Settings**. |
 
 ---
 

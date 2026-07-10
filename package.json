@@ -11,6 +11,7 @@
     "qa:gate": "tsx scripts/qa_agent.ts",
     "submit": "tsx scripts/submit_data.ts",
     "reference": "tsx scripts/extraction/fetch-reference-data.ts",
+    "reference:sync": "tsx scripts/sync-reference-ids.ts",
     "discover": "tsx scripts/extraction/run-discovery-agent.ts"
   },
   "dependencies": {

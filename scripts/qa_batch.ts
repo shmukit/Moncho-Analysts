@@ -194,7 +194,7 @@ function mergeChunkReports(sourceFile: string, chunkFiles: string[], outDir: str
 
   const failRate = merged.summary.total ? merged.summary.fail / merged.summary.total : 0;
   if (failRate > 0.15) {
-    merged.batch_warning = `⚠️  ${(failRate * 100).toFixed(0)}% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.`;
+    merged.batch_warning = `${(failRate * 100).toFixed(0)}% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.`;
   }
 
   const baseName = path.basename(sourceFile).replace(/\.json$/, "");

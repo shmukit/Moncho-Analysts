@@ -81,11 +81,24 @@ function parseArgs(argv: string[]): Args {
   };
 }
 
-function loadIdSet(filePath?: string): Set<number> | undefined {
+function loadIdSet(filePath?: string): Set<string> | undefined {
   if (!filePath || !fs.existsSync(filePath)) return undefined;
   const raw = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-  const ids: number[] = Array.isArray(raw) ? raw : raw.ids || [];
-  return new Set(ids.map(Number));
+  const ids: unknown[] = Array.isArray(raw) ? raw : raw.ids || [];
+  return new Set(ids.filter((id) => id !== null && id !== undefined).map(String));
+}
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isReferenceId(id: unknown): boolean {
+  if (Number.isInteger(id)) return true;
+  if (typeof id === "string" && UUID_RE.test(id)) return true;
+  return false;
+}
+
+function idInReferenceSet(idSet: Set<string> | undefined, id: unknown): boolean {
+  if (!idSet) return true;
+  return idSet.has(String(id));
 }
 
 // ---------------------------------------------------------------------------
@@ -357,8 +370,8 @@ const ORG_SLUG_FIELDS = new Set(["sector_slug", "segment_slugs", "segment_slug",
 
 function validateOrganizationSchema(
   record: any,
-  validSectorIds?: Set<number>,
-  validSegmentIds?: Set<number>
+  validSectorIds?: Set<string>,
+  validSegmentIds?: Set<string>
 ): { errors: string[]; warnings: string[]; schema_variant: string } {
   const errors: string[] = [];
   const warnings: string[] = [];
@@ -404,21 +417,21 @@ function validateOrganizationSchema(
 
   // --- ID-based taxonomy (samples/organization_sample.json / dashboard format) ---
   if (record.sector_id !== undefined) {
-    if (!Number.isInteger(record.sector_id)) {
-      errors.push(`sector_id ${JSON.stringify(record.sector_id)} must be an integer`);
-    } else if (validSectorIds && !validSectorIds.has(record.sector_id)) {
+    if (!isReferenceId(record.sector_id)) {
+      errors.push(`sector_id ${JSON.stringify(record.sector_id)} must be an integer or UUID from reference taxonomy`);
+    } else if (!idInReferenceSet(validSectorIds, record.sector_id)) {
       errors.push(`sector_id ${record.sector_id} not in reference sector list — looks guessed`);
     }
   }
   if (record.segment_ids !== undefined) {
     if (!Array.isArray(record.segment_ids)) {
-      errors.push("`segment_ids` must be an array of integers");
+      errors.push("`segment_ids` must be an array of reference IDs");
     } else {
       if (record.segment_ids.length === 0) errors.push("`segment_ids` must not be empty");
       record.segment_ids.forEach((id: unknown) => {
-        if (!Number.isInteger(id)) {
-          errors.push(`segment_ids contains non-integer: ${JSON.stringify(id)}`);
-        } else if (validSegmentIds && !validSegmentIds.has(id as number)) {
+        if (!isReferenceId(id)) {
+          errors.push(`segment_ids contains invalid ID: ${JSON.stringify(id)}`);
+        } else if (!idInReferenceSet(validSegmentIds, id)) {
           errors.push(`segment_id ${id} not in reference segment list — looks guessed`);
         }
       });
@@ -512,9 +525,8 @@ function validateProductMediaSchema(record: any, productNames: Set<string>): str
 //   segments: [{ id, name, organizations?: [{id, name}] }], tam_data?: {total_tam, cagr, year} }
 const KNOWN_STATUSES = ["draft", "published", "archived", "in_review"];
 const KNOWN_CLASSIFICATIONS = ["public", "private", "internal"];
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-function validateLandscapeSchema(record: any, validSectorIds?: Set<number>, validSegmentIds?: Set<number>): string[] {
+function validateLandscapeSchema(record: any, validSectorIds?: Set<string>, validSegmentIds?: Set<string>): string[] {
   const errors: string[] = [];
 
   if (!record.version_name || typeof record.version_name !== "string") {
@@ -522,9 +534,9 @@ function validateLandscapeSchema(record: any, validSectorIds?: Set<number>, vali
   }
   if (record.sector_id === undefined || record.sector_id === null) {
     errors.push("missing `sector_id` (must be a real ID from reference taxonomy, never guessed)");
-  } else if (!Number.isInteger(record.sector_id)) {
-    errors.push(`sector_id ${JSON.stringify(record.sector_id)} must be an integer`);
-  } else if (validSectorIds && !validSectorIds.has(record.sector_id)) {
+  } else if (!isReferenceId(record.sector_id)) {
+    errors.push(`sector_id ${JSON.stringify(record.sector_id)} must be an integer or UUID from reference taxonomy`);
+  } else if (!idInReferenceSet(validSectorIds, record.sector_id)) {
     errors.push(`sector_id ${record.sector_id} not found in reference sector list — looks guessed, not looked up`);
   }
   if (record.status && !KNOWN_STATUSES.includes(record.status)) {
@@ -548,9 +560,9 @@ function validateLandscapeSchema(record: any, validSectorIds?: Set<number>, vali
       if (!seg.name || typeof seg.name !== "string") errors.push(`segments[${i}] missing/invalid \`name\``);
       if (seg.id === undefined || seg.id === null) {
         errors.push(`segments[${i}] missing \`id\` (must be a real segment ID, never guessed)`);
-      } else if (!Number.isInteger(seg.id)) {
-        errors.push(`segments[${i}].id must be an integer, got ${JSON.stringify(seg.id)}`);
-      } else if (validSegmentIds && !validSegmentIds.has(seg.id)) {
+      } else if (!isReferenceId(seg.id)) {
+        errors.push(`segments[${i}].id must be an integer or UUID, got ${JSON.stringify(seg.id)}`);
+      } else if (!idInReferenceSet(validSegmentIds, seg.id)) {
         errors.push(`segments[${i}].id ${seg.id} not found in reference segment list — looks guessed, not looked up`);
       }
       if (Array.isArray(seg.organizations)) {
@@ -594,7 +606,7 @@ function validateLandscapeSchema(record: any, validSectorIds?: Set<number>, vali
 // Matches the real expert_sample.json shape:
 // { name, title?, bio?, linkedin_url?, website_url?, location?, country_id?, segment_ids?: number[] }
 
-function validateExpertSchema(record: any, validSegmentIds?: Set<number>): string[] {
+function validateExpertSchema(record: any, validSegmentIds?: Set<string>): string[] {
   const errors: string[] = [];
   if (!record.name || typeof record.name !== "string") errors.push("missing/invalid `name`");
 
@@ -616,12 +628,12 @@ function validateExpertSchema(record: any, validSegmentIds?: Set<number>): strin
 
   if (record.segment_ids !== undefined) {
     if (!Array.isArray(record.segment_ids)) {
-      errors.push("`segment_ids` must be an array of integers");
+      errors.push("`segment_ids` must be an array of reference IDs");
     } else {
-      record.segment_ids.forEach((id: any) => {
-        if (!Number.isInteger(id)) {
-          errors.push(`segment_ids contains a non-integer value: ${JSON.stringify(id)}`);
-        } else if (validSegmentIds && !validSegmentIds.has(id)) {
+      record.segment_ids.forEach((id: unknown) => {
+        if (!isReferenceId(id)) {
+          errors.push(`segment_ids contains an invalid ID: ${JSON.stringify(id)}`);
+        } else if (!idInReferenceSet(validSegmentIds, id)) {
           errors.push(`segment_id ${id} not found in reference segment list — confirm this wasn't guessed`);
         }
       });
@@ -942,7 +954,7 @@ async function main() {
   const failRate = failCount / report.length;
   const batchWarning =
     failRate > 0.15
-      ? `⚠️  ${(failRate * 100).toFixed(0)}% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.`
+      ? `${(failRate * 100).toFixed(0)}% of this batch FAILed mechanical checks — escalate to a Senior Analyst conversation with the submitting analyst rather than reviewing record-by-record.`
       : null;
 
   // Write report

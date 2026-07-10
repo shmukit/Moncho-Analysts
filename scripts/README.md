@@ -11,7 +11,7 @@ The system has two stages:
 | **Orchestrator** | `qa_agent.ts` | Runs both stages and writes unified + executive reports |
 | **Bulk** | `qa_batch.ts` | Scale QA across folders or large chunked JSON files |
 
-See also: [`lib/README.md`](lib/README.md) for agentic internals, [`utils/README.md`](utils/README.md) for the validation entrypoint, and [`../cursor-rules/qa-reviewer.md`](../cursor-rules/qa-reviewer.md) for the QA agent contract.
+See also: [`lib/README.md`](lib/README.md) for agentic internals, [`utils/README.md`](utils/README.md) for the validation entrypoint, and [`../.cursor/rules/qa-reviewer.md`](../.cursor/rules/qa-reviewer.md) for the QA agent contract.
 
 ---
 

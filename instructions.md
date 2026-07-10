@@ -77,4 +77,4 @@ The automated QA layer (`scripts/qa_agent.ts`) runs **before** human review:
 - **Stage 1** — schema, live URL checks, duplicates, slugs, rationale quality
 - **Stage 2** (`--deep-check`) — Tavily/Exa + LLM claim verification on rationales
 
-See [`cursor-rules/qa-reviewer.md`](cursor-rules/qa-reviewer.md) for the QA contract.
+See [`.cursor/rules/qa-reviewer.md`](.cursor/rules/qa-reviewer.md) for the QA contract.

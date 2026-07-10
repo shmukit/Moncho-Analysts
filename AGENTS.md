@@ -15,7 +15,7 @@
 
 ## QA agent (Data Operations)
 
-**Read:** `cursor-rules/qa-reviewer.md` → `SCORING_STANDARDS.md`
+**Read:** `.cursor/rules/qa-reviewer.md` → `SCORING_STANDARDS.md`
 
 **Run before every submit:**
 ```bash

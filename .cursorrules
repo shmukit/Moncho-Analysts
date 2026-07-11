@@ -6,12 +6,13 @@
 
 ## Required reading (in order)
 1. **README.md** – Setup, .env (Tavily, Exa, Logo.dev, Moncho API), and high-level workflow.
-2. **analyst_instructions.md** – Your role, extraction rules, and the step-by-step Discovery workflow.
-3. **skills/** – `research_strategy.md`, `extraction_logic.md`, `pdf_parsing.md` – How to research, extract, and parse PDF reports.
-4. **SCORING_STANDARDS.md** – Scoring rubrics used to select top organizations and products (industry-aware).
-5. **samples/** – Target JSON schemas (organizations, landscapes, experts).
+2. **IDE_AGENT_MISTAKES.md** – Recurring agent mistakes (scoring, taxonomy, products, MCP, submit). Do not repeat Active wrong patterns.
+3. **analyst_instructions.md** – Your role, extraction rules, and the step-by-step Discovery workflow.
+4. **skills/** – `research_strategy.md`, `extraction_logic.md`, `taxonomy_mapping.md`, `pdf_parsing.md` – How to research, map, extract, and parse.
+5. **SCORING_STANDARDS.md** + **PRODUCT_ORG_RUBRICS.md** – Universal org dims and product gate / normalization.
+6. **samples/** – Target JSON schemas (organizations, products, landscapes, experts).
 
-Use these to align search, scoring, extraction, and submission with the intended workflow and quality bar.
+Use these to align search, scoring, extraction, and submission with the intended workflow and quality bar. After a rejected change request caused by agent error, add a row to `IDE_AGENT_MISTAKES.md`.
 
 ## Discovery workflow (summary)
 1. Discover organizations (Tavily/Exa).

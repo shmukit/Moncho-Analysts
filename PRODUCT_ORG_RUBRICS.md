@@ -1,8 +1,10 @@
 # Product and Org Rubrics — Production System Reference
 
-How Moncho scores organizations and products in the current production system. Analysts should use these as the baseline, then propose sector-specific refinements separately for review.
+How Moncho scores organizations and products in the current production system. Analysts should use these as the baseline, then propose **landscape product templates** (attribute schemas + quality dimensions) for founder review.
 
-The universal rubric lives in [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md). This document extends it per sector.
+**Strategy note:** products are first-class economic entities. Org score is **not** the average of product scores. Long-term moat = normalized SKUs + landscape templates + price history + graph links. Founders maintain the full product-intelligence strategy in the platform repo; analysts propose template attributes in sector plans and research notes for approval.
+
+The universal **org** rubric lives in [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md). This document covers production gates, product quality, and normalization defaults.
 
 ---
 
@@ -34,6 +36,8 @@ Pass / fail gate before a product goes on a landscape. All four criteria must pa
 | Non-duplicate | Not a renamed copy of an existing platform entry |
 
 Products that pass the gate get a **Quality Score** (1–5, Y-axis on the Products/Prices scatter plot) and a **Service Count** (number of recorded features/services). Both drive the four-quadrant value framework (Sweet Spot / Premium / Budget / Inflated).
+
+**Direction of travel:** quality dimensions should follow an approved **landscape product template** (e.g. diagnostics test vs solar hardware), not a single global “innovation/traction” copy of the org rubric. Until a template is approved for your landscape, use this universal gate + a justified 1–5 quality score + the Part 3 normalization unit. Put template attribute drafts in research notes / `metadata` and flag them for founder approval.
 
 ---
 
@@ -94,7 +98,8 @@ Score 0–2 each layer. ≥ 7 / 10 = strong sector readiness for Sherpa retrieva
 
 ## Related documents
 
-- [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) — universal org rubric (canonical)
+- [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) — universal org rubric (canonical; independent of product rollup)
+- [`IDE_AGENT_MISTAKES.md`](IDE_AGENT_MISTAKES.md) — recurring IDE agent wrong patterns (scoring, taxonomy, products)
 - [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) — `products`, `product_metrics`, `metadata_organization`
 - [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) — sector depth rubric and submission workflow
 - [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) — slug mapping for the 10 grant sectors

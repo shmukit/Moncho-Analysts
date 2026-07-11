@@ -7,7 +7,7 @@
 import fs from "fs";
 import path from "path";
 
-const API_URL = process.env.MONCHO_API_URL || "https://moncho.ai";
+const API_URL = process.env.MONCHO_API_URL || "https://app.moncho.ai";
 const OUT_DIR = path.resolve(__dirname, "../data/reference");
 
 async function main() {

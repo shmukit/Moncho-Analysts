@@ -12,7 +12,7 @@ loadEnv();
  * Usage:
  *   npm run submit -- --file data/pending/your_data.json --type organization
  *
- * QA gate runs automatically unless --skip-qa (admin emergency only).
+ * QA gate runs mechanical QA (validate-analyst-data.ts → qa_reviewer.ts) unless --skip-qa.
  */
 
 const API_URL = process.env.MONCHO_API_URL || "https://app.moncho.ai";
@@ -41,13 +41,13 @@ async function submitRecord(entityType: string, record: any, index: number) {
         const result = await response.json();
 
         if (response.ok) {
-            console.log(`✅ Success! Change request submitted for record #${index + 1}.`);
+            console.log(`Success: change request submitted for record #${index + 1}.`);
             console.log('Request ID:', result.data.id);
         } else {
-            console.error(`❌ Failed for record #${index + 1}:`, result.error || result);
+            console.error(`Failed for record #${index + 1}:`, result.error || result);
         }
     } catch (error) {
-        console.error(`❌ Network error for record #${index + 1}:`, error);
+        console.error(`Network error for record #${index + 1}:`, error);
     }
 }
 
@@ -90,11 +90,11 @@ async function submitData() {
   if (!skipQa) {
     const ok = runQaGate(filePath, entityType);
     if (!ok) {
-      console.error("\n❌ Submit blocked — fix QA failures first (or use --skip-qa for admin override).");
+      console.error("\nSubmit blocked — fix mechanical QA failures first (or use --skip-qa for admin override).");
       process.exit(1);
     }
   } else {
-    console.warn("⚠️  --skip-qa: submitting without QA gate (admin override).");
+    console.warn("WARNING: --skip-qa: submitting without mechanical QA gate (admin override).");
   }
 
   const jsonData = JSON.parse(fs.readFileSync(filePath, "utf8"));

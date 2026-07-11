@@ -56,9 +56,19 @@ npm run qa:batch -- --file huge.json --chunk-size 10000 --deep-check --sample-ra
 
 ## Submit agent
 
-**Only after QA passes:**
+**Mechanical QA must pass first** (no FAIL records in the mechanical report):
+
 ```bash
+npx tsx scripts/utils/validate-analyst-data.ts data/pending/<file>.json --type organization
 npm run submit -- --file data/pending/<file>.json --type organization
 ```
 
-Submit is blocked if `--skip-qa` is not set and the unified QA report shows FAIL records.
+`submit_data.ts` auto-runs **Stage 1 mechanical QA** (`validate-analyst-data.ts` → `qa_reviewer.ts`) before POSTing. Submit is blocked when any record **FAIL**s. **FLAGGED** records are allowed through but should be reviewed.
+
+For the **full pipeline** (Stage 2 deep-check + unified report), run manually before submit when the quality bar matters:
+
+```bash
+npx tsx scripts/qa_agent.ts --file data/pending/<file>.json --type organization --deep-check
+```
+
+`--skip-qa` bypasses the mechanical gate (admin emergency only).

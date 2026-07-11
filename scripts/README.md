@@ -155,7 +155,7 @@ qa_agent.ts [--deep-check]  (agentic QA)
         ↓
 Fix FAIL / review FLAGGED
         ↓
-submit_data.ts  (auto-runs QA gate unless --skip-qa)
+submit_data.ts  (re-runs mechanical QA via validate-analyst-data unless --skip-qa)
 ```
 
 ---
@@ -168,8 +168,7 @@ submit_data.ts  (auto-runs QA gate unless --skip-qa)
 | `qa_reviewer.ts` | Stage 1 mechanical reviewer |
 | `deep_fact_check.ts` | Stage 2 agentic claim verification |
 | `qa_batch.ts` | Bulk / chunked QA for large datasets |
-| `submit_data.ts` | Submit change requests (QA-gated) |
-| `validate_data.ts` | Deprecated — forwards to `utils/validate-analyst-data.ts` |
+| `submit_data.ts` | Submit change requests (mechanical QA gate) |
 | `lib/` | Search, claim judge, unified report builder |
 | `utils/` | Canonical validation CLI |
 | `extraction/` | Discovery/enrichment tools (see `extraction/README_EXTRACTION.md`) |

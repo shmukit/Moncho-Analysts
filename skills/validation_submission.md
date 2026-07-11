@@ -31,7 +31,7 @@ Use this skill **every time** you are about to submit data. It turns “validate
 Always validate **before** submitting:
 
 ```bash
-npx ts-node scripts/validate_data.ts path/to/your-file.json
+npx tsx scripts/utils/validate-analyst-data.ts path/to/your-file.json --type organization
 ```
 
 **What validation does:**
@@ -100,7 +100,7 @@ Validation & Submission Checklist
 - [ ] `sector_slug` / `segment_slug` come from reference taxonomy
 - [ ] All required URLs are valid `https://...`
 - [ ] Descriptions and rationales meet length and quality guidelines
-- [ ] `npx ts-node scripts/validate_data.ts <file>` passes
+- [ ] `npx tsx scripts/utils/validate-analyst-data.ts <file> --type <type>` passes
 - [ ] `.env` has MONCHO_API_URL and MONCHO_AUTH_TOKEN set
 - [ ] File path and name follow the team convention
 - [ ] Submitted with `scripts/submit_data.ts` using the correct `--type`

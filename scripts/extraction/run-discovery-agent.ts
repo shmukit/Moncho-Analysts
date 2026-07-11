@@ -104,7 +104,7 @@ async function main() {
 
         console.log(`✅ Success! Extracted ${object.organizations.length} organizations.`);
         console.log(`📂 Data saved to: ${finalPath}`);
-        console.log(`👉 You can now validate this with: npx tsx scripts/validate_data.ts ${outputFile}`);
+        console.log(`You can now validate this with: npx tsx scripts/utils/validate-analyst-data.ts ${outputFile}`);
 
     } catch (error) {
         console.error('❌ Error during discovery:', error instanceof Error ? error.message : error);

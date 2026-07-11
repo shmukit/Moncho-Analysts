@@ -54,16 +54,12 @@ Reports are written to `data/qa-reports/`.
 
 ## Integration with submit
 
-`scripts/submit_data.ts` calls this validator automatically unless `--skip-qa` is passed (admin override only).
+`scripts/submit_data.ts` calls this validator automatically unless `--skip-qa` is passed (admin override only). Submit blocks on mechanical **FAIL** records only; run `qa_agent.ts --deep-check` separately for the full pipeline.
 
 ```bash
 npm run submit -- --file data/pending/your-file.json --type organization
 ```
 
 ---
-
-## Legacy alias
-
-`scripts/validate_data.ts` forwards to this file. Use `scripts/utils/validate-analyst-data.ts` in new work.
 
 See [`../README.md`](../README.md) for the full agentic QA system.

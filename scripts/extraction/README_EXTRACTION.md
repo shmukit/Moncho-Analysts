@@ -7,7 +7,7 @@ This directory contains scripts to help analysts discover and structure organiza
 1. **Mapping**: Run `fetch-reference-data.ts` to see current valid `sector_slug` and `segment_slug` options.
 2. **Discovery**: Use `run-discovery-agent.ts` or `parse-industry-pdf.ts` to find company names and URLs.
 3. **Enrichment**: Use `enrich-organization-data.ts` to automatically fill in missing details.
-4. **Validation**: Use `scripts/validate_data.ts` to ensure the JSON matches Moncho's requirements.
+4. **Validation**: Use `scripts/utils/validate-analyst-data.ts` to ensure the JSON matches Moncho's requirements.
 5. **Submission**: Use `scripts/submit_data.ts` to upload the data as a change request.
 
 ---

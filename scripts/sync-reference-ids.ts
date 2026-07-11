@@ -6,9 +6,10 @@
  */
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
 const API_URL = process.env.MONCHO_API_URL || "https://app.moncho.ai";
-const OUT_DIR = path.resolve(__dirname, "../data/reference");
+const OUT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../data/reference");
 
 async function main() {
   console.log(`Fetching taxonomy from ${API_URL}/api/reference/taxonomy ...`);

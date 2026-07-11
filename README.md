@@ -96,7 +96,7 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
    npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization --deep-check
    ```
    Reports are written locally to `data/qa-reports/` (gitignored). Fix any `FAIL` records before submitting.
-6. **Submit**:
+6. **Submit** (re-runs Stage 1 mechanical QA automatically; blocks on FAIL):
    ```bash
    npm run submit -- --file data/pending/your_output.json --type organization
    ```

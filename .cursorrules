@@ -7,11 +7,14 @@
 ## Required reading (in order)
 1. **instructions.md** – IDE entry point and mandatory QA/submit gate.
 2. **README.md** – Setup, .env (Tavily, Exa, Logo.dev, Moncho API), and high-level workflow.
-3. **analyst_instructions.md** – Your role, extraction rules, and the step-by-step Discovery workflow.
-4. **skills/** – especially `validation_submission.md` before any submit.
-5. **SCORING_STANDARDS.md** – Scoring rubrics used to select top organizations and products.
-6. **samples/** – Target JSON schemas (organizations, landscapes, experts).
-7. **.cursor/rules/qa-reviewer.md** – QA output contract (PASS / FLAGGED / FAIL).
+3. **IDE_AGENT_MISTAKES.md** – Recurring agent mistakes (scoring, taxonomy, products, MCP, submit). Do not repeat Active wrong patterns.
+4. **analyst_instructions.md** – Your role, extraction rules, and the step-by-step Discovery workflow.
+5. **skills/** – especially `validation_submission.md` before any submit; also research, extraction, taxonomy, pdf skills.
+6. **SCORING_STANDARDS.md** + **PRODUCT_ORG_RUBRICS.md** – Universal org dims and product gate / normalization.
+7. **samples/** – Target JSON schemas (organizations, products, landscapes, experts).
+8. **.cursor/rules/qa-reviewer.md** + **submit-gate.md** – QA output contract and submit hard rules.
+
+After a rejected change request caused by agent error, add a row to `IDE_AGENT_MISTAKES.md`.
 
 ## Mandatory QA gate (non-negotiable)
 

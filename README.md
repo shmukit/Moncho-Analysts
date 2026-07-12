@@ -18,6 +18,7 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 
 ## Repository Contents
 - `HANDBOOK.md`: Onboarding guide and operating manual.
+- `IDE_AGENT_MISTAKES.md`: **Living mistakes registry for IDE agents** — wrong patterns, symptoms, correct approach, examples. Skim before discovery/submit; append after rejected change requests.
 - `DATABASE_SCHEMA_OVERVIEW.md`: Analyst-facing DB tables and JSON shapes (ICT grant).
 - `SCORING_STANDARDS.md`: Universal organization quality rubric (1–5 dimensions).
 - `PRODUCT_ORG_RUBRICS.md`: Production-system rubric reference — universal org rubric, product pass/fail gate, normalization units, and sector depth scoring already used in Moncho.
@@ -83,7 +84,7 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
    This writes `data/reference/valid-sector-ids.json` and `valid-segment-ids.json` from the live Moncho API. QA uses these to catch guessed sector/segment IDs.
 
 ## Workflow
-1. **Agent context**: Have your IDE agent read `instructions.md`, `README.md`, `analyst_instructions.md`, `skills/validation_submission.md`, and `samples/` so it understands schemas and the QA gate.
+1. **Agent context**: Have your IDE agent read `instructions.md`, `README.md`, `IDE_AGENT_MISTAKES.md`, `analyst_instructions.md`, `skills/validation_submission.md`, and `samples/` so it understands schemas and the QA gate.
 2. **Discovery** (see `analyst_instructions.md`): Discover orgs → select top by scoring rubrics → fetch logos (Logo.dev) → discover products → select top products → fetch product URLs.
 3. **Generate**: Ask the agent to write JSON under `data/pending/` matching `samples/`.
 4. **QA (required for humans and IDE agents)**:

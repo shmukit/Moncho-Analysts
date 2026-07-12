@@ -40,11 +40,16 @@ Optional for discovery / agentic QA: `TAVILY_API_KEY`, `EXA_API_KEY`, `LOGO_DEV_
 
 ## QA agent (Data Operations)
 
-**Read:** `.cursor/rules/qa-reviewer.md` → `SCORING_STANDARDS.md`
+**Read:** `.cursor/rules/submit-gate.md` → `.cursor/rules/qa-reviewer.md` → `skills/validation_submission.md` → `SCORING_STANDARDS.md`
 
-**Run before every submit:**
+**IDE agents: mandatory before every submit** (do not skip; do not claim “validated” without running this):
 ```bash
 npx tsx scripts/utils/validate-analyst-data.ts data/pending/<file>.json --type organization
+npx tsx scripts/qa_agent.ts --file data/pending/<file>.json --type organization
+```
+
+**Optional Stage 2** (Tavily → Exa; Anthropic optional):
+```bash
 npx tsx scripts/qa_agent.ts --file data/pending/<file>.json --type organization --deep-check
 ```
 
@@ -56,19 +61,11 @@ npm run qa:batch -- --file huge.json --chunk-size 10000 --deep-check --sample-ra
 
 ## Submit agent
 
-**Mechanical QA must pass first** (no FAIL records in the mechanical report):
+**Mechanical QA must pass first** (no FAIL records):
 
 ```bash
 npx tsx scripts/utils/validate-analyst-data.ts data/pending/<file>.json --type organization
 npm run submit -- --file data/pending/<file>.json --type organization
 ```
 
-`submit_data.ts` auto-runs **Stage 1 mechanical QA** (`validate-analyst-data.ts` → `qa_reviewer.ts`) before POSTing. Submit is blocked when any record **FAIL**s. **FLAGGED** records are allowed through but should be reviewed.
-
-For the **full pipeline** (Stage 2 deep-check + unified report), run manually before submit when the quality bar matters:
-
-```bash
-npx tsx scripts/qa_agent.ts --file data/pending/<file>.json --type organization --deep-check
-```
-
-`--skip-qa` bypasses the mechanical gate (admin emergency only).
+`submit_data.ts` auto-runs **Stage 1 mechanical QA** again before POSTing and blocks on FAIL. That is a safety net. Analysts/IDE agents must still run QA first and fix the JSON. **FLAGGED** can submit but should be reviewed. Never use `--skip-qa` unless a human admin ordered it.

@@ -1,108 +1,106 @@
-## Skill: Validation & Submission Workflow
+## Skill: Validation, QA Review & Submission
 
-Use this skill **every time** you are about to submit data. It turns “validate then submit” into a repeatable ritual so you never ship malformed or mis-mapped JSON.
+Use this skill **every time** you are about to submit data. IDE agents must treat QA as mandatory, not optional.
 
 ---
 
 ### 1. When to use this skill
 
 - After you have a draft JSON file matching one of the `samples/*.json` schemas.
-- Before **every** call to `scripts/submit_data.ts`.
+- Before **every** call to `npm run submit` / `scripts/submit_data.ts`.
 - When fixing feedback from reviewers about bad fields, missing slugs, or broken URLs.
 
 ---
 
-### 2. File shape & naming
+### 2. What happens automatically vs what you must run
 
-- **Top-level shape**:  
-  - Either **one object** or an **array of objects**.  
-  - Each object becomes its own change request.
-- **Schema**: Must follow the matching sample in `samples/` (e.g. `organization_sample.json`).
-- **IDs**:
-  - **New records**: Omit `id` (system generates one).
-  - **Updates**: Include the existing `id` from the database.
-- **Naming convention** (recommended):  
-  - `data/pending/YYYY-MM-DD-topic-YOURNAME.json`
+| Action | Automatic? | Notes |
+|--------|------------|--------|
+| Stage 1 mechanical QA on `npm run submit` | **Yes** | `submit_data.ts` calls `validate-analyst-data.ts` → `qa_reviewer.ts`. Blocks if any record **FAIL**s. |
+| Running QA in the IDE before submit | **You / IDE agent must do this** | So you can fix FAIL/FLAGGED rows before wasting a submit. |
+| Stage 2 deep fact-check (`--deep-check`) | **No** | Optional. Needs `TAVILY_API_KEY` and/or `EXA_API_KEY` (+ optional `ANTHROPIC_API_KEY`). |
+| Senior Analyst / Admin approval in the app | Separate | Change requests still go through `/analyst/review`. |
+
+**Never use `--skip-qa`** unless a human admin explicitly told you to.
 
 ---
 
-### 3. Validation workflow (local checks)
+### 3. File shape & naming
 
-Always validate **before** submitting:
+- **Top-level shape**: one object or an array of objects. Each object becomes its own change request.
+- **Schema**: must follow the matching sample in `samples/`.
+- **IDs**: omit `id` for new records; include existing `id` for updates.
+- **Naming**: `data/pending/YYYY-MM-DD-topic-YOURNAME.json`
+
+---
+
+### 4. Mandatory QA workflow (run this in the IDE)
 
 ```bash
-npx tsx scripts/utils/validate-analyst-data.ts path/to/your-file.json --type organization
+# 1) Mechanical QA (required — no API keys needed)
+npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization
+
+# 2) Full orchestrator (recommended) — same Stage 1 + reports under data/qa-reports/
+npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization
+
+# 3) Optional Stage 2 claim fact-check (Tavily → Exa, optional Anthropic)
+npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization --deep-check
 ```
 
-**What validation does:**
-- Confirms required fields are present.
-- Checks formats (e.g. `website_url` is a valid `https://` URL).
-- Enforces minimum description/rationale lengths.
-- Ensures slugs/IDs exist where required (if the script encodes those checks).
+**Statuses:**
+- **PASS** — ok to submit (Senior Analyst may still spot-check).
+- **FLAGGED** — submit is allowed by the gate, but fix or annotate reasons first when possible.
+- **FAIL** — **do not submit**. Fix the JSON and re-run QA until FAIL count is 0.
 
-If validation fails:
-- Read the error messages line by line.
-- Fix the JSON (field name, type, length, or missing value).
-- Re-run the validation command until it passes.
+Reports (gitignored): `data/qa-reports/<basename>-qa-report.json`, `*-unified-qa-report.json`, `*-executive-summary.json`, and `*-factcheck-report.json` when deep-check ran.
+
+If more than ~15% of a batch FAILs, stop and escalate to a Senior Analyst instead of grinding record-by-record.
 
 ---
 
-### 4. Taxonomy & reference checks
+### 5. Taxonomy & reference checks
 
-Before or during validation, confirm that:
-
-- `sector_slug` and `segment_slug` come from **current taxonomy**, not guesses.
-- If you are unsure:
-  - Run `scripts/extraction/fetch-reference-data.ts` **or**
-  - Use the `taxonomy_mapping.md` skill and the Analyst Dashboard reference views.
-
-If a slug or ID is missing in the reference data:
-- Do **not** invent it.
-- Leave the field empty (if allowed) or flag it for the core team.
+- Prefer live IDs: `npm run reference:sync` (writes `data/reference/valid-sector-ids.json` and `valid-segment-ids.json`).
+- Slugs must be kebab-case and come from reference taxonomy / dashboard — never invent `FinTech` or `P2P Lending`.
+- If unknown: leave sector/segment empty; do not guess numeric IDs like `2` or `201`.
 
 ---
 
-### 5. Submission workflow (change requests)
-
-After validation passes and taxonomy is correct, submit via:
+### 6. Submission (only after mechanical QA is green)
 
 ```bash
-npx ts-node scripts/submit_data.ts --file path/to/your-file.json --type organization
+npm run submit -- --file data/pending/your-file.json --type organization
 ```
 
-Adjust `--type` as needed (`organization`, `landscape`, `expert`, etc.) based on the documented API.
+Adjust `--type` as needed: `organization`, `product`, `landscape`, `expert`.
 
-**Submission rules:**
-- Do not batch unrelated sectors into the same file if it confuses review; keep files coherent.
-- Never submit a file that has not passed validation.
-- Make sure your `.env` has valid `MONCHO_API_URL` and `MONCHO_AUTH_TOKEN`.
+Requires `.env`: `MONCHO_API_URL`, `MONCHO_AUTH_TOKEN`.
 
----
-
-### 6. Analyst vs Admin responsibilities (for this flow)
-
-- **Analyst can:**
-  - Create and edit JSON files following the schemas.
-  - Run validation and fix all reported issues.
-  - Submit change requests via `scripts/submit_data.ts`.
-- **Admin/Core team can:**
-  - Change validation rules and schemas.
-  - Approve or reject change requests in staging.
-  - Apply data to production tables and adjust infrastructure.
+Submit creates **change requests**, not live DB rows.
 
 ---
 
-### 7. Checklist (copy-paste friendly)
+### 7. External tools by stage
+
+| Stage | Tools |
+|-------|--------|
+| Stage 1 mechanical | Plain HTTPS checks of your URLs only. No Tavily/Exa. |
+| Stage 2 `--deep-check` | **Tavily** first, **Exa** fallback; optional **Anthropic** entailment judge. |
+| Discovery (separate) | Tavily, Exa, Logo.dev — for research, not for the submit gate. |
+
+---
+
+### 8. Checklist (copy-paste)
 
 ```markdown
 Validation & Submission Checklist
 - [ ] JSON matches the correct sample schema in `samples/`
-- [ ] `sector_slug` / `segment_slug` come from reference taxonomy
-- [ ] All required URLs are valid `https://...`
-- [ ] Descriptions and rationales meet length and quality guidelines
-- [ ] `npx tsx scripts/utils/validate-analyst-data.ts <file> --type <type>` passes
-- [ ] `.env` has MONCHO_API_URL and MONCHO_AUTH_TOKEN set
-- [ ] File path and name follow the team convention
-- [ ] Submitted with `scripts/submit_data.ts` using the correct `--type`
+- [ ] Sector/segment slugs or IDs come from reference data (not guessed)
+- [ ] All required URLs are real `https://...` links
+- [ ] Rationales have concrete facts (number/date/%/named entity)
+- [ ] `validate-analyst-data.ts` exit code 0 (zero FAIL records)
+- [ ] Reviewed `data/qa-reports/*-executive-summary.json` human_review_queue
+- [ ] Optional: `--deep-check` for high-stakes batches
+- [ ] `.env` has MONCHO_API_URL and MONCHO_AUTH_TOKEN
+- [ ] Submitted with `npm run submit` (no `--skip-qa`)
 ```
-

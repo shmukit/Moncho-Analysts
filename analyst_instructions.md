@@ -53,9 +53,17 @@ Then extract into the `samples/` schemas, validate, and submit via `submit_data.
 ## Standard Workflow (IDE Agent)
 1. **Research Plan**: Create a plan for the specific market/sector assigned.
 2. **Discovery**: Use the **Discovery Workflow** above (orgs → score → logos → products → score → URLs).
-3. **Extraction**: Prompt the agent: *"Extract the organizations found into the 'Organization' schema JSON."*
-4. **Validation**: Validate the JSON locally.
-5. **Submission**: Use the `submit_data.ts` script to send the result to the Moncho API.
+3. **Extraction**: Write JSON under `data/pending/` matching `samples/`.
+4. **QA (required)**: Run mechanical QA before every submit:
+   ```bash
+   npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization
+   ```
+   Fix every `FAIL`. Review `FLAGGED` reasons. Optional: add `--deep-check` via `scripts/qa_agent.ts` for claim verification (Tavily/Exa).
+5. **Submission**: Only when FAIL count is 0:
+   ```bash
+   npm run submit -- --file data/pending/your-file.json --type organization
+   ```
+   Submit re-runs Stage 1 automatically. Do not use `--skip-qa`. Full checklist: `skills/validation_submission.md`.
 
 ## 🛡️ Data Flow & Approvals
 - **Change Request**: Every submission creates a "Request," NOT a direct database entry.

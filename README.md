@@ -37,7 +37,7 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
   - `extraction_toolkit.md` – which extraction script to use (PDF, directory, CSV, discovery, enrichment).
   - `validation_submission.md` – how to validate data and submit change requests safely.
 - `samples/`: JSON schemas for Organizations, Products, Landscapes, Experts.
-- `.cursor/rules/`: IDE agent contracts (`qa-reviewer.md`, `discovery-analyst.md`).
+- `.cursor/rules/`: IDE agent contracts (`submit-gate.md`, `qa-reviewer.md`, `discovery-analyst.md`).
 - `.cursorrules` / `.antigravityrules`: Pre-configured rules for your IDE to follow.
 
 ## Setup
@@ -83,23 +83,21 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
    This writes `data/reference/valid-sector-ids.json` and `valid-segment-ids.json` from the live Moncho API. QA uses these to catch guessed sector/segment IDs.
 
 ## Workflow
-1. **Agent context**: Have your IDE agent read `README.md`, `analyst_instructions.md`, and the `skills/` and `samples/` files so it understands context, intent, and schemas.
+1. **Agent context**: Have your IDE agent read `instructions.md`, `README.md`, `analyst_instructions.md`, `skills/validation_submission.md`, and `samples/` so it understands schemas and the QA gate.
 2. **Discovery** (see `analyst_instructions.md`): Discover orgs → select top by scoring rubrics → fetch logos (Logo.dev) → discover products → select top products → fetch product URLs.
-3. **Generate**: Ask the agent to generate a JSON file matching the format in `samples/`.
-4. **Validate** (handbook path):
+3. **Generate**: Ask the agent to write JSON under `data/pending/` matching `samples/`.
+4. **QA (required for humans and IDE agents)**:
    ```bash
    npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization
-   ```
-5. **QA Review** (full pipeline):
-   ```bash
    npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization
-   npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization --deep-check
    ```
-   Reports are written locally to `data/qa-reports/` (gitignored). Fix any `FAIL` records before submitting.
-6. **Submit** (re-runs Stage 1 mechanical QA automatically; blocks on FAIL):
+   Optional deep fact-check (Tavily/Exa): add `--deep-check` to `qa_agent.ts`.
+   Reports land in `data/qa-reports/` (gitignored). Fix every `FAIL` before submit.
+5. **Submit** (re-runs Stage 1 mechanical QA automatically; blocks on FAIL):
    ```bash
    npm run submit -- --file data/pending/your_output.json --type organization
    ```
+   Do **not** use `--skip-qa` unless an admin ordered it. Cursor rules: `.cursor/rules/submit-gate.md`.
 
 ## QA Agent Pipeline
 

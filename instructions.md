@@ -43,17 +43,26 @@ You are a **Market Intelligence Analyst** for Moncho.ai. Discover, extract, and 
 ## Standard workflow (IDE agent)
 
 ```
-Plan → Discovery (scripts/extraction/) → Extract JSON → Validate → QA → Submit
+Plan → Discovery → Extract JSON → Mechanical QA (required) → optional deep-check → Submit
 ```
 
 | Step | Command |
 |------|---------|
-| Reference taxonomy | `npx tsx scripts/extraction/fetch-reference-data.ts` |
+| Reference taxonomy | `npm run reference:sync` (or `fetch-reference-data.ts`) |
 | Discovery | `npx tsx scripts/extraction/run-discovery-agent.ts --sector EdTech --location Vietnam` |
-| Validate (required) | `npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization` |
-| Full QA | `npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization --deep-check` |
+| Mechanical QA (required) | `npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization` |
+| Full orchestrator | `npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization` |
+| Deep fact-check (optional) | add `--deep-check` (needs Tavily/Exa; Anthropic optional) |
 | Bulk QA | `npm run qa:batch -- --dir data/pending --type organization --concurrency 50` |
-| Submit (after green QA) | `npm run submit -- --file data/pending/your-file.json --type organization` |
+| Submit (after zero FAIL) | `npm run submit -- --file data/pending/your-file.json --type organization` |
+
+### IDE agent hard rules before submit
+
+1. **Always** run mechanical QA in the terminal and read `data/qa-reports/*-executive-summary.json`.
+2. **Never** call `npm run submit` while any record status is `FAIL`.
+3. **Never** pass `--skip-qa` unless a human admin ordered it.
+4. `npm run submit` re-runs Stage 1 automatically (safety net). You still must QA first so you can fix the file.
+5. Follow [`skills/validation_submission.md`](skills/validation_submission.md).
 
 ## Organization schemas (two valid formats)
 
@@ -72,9 +81,11 @@ Plan → Discovery (scripts/extraction/) → Extract JSON → Validate → QA �
 
 ## QA agent (Data Operations)
 
-The automated QA layer (`scripts/qa_agent.ts`) runs **before** human review:
+The automated QA layer reviews JSON **before** Senior Analyst review in the app:
 
-- **Stage 1** — schema, live URL checks, duplicates, slugs, rationale quality
-- **Stage 2** (`--deep-check`) — Tavily/Exa + LLM claim verification on rationales
+- **Stage 1 (always / submit gate)** — schema, live URL checks, duplicates, slugs, rationale quality. No Exa/Tavily keys required.
+- **Stage 2 (`--deep-check`, optional)** — Tavily first, Exa fallback, optional Anthropic entailment on rationales.
 
-See [`.cursor/rules/qa-reviewer.md`](.cursor/rules/qa-reviewer.md) for the QA contract.
+`npm run submit` blocks on Stage 1 FAIL. Analysts and IDE agents must still run QA locally first.
+
+See [`.cursor/rules/qa-reviewer.md`](.cursor/rules/qa-reviewer.md) and [`skills/validation_submission.md`](skills/validation_submission.md).

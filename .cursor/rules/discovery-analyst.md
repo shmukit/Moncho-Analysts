@@ -35,14 +35,21 @@ Products, Landscapes) into structured JSON matching the schemas in `samples/`.
 4. **Fetch logos** via Logo.dev using the org's real domain only.
 5. **Extract** into the exact schema shape in `samples/organization_sample.json`
    (or `product_sample.json`, `landscape_sample.json`, `expert_sample.json`).
-6. **Validate locally** — do not skip this step, ever:
+6. **QA review locally** — do not skip this step, ever. Run mechanical QA and fix every `FAIL`:
    ```
-   npx tsx scripts/utils/validate-analyst-data.ts data/pending/<file>.json
+   npx tsx scripts/utils/validate-analyst-data.ts data/pending/<file>.json --type organization
    ```
-7. **Submit** only after validation is green:
+   Read `data/qa-reports/<basename>-executive-summary.json`. For high-stakes batches also run:
+   ```
+   npx tsx scripts/qa_agent.ts --file data/pending/<file>.json --type organization --deep-check
+   ```
+7. **Submit** only when mechanical FAIL count is 0 (never use `--skip-qa` unless a human admin ordered it):
    ```
    npm run submit -- --file data/pending/<file>.json --type organization
    ```
+   Submit re-runs Stage 1 QA automatically and blocks on FAIL. That is a safety net — you must still QA first.
+
+Full ritual: `skills/validation_submission.md`. QA contract: `.cursor/rules/qa-reviewer.md`.
 
 ## Rationale quality bar (this is what the Judge Agent scores)
 - Bad: "They have a good product." "Strong team." "Very innovative."

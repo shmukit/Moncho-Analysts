@@ -9,10 +9,11 @@
 2. **README.md** – Setup, .env (Tavily, Exa, Logo.dev, Moncho API), and high-level workflow.
 3. **docs/reference/IDE_AGENT_MISTAKES.md** – Recurring agent mistakes (scoring, taxonomy, products, MCP, submit). Do not repeat Active wrong patterns.
 4. **analyst_instructions.md** – Your role, extraction rules, and the step-by-step Discovery workflow.
-5. **skills/** – especially `validation_submission.md` before any submit; also research, extraction, taxonomy, pdf skills.
-6. **docs/reference/SCORING_STANDARDS.md** + **docs/reference/PRODUCT_ORG_RUBRICS.md** – Universal org dims and product gate / normalization.
-7. **samples/** – Target JSON schemas (organizations, products, landscapes, experts).
-8. **.cursor/rules/qa-reviewer.md** + **submit-gate.md** – QA output contract and submit hard rules.
+5. **skills/data_injection_planning.md** – **Required before any sector/landscape injection plan** (org dims, value chain, LinkedIn, products, market facts).
+6. **skills/** – especially `validation_submission.md` before any submit; also research, extraction, taxonomy, pdf skills.
+7. **docs/reference/SCORING_STANDARDS.md** + **docs/reference/PRODUCT_ORG_RUBRICS.md** – Universal org dims and product gate / normalization.
+8. **samples/** – Target JSON schemas (organizations, products, landscapes, experts).
+9. **.cursor/rules/qa-reviewer.md** + **submit-gate.md** – QA output contract and submit hard rules.
 
 After a rejected change request caused by agent error, add a row to `docs/reference/IDE_AGENT_MISTAKES.md`.
 

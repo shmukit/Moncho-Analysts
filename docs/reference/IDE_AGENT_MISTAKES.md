@@ -1,6 +1,6 @@
 # IDE agent mistakes registry (Analyst Workbench)
 
-**Last updated:** 2026-07-11  
+**Last updated:** 2026-07-12  
 **Owner:** Founder / Data Ops leads  
 **Repo:** [Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts) (this workbench)  
 **Purpose:** Living list of **recurring mistakes IDE coding agents make** while discovering, scoring, and submitting Moncho data. Prune aggressively — keep short and current.
@@ -21,13 +21,14 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 
 ### Required agent reading order
 
-1. `README.md` (repo root)
-2. **This file** (`docs/reference/IDE_AGENT_MISTAKES.md`)
+1. `README.md`
+2. **This file** (`IDE_AGENT_MISTAKES.md`)
 3. `analyst_instructions.md`
-4. `docs/reference/SCORING_STANDARDS.md` + `docs/reference/PRODUCT_ORG_RUBRICS.md`
-5. `skills/taxonomy_mapping.md` + relevant skills
-6. `samples/*` for the entity you are submitting
-7. `docs/discovery/ANALYST_DISCOVERY_MCP.md` / `docs/onboarding/MCP_SETUP_AFTER_MERGE.md` when looking up live data
+4. `SCORING_STANDARDS.md` + `PRODUCT_ORG_RUBRICS.md`
+5. `skills/data_injection_planning.md` when writing a **sector / landscape injection plan**
+6. `skills/taxonomy_mapping.md` + relevant skills
+7. `samples/*` for the entity you are submitting
+8. `ANALYST_DISCOVERY_MCP.md` / `MCP_SETUP_AFTER_MERGE.md` when looking up live data
 
 ---
 
@@ -37,11 +38,12 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 |------|----------------|
 | Org scoring (5 dims) | [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) |
 | Product gate + normalization | [`PRODUCT_ORG_RUBRICS.md`](PRODUCT_ORG_RUBRICS.md) |
-| Sector / landscape / segment IDs | [`skills/taxonomy_mapping.md`](../../skills/taxonomy_mapping.md) · `GET /api/reference/taxonomy` |
-| Grant sector slugs | [`GRANT_TEN_SECTORS.md`](../onboarding/GRANT_TEN_SECTORS.md) |
-| Discovery MCP / CLI | [`ANALYST_DISCOVERY_MCP.md`](../discovery/ANALYST_DISCOVERY_MCP.md) |
-| JSON shapes | [`samples/`](../../samples/) · [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) |
-| Validation / submit | [`skills/validation_submission.md`](../../skills/validation_submission.md) |
+| Sector / landscape / segment IDs | [`skills/taxonomy_mapping.md`](skills/taxonomy_mapping.md) · `GET /api/reference/taxonomy` |
+| Grant sector slugs | [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) |
+| Discovery MCP / CLI | [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md) |
+| JSON shapes | [`samples/`](samples/) · [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) |
+| Validation / submit | [`skills/validation_submission.md`](skills/validation_submission.md) |
+| **Data injection plans** | [`skills/data_injection_planning.md`](skills/data_injection_planning.md) |
 
 ---
 
@@ -54,6 +56,8 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 | A-03 | **Invent sector-specific “approved” rubrics** — write ICT/agri/energy scoring as if production | Analysts follow unapproved rules; rework after founder review | Production = universal docs only. Propose template attributes in the sector plan for **founder sign-off**; do not treat hypotheses as law. |
 | A-04 | **Set org quality = average of product scores** | Commodity SKUs inflate/deflate EPCs and labs incorrectly | Score orgs independently. Products **inform** Product depth rationale; they do not roll up into org score. |
 | A-05 | **Worked examples that fail your own bar** — publish sample scores below the submit threshold you wrote | Agents copy failing examples into submissions | Recalibrate examples or lower the bar. Every sample in a plan must pass the stated rule. |
+| A-06 | **Score value-chain position** — points for collection/lab/EPC/O&M/finance boxes | Rewards vertical integration; penalizes specialists; confuses map with quality | Value chain = placement notes only. Never a 1–5 quality dim. See `skills/data_injection_planning.md`. |
+| A-07 | **Weighted product quality %** — 30% Service, 20% Convenience, … as analyst rubric | Opaque scores; mismatch with `product_metrics.quality` int; arbitrary until validated | Equal **1–5** dims → average. Evidence JSON OK; weights are founder/eng later only. |
 
 ### Example (A-01)
 
@@ -114,6 +118,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | P-04 | **Attach global manufacturer SKUs to a local reseller** without local listing | BD landscape polluted with EU/CN brochure depth | Model must appear on the **local entity** site (or approved local catalog). Enrichment lists (e.g. SREDA NEM) are specs-only after site confirmation. |
 | P-05 | **Category-only “products”** — “Inverters”, “Lab Tests” with no model/test name | Fake catalog depth; D4/quality theater | Reject until a **named** test, panel, or model exists. |
 | P-06 | **Products before org gate** — harvest SKUs for every directory row | Wasted extraction on Tier-reject orgs | Score / eligibility-filter orgs first; products only for orgs that clear the agreed bar. |
+| P-07 | **Digital presence as core product quality** — Facebook freshness / follower-adjacent signals as a universal dim | Not globally comparable; overlaps digital UX; easy to game | Optional org activity note only. Product dims: spec, ops clarity, trust, transparency, fulfillment. |
 
 ### Example (P-02) — energy
 
@@ -138,6 +143,8 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | M-03 | **Skip duplicate check** | Duplicate orgs/products; reviewer churn | Use Discovery MCP / `scripts/discovery/check-duplicate.ts` / Dashboard before JSON. |
 | M-04 | **Commit `.env` or paste API keys into chat/PRs** | Key leak; rotate cost | Keep `MONCHO_AUTH_TOKEN` and search keys local only. |
 | M-05 | **Ignore MCP rate limits / invent DB credentials** | 429 loops; security fail | Read-only API + MCP only. Back off on 429. Never ask for Supabase keys. |
+| M-06 | **Validate org via LinkedIn only** — `linkedin.com/company` or headcount as eligibility/credibility | Fake validity; weak evidence | **Website required** for validity. LinkedIn = supporting activity among other sources — never sole cite for a dim. |
+| M-07 | **Re-scrape HIES / bulletins without checking Moncho** | Duplicate `market_facts`; wasted PDF work | MCP/Dashboard/founder: list existing keys (e.g. `hies_2022` health tables) first; inject gaps only. |
 
 ---
 
@@ -160,6 +167,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | X-01 | **Sector plan without founder-locked landscape/segments** | Meeting thrash; wrong harvest | First section of any plan: sector slug, landscape slug(s), segment slug list, “no new taxonomy”. |
 | X-02 | **Claim “done” without Dashboard / MCP verification** | Ghost coverage | After submit, confirm change request visible; after research, cite live coverage lookup. |
 | X-03 | **Ignore this registry after an incident** | Same reject twice | Add a row the same day a change request is rejected for an agent mistake. |
+| X-04 | **Write injection plan without `data_injection_planning` skill** | Repeats /25 rubrics, LinkedIn validity, missing market facts | Follow `skills/data_injection_planning.md` skeleton before drafting any sector plan. |
 
 ---
 
@@ -188,7 +196,8 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 
 ## Related
 
-- [`analyst_instructions.md`](../../analyst_instructions.md) — role and discovery sequence  
-- [`.cursorrules`](../../.cursorrules) — IDE must load this registry early  
-- [`roles/DATA_OPS_ONBOARDING.md`](../../roles/DATA_OPS_ONBOARDING.md) — Data Ops quality bar  
-- [`HANDBOOK.md`](../onboarding/HANDBOOK.md) — truth over invented quality  
+- [`skills/data_injection_planning.md`](skills/data_injection_planning.md) — sector plan skeleton, scoring/value-chain/LinkedIn/product rules  
+- [`analyst_instructions.md`](analyst_instructions.md) — role and discovery sequence  
+- [`.cursorrules`](.cursorrules) — IDE must load this registry early  
+- [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) — Data Ops quality bar  
+- [`HANDBOOK.md`](HANDBOOK.md) — truth over invented quality  

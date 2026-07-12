@@ -27,7 +27,7 @@ Optional for discovery / agentic QA: `TAVILY_API_KEY`, `EXA_API_KEY`, `LOGO_DEV_
 
 ## Analyst agent (discovery & extraction)
 
-**Read:** `instructions.md` → `analyst_instructions.md` → `skills/`
+**Read:** `instructions.md` → `analyst_instructions.md` → `docs/reference/IDE_AGENT_MISTAKES.md` → `skills/data_injection_planning.md` (before any sector injection plan) → other `skills/`
 
 **Produce:** JSON in `data/pending/` matching `samples/`
 

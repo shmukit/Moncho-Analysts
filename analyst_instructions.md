@@ -5,6 +5,7 @@ Before running any workflow, **read and use** these repo assets so the agent und
 - **README.md** – Setup, env vars, and high-level workflow.
 - **docs/reference/IDE_AGENT_MISTAKES.md** – Living registry of wrong patterns (scoring, taxonomy, products, MCP, submit). Skim Active rows for your task.
 - **This file** (`analyst_instructions.md`) – Role, extraction rules, and discovery workflow.
+- **skills/data_injection_planning.md** – Required before drafting a sector/landscape data injection plan (scoring, value chain, LinkedIn, products, market facts).
 - **skills/** – e.g. `research_strategy.md`, `extraction_logic.md`, `taxonomy_mapping.md`, `pdf_parsing.md` – How to research, map, extract, and parse PDF reports.
 - **docs/reference/SCORING_STANDARDS.md** – Universal org rubric (1–5, five dimensions).
 - **docs/reference/PRODUCT_ORG_RUBRICS.md** – Production-system rubric reference: product pass/fail gate, normalization units, and sector depth readiness score already used in Moncho.

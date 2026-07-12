@@ -4,9 +4,11 @@ Use this strategy to find high-quality, verified data for the Moncho platform.
 
 ## 1. The Triangulation Method
 Never rely on a single source. Verify information across three points:
-- **Primary Source**: The company website (Contact page, About us).
-- **Secondary Source**: LinkedIn (Employee count, active posts).
-- **Tertiary Source**: News/Database (Crunchbase, TechCrunch, Local news).
+- **Primary (validity)**: The company **website** (Contact, About, product/service pages). No website → do not treat the org as validated.
+- **Secondary (activity / corroboration)**: Press, named project pages, registries. LinkedIn company profile may support **activity** only — never as the sole validity or credibility source.
+- **Tertiary**: News/databases (local press, Crunchbase, etc.) for traction claims.
+
+See `skills/data_injection_planning.md` §2.3.
 
 ## 2. Advanced Search Queries
 Don't just search "EdTech startup Nigeria". Use targeted modifiers:

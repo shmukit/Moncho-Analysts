@@ -2,44 +2,40 @@
 
 Welcome to the Moncho Analyst Workbench. This repository contains the tools and instructions required for discovering and submitting market intelligence data to Moncho.ai.
 
+## Repository layout
+
+**Root (start here)**
+- `README.md`, `AGENTS.md`, `instructions.md`, `analyst_instructions.md` — agent entry points
+- `.cursorrules` / `.cursor/rules/` — IDE contracts (submit gate, QA, discovery)
+- `skills/`, `samples/`, `roles/`, `scripts/`, `data/`, `test/`
+
+**Docs** — see [`docs/README.md`](docs/README.md)
+- `docs/onboarding/` — handbook, ICT grant, sectors, dashboard, MCP setup
+- `docs/reference/` — schema, scoring, product rubrics, IDE agent mistakes
+- `docs/discovery/` — discovery MCP guide
+
 ## ICT Division grant — contract analysts (3 months)
 
 If you are joining as **Data Ops** or **GTM Ops** on the Bangladesh ICT grant, start here:
 
-1. [`ICT_GRANT_ONBOARDING.md`](ICT_GRANT_ONBOARDING.md) — shared onboarding steps
-2. [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) — **10 grant sectors** and Moncho slugs
-3. [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) — tables and JSON shapes
+1. [`docs/onboarding/ICT_GRANT_ONBOARDING.md`](docs/onboarding/ICT_GRANT_ONBOARDING.md) — shared onboarding steps
+2. [`docs/onboarding/GRANT_TEN_SECTORS.md`](docs/onboarding/GRANT_TEN_SECTORS.md) — **10 grant sectors** and Moncho slugs
+3. [`docs/reference/DATABASE_SCHEMA_OVERVIEW.md`](docs/reference/DATABASE_SCHEMA_OVERVIEW.md) — tables and JSON shapes
 4. [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) or [`roles/GTM_OPS_ONBOARDING.md`](roles/GTM_OPS_ONBOARDING.md)
 5. [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](roles/TWO_MONTH_PLAN_TEMPLATE.md) — submit after discovery; founder approves
-6. [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md) — **IDE discovery MCP** (coverage, duplicates, market_facts)
-7. [`MCP_SETUP_AFTER_MERGE.md`](MCP_SETUP_AFTER_MERGE.md) — **post-merge MCP setup** (send to analysts after workbench merge)
+6. [`docs/discovery/ANALYST_DISCOVERY_MCP.md`](docs/discovery/ANALYST_DISCOVERY_MCP.md) — **IDE discovery MCP**
+7. [`docs/onboarding/MCP_SETUP_AFTER_MERGE.md`](docs/onboarding/MCP_SETUP_AFTER_MERGE.md) — post-merge MCP setup
 
 Grant KPIs and deeper engineering docs stay with the founder. Use this workbench for day-to-day instructions.
 
-## Repository Contents
-- `HANDBOOK.md`: Onboarding guide and operating manual.
-- `IDE_AGENT_MISTAKES.md`: **Living mistakes registry for IDE agents** — wrong patterns, symptoms, correct approach, examples. Skim before discovery/submit; append after rejected change requests.
-- `DATABASE_SCHEMA_OVERVIEW.md`: Analyst-facing DB tables and JSON shapes (ICT grant).
-- `SCORING_STANDARDS.md`: Universal organization quality rubric (1–5 dimensions).
-- `PRODUCT_ORG_RUBRICS.md`: Production-system rubric reference — universal org rubric, product pass/fail gate, normalization units, and sector depth scoring already used in Moncho.
-- `DASHBOARD_WALKTHROUGH.md`: Comprehensive walkthrough of the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard).
-- `instructions.md`: **Read first** — IDE agent entry point and workflow map.
-- `analyst_instructions.md`: Role, extraction rules, discovery workflow.
-- `scripts/utils/validate-analyst-data.ts`: Canonical validation (handbook path).
-- `scripts/submit_data.ts`: Submit JSON to Moncho API (QA-gated).
-- `scripts/extraction/`: Discovery, CSV, PDF, enrichment tools.
-- `scripts/discovery/`: MCP fallback CLIs (`lookup.ts`, `check-duplicate.ts`) — see [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md).
-- `scripts/qa_agent.ts`, `scripts/qa_reviewer.ts`, `scripts/deep_fact_check.ts`: Two-stage automated QA pipeline.
-- `skills/`: Analyst skill pack:
-  - `research_strategy.md` – how to plan discovery and search.
-  - `extraction_logic.md` – how to extract and format JSON.
-  - `taxonomy_mapping.md` – how to map sectors/segments using reference taxonomy.
-  - `pdf_parsing.md` – how PDF → tables integration works and when to request it.
-  - `extraction_toolkit.md` – which extraction script to use (PDF, directory, CSV, discovery, enrichment).
-  - `validation_submission.md` – how to validate data and submit change requests safely.
-- `samples/`: JSON schemas for Organizations, Products, Landscapes, Experts.
-- `.cursor/rules/`: IDE agent contracts (`submit-gate.md`, `qa-reviewer.md`, `discovery-analyst.md`).
-- `.cursorrules` / `.antigravityrules`: Pre-configured rules for your IDE to follow.
+## Tools and pipeline
+
+- `scripts/utils/validate-analyst-data.ts` — mechanical QA (required before submit)
+- `scripts/qa_agent.ts`, `scripts/qa_reviewer.ts`, `scripts/deep_fact_check.ts` — QA pipeline
+- `scripts/submit_data.ts` — submit JSON (QA-gated)
+- `scripts/extraction/`, `scripts/discovery/` — discovery helpers
+- `skills/validation_submission.md` — submit ritual for IDE agents
+- `samples/` — JSON schemas for Organizations, Products, Landscapes, Experts
 
 ## Setup
 0. **Activate analyst access** at [app.moncho.ai/analyst/apply](https://app.moncho.ai/analyst/apply) (one click, no application wait).
@@ -84,7 +80,7 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
    This writes `data/reference/valid-sector-ids.json` and `valid-segment-ids.json` from the live Moncho API. QA uses these to catch guessed sector/segment IDs.
 
 ## Workflow
-1. **Agent context**: Have your IDE agent read `instructions.md`, `README.md`, `IDE_AGENT_MISTAKES.md`, `analyst_instructions.md`, `skills/validation_submission.md`, and `samples/` so it understands schemas and the QA gate.
+1. **Agent context**: Have your IDE agent read `instructions.md`, `README.md`, `docs/reference/IDE_AGENT_MISTAKES.md`, `analyst_instructions.md`, `skills/validation_submission.md`, and `samples/` so it understands schemas and the QA gate.
 2. **Discovery** (see `analyst_instructions.md`): Discover orgs → select top by scoring rubrics → fetch logos (Logo.dev) → discover products → select top products → fetch product URLs.
 3. **Generate**: Ask the agent to write JSON under `data/pending/` matching `samples/`.
 4. **QA (required for humans and IDE agents)**:
@@ -146,5 +142,5 @@ npm run qa:test
 - Keep field names exactly as in `samples/organization_sample.json`; optional fields can be omitted.
 
 ## Task Types
-1. **Data Review**: Log in to the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) to review, curate, and edit existing data (see the [Dashboard Walkthrough](DASHBOARD_WALKTHROUGH.md) for details).
+1. **Data Review**: Log in to the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) to review, curate, and edit existing data (see the [Dashboard Walkthrough](docs/onboarding/DASHBOARD_WALKTHROUGH.md) for details).
 2. **Data Input**: Use this workbench to research and input new data via the API.

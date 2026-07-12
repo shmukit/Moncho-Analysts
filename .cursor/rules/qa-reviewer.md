@@ -21,7 +21,7 @@ time on genuinely ambiguous or high-risk records.
    domain) within the batch and against an existing-DB export if provided.
 5. **Rationale fact-density** — flag rationales that contain no number,
    date, percentage, or named entity. These read as unverified opinion, not
-   evidence, per `SCORING_STANDARDS.md`.
+   evidence, per `docs/reference/SCORING_STANDARDS.md`.
 6. **Placeholder / boilerplate detection** — flag repeated descriptions
    across records (copy-paste sign), Lorem-ipsum-style filler, or
    description word count outside 20-50 words.

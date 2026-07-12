@@ -189,6 +189,6 @@ Duplicate guard: `POST /api/analyst/change-requests` returns **409** if a high-c
 
 ## Related docs
 
-- [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md)
-- [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
+- [`DATABASE_SCHEMA_OVERVIEW.md`](../reference/DATABASE_SCHEMA_OVERVIEW.md)
+- [`GRANT_TEN_SECTORS.md`](../onboarding/GRANT_TEN_SECTORS.md)
 - Engineering spec (Moncho-V1): `docs/04-ai-and-agents/specs/analyst-discovery-mcp.md`

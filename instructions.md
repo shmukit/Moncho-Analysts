@@ -9,8 +9,8 @@ Before running any workflow, read and use these repo assets so the agent underst
 | **This file** | Entry point and workflow map |
 | [`README.md`](README.md) | Setup, env vars, npm scripts |
 | [`analyst_instructions.md`](analyst_instructions.md) | Role, extraction rules, discovery workflow |
-| [`HANDBOOK.md`](HANDBOOK.md) | Onboarding, Mission 1, dashboard workflow |
-| [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) | 5-dimension scoring rubrics (1–5) |
+| [`docs/onboarding/HANDBOOK.md`](docs/onboarding/HANDBOOK.md) | Onboarding, Mission 1, dashboard workflow |
+| [`docs/reference/SCORING_STANDARDS.md`](docs/reference/SCORING_STANDARDS.md) | 5-dimension scoring rubrics (1–5) |
 | [`skills/`](skills/) | Research, extraction, validation, taxonomy |
 | [`samples/`](samples/) | Target JSON schemas — **never invent field names** |
 | [`.cursorrules`](.cursorrules) | IDE system rules (analyst + QA) |
@@ -33,7 +33,7 @@ You are a **Market Intelligence Analyst** for Moncho.ai. Discover, extract, and 
 ## Discovery workflow
 
 1. Discover organizations (search: Tavily, Exa, web research).
-2. Select top orgs using `SCORING_STANDARDS.md` (score 1–5 per dimension + one-line rationale each).
+2. Select top orgs using `docs/reference/SCORING_STANDARDS.md` (score 1–5 per dimension + one-line rationale each).
 3. Fetch logo URLs via Logo.dev (`LOGODEV_API_KEY`) using the org's real domain.
 4. Discover products per org.
 5. Select top products; apply scoring rubrics.

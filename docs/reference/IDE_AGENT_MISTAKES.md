@@ -21,13 +21,13 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 
 ### Required agent reading order
 
-1. `README.md`
-2. **This file** (`IDE_AGENT_MISTAKES.md`)
+1. `README.md` (repo root)
+2. **This file** (`docs/reference/IDE_AGENT_MISTAKES.md`)
 3. `analyst_instructions.md`
-4. `SCORING_STANDARDS.md` + `PRODUCT_ORG_RUBRICS.md`
+4. `docs/reference/SCORING_STANDARDS.md` + `docs/reference/PRODUCT_ORG_RUBRICS.md`
 5. `skills/taxonomy_mapping.md` + relevant skills
 6. `samples/*` for the entity you are submitting
-7. `ANALYST_DISCOVERY_MCP.md` / `MCP_SETUP_AFTER_MERGE.md` when looking up live data
+7. `docs/discovery/ANALYST_DISCOVERY_MCP.md` / `docs/onboarding/MCP_SETUP_AFTER_MERGE.md` when looking up live data
 
 ---
 
@@ -37,11 +37,11 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 |------|----------------|
 | Org scoring (5 dims) | [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) |
 | Product gate + normalization | [`PRODUCT_ORG_RUBRICS.md`](PRODUCT_ORG_RUBRICS.md) |
-| Sector / landscape / segment IDs | [`skills/taxonomy_mapping.md`](skills/taxonomy_mapping.md) · `GET /api/reference/taxonomy` |
-| Grant sector slugs | [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) |
-| Discovery MCP / CLI | [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md) |
-| JSON shapes | [`samples/`](samples/) · [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) |
-| Validation / submit | [`skills/validation_submission.md`](skills/validation_submission.md) |
+| Sector / landscape / segment IDs | [`skills/taxonomy_mapping.md`](../../skills/taxonomy_mapping.md) · `GET /api/reference/taxonomy` |
+| Grant sector slugs | [`GRANT_TEN_SECTORS.md`](../onboarding/GRANT_TEN_SECTORS.md) |
+| Discovery MCP / CLI | [`ANALYST_DISCOVERY_MCP.md`](../discovery/ANALYST_DISCOVERY_MCP.md) |
+| JSON shapes | [`samples/`](../../samples/) · [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) |
+| Validation / submit | [`skills/validation_submission.md`](../../skills/validation_submission.md) |
 
 ---
 
@@ -188,7 +188,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 
 ## Related
 
-- [`analyst_instructions.md`](analyst_instructions.md) — role and discovery sequence  
-- [`.cursorrules`](.cursorrules) — IDE must load this registry early  
-- [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) — Data Ops quality bar  
-- [`HANDBOOK.md`](HANDBOOK.md) — truth over invented quality  
+- [`analyst_instructions.md`](../../analyst_instructions.md) — role and discovery sequence  
+- [`.cursorrules`](../../.cursorrules) — IDE must load this registry early  
+- [`roles/DATA_OPS_ONBOARDING.md`](../../roles/DATA_OPS_ONBOARDING.md) — Data Ops quality bar  
+- [`HANDBOOK.md`](../onboarding/HANDBOOK.md) — truth over invented quality  

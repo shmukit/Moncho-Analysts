@@ -46,7 +46,7 @@ Analysts **do not inject SQL** into production. You produce JSON (or draft SQL f
 | `segments` | Grid cells / market niches |
 | `sector_segments` | Segment graph for a landscape |
 
-Grant deliverable: **10 Bangladesh sector landscapes** with positioned orgs. See [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) for the full sector list and Moncho slug mapping.
+Grant deliverable: **10 Bangladesh sector landscapes** with positioned orgs. See [`GRANT_TEN_SECTORS.md`](../onboarding/GRANT_TEN_SECTORS.md) for the full sector list and Moncho slug mapping.
 
 ---
 

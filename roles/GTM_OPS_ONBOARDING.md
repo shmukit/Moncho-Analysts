@@ -26,7 +26,7 @@ Grant scope is **10 BD sectors**. Map posts and newsletter issues to sector stor
 | 10 | RMG / Textiles | Import substitution HS posts, RMG value chain |
 
 Import substitution series spans many sectors via HS codes. Agri VC series covers **Agriculture** primarily.  
-Full slug map: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
+Full slug map: [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md)
 
 ---
 
@@ -45,7 +45,7 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
 
 ## Step 1 — Discovery checklist
 
-- [ ] Read [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) — all 10 grant sectors
+- [ ] Read [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md) — all 10 grant sectors
 - [ ] Ask founder for the **import substitution** and **agri VC** briefs + JSON files (they may share a folder or paste into this workbench under `sample-data/`)
 - [ ] Open any `sample-data/` LinkedIn/JSON assets present in this repo
 - [ ] Find **existing newsletter tool + subscriber list** (ask founder — no new platform required)

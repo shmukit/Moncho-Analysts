@@ -39,6 +39,17 @@ Products that pass the gate get a **Quality Score** (1–5, Y-axis on the Produc
 
 **Direction of travel:** quality dimensions should follow an approved **landscape product template** (e.g. diagnostics test vs solar hardware), not a single global “innovation/traction” copy of the org rubric. Until a template is approved for your landscape, use this universal gate + a justified 1–5 quality score + the Part 3 normalization unit. Put template attribute drafts in research notes / `metadata` and flag them for founder approval.
 
+### Product template — plain language (required for injection plans)
+
+Full detail: [`skills/data_injection_planning.md`](../../skills/data_injection_planning.md) §2.4.
+
+1. **Named models only** — not “Inverters” / “Lab Tests.”  
+2. **Cap ~5–15 SKUs per org** on first pass.  
+3. **Always set a normalization unit** (Part 3 below) even if price is gated.  
+4. **Quality = equal 1–5 scores** (no % weights).  
+5. **Price is separate** from quality (for Price-Quality Index later).  
+6. **Local seller/lab page required** — no global manufacturer catalog attached to a local reseller without a local listing.
+
 ---
 
 ## Part 3 — Product normalization unit by sector

@@ -116,7 +116,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | P-02 | **Skip normalization** — store raw MRP only | Products/Prices scatter incomparable | Fill unit per `PRODUCT_ORG_RUBRICS.md` Part 3 (per test, per W, per seat, …). Spec-only allowed when price gated; still set the unit. |
 | P-03 | **Aggregator / third-party price pages as source** | Unverifiable; stale; policy reject | Official org/lab/product URL only. |
 | P-04 | **Attach global manufacturer SKUs to a local reseller** without local listing | BD landscape polluted with EU/CN brochure depth | Model must appear on the **local entity** site (or approved local catalog). Enrichment lists (e.g. SREDA NEM) are specs-only after site confirmation. |
-| P-05 | **Category-only “products”** — “Inverters”, “Lab Tests” with no model/test name | Fake catalog depth; D4/quality theater | Reject until a **named** test, panel, or model exists. |
+| P-05 | **Category-only “products”** — “Inverters”, “Lab Tests” with no model/test name | Fake catalog depth; D4/quality theater | Reject until a **named** test, panel, or model exists. Plain-language product rules: `skills/data_injection_planning.md` §2.4. |
 | P-06 | **Products before org gate** — harvest SKUs for every directory row | Wasted extraction on Tier-reject orgs | Score / eligibility-filter orgs first; products only for orgs that clear the agreed bar. |
 | P-07 | **Digital presence as core product quality** — Facebook freshness / follower-adjacent signals as a universal dim | Not globally comparable; overlaps digital UX; easy to game | Optional org activity note only. Product dims: spec, ops clarity, trust, transparency, fulfillment. |
 

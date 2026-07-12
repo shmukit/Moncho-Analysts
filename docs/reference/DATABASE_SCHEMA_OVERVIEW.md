@@ -10,9 +10,9 @@ Analysts **do not inject SQL** into production. You produce JSON (or draft SQL f
 
 | Entity | DB table(s) | Submission JSON |
 |--------|-------------|-----------------|
-| **Organization** | `metadata_organization`, `organization_to_segment_map` | [`samples/organization_sample.json`](samples/organization_sample.json) |
-| **Product** | `products`, `product_media`, `product_metrics` | [`samples/product_sample.json`](samples/product_sample.json) |
-| **Landscape / segment** | `metadata_sector`, `segments`, `landscape_versions`, `sector_segments` | [`samples/landscape_sample.json`](samples/landscape_sample.json) |
+| **Organization** | `metadata_organization`, `organization_to_segment_map` | [`samples/organization_sample.json`](../../samples/organization_sample.json) |
+| **Product** | `products`, `product_media`, `product_metrics` | [`samples/product_sample.json`](../../samples/product_sample.json) |
+| **Landscape / segment** | `metadata_sector`, `segments`, `landscape_versions`, `sector_segments` | [`samples/landscape_sample.json`](../../samples/landscape_sample.json) |
 | **Market facts (SML)** | `market_facts` | Draft seed/JSON for founder ingest (not self-merged) |
 
 ---

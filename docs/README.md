@@ -8,4 +8,4 @@ Analyst-facing documentation. Keep IDE entry points at the repo root (`README.md
 | [`reference/`](reference/) | Schema overview, scoring standards, product/org rubrics, IDE agent mistakes |
 | [`discovery/`](discovery/) | Analyst discovery MCP guide |
 
-Operational folders outside `docs/`: `skills/`, `samples/`, `roles/`, `scripts/`, `data/`, `test/`.
+Operational folders outside `docs/`: `skills/` (incl. **`data_injection_planning.md`** for sector plans), `samples/`, `roles/`, `scripts/`, `data/`, `test/`.

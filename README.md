@@ -13,6 +13,7 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
 - `docs/onboarding/` — handbook, ICT grant, sectors, dashboard, MCP setup
 - `docs/reference/` — schema, scoring, product rubrics, IDE agent mistakes
 - `docs/discovery/` — discovery MCP guide
+- `skills/data_injection_planning.md` — **required** before sector/landscape injection plans
 
 ## ICT Division grant — contract analysts (3 months)
 

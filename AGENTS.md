@@ -40,7 +40,7 @@ Optional for discovery / agentic QA: `TAVILY_API_KEY`, `EXA_API_KEY`, `LOGO_DEV_
 
 ## QA agent (Data Operations)
 
-**Read:** `.cursor/rules/submit-gate.md` → `.cursor/rules/qa-reviewer.md` → `skills/validation_submission.md` → `SCORING_STANDARDS.md`
+**Read:** `.cursor/rules/submit-gate.md` → `.cursor/rules/qa-reviewer.md` → `skills/validation_submission.md` → `docs/reference/SCORING_STANDARDS.md`
 
 **IDE agents: mandatory before every submit** (do not skip; do not claim “validated” without running this):
 ```bash

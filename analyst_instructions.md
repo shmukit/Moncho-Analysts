@@ -3,15 +3,15 @@
 ## IDE Agent: Read This First
 Before running any workflow, **read and use** these repo assets so the agent understands context, skills, and intent:
 - **README.md** – Setup, env vars, and high-level workflow.
-- **IDE_AGENT_MISTAKES.md** – Living registry of wrong patterns (scoring, taxonomy, products, MCP, submit). Skim Active rows for your task.
+- **docs/reference/IDE_AGENT_MISTAKES.md** – Living registry of wrong patterns (scoring, taxonomy, products, MCP, submit). Skim Active rows for your task.
 - **This file** (`analyst_instructions.md`) – Role, extraction rules, and discovery workflow.
 - **skills/** – e.g. `research_strategy.md`, `extraction_logic.md`, `taxonomy_mapping.md`, `pdf_parsing.md` – How to research, map, extract, and parse PDF reports.
-- **SCORING_STANDARDS.md** – Universal org rubric (1–5, five dimensions).
-- **PRODUCT_ORG_RUBRICS.md** – Production-system rubric reference: product pass/fail gate, normalization units, and sector depth readiness score already used in Moncho.
+- **docs/reference/SCORING_STANDARDS.md** – Universal org rubric (1–5, five dimensions).
+- **docs/reference/PRODUCT_ORG_RUBRICS.md** – Production-system rubric reference: product pass/fail gate, normalization units, and sector depth readiness score already used in Moncho.
 - **samples/** – Target JSON schemas for organizations, landscapes, experts.
 - **`instructions.md`** – Full IDE agent entry point, skills index, and workflow commands.
 
-The agent should use these to align behavior with Moncho’s quality standards and submission format. When a reviewer rejects work for an agent mistake, add an Active row to `IDE_AGENT_MISTAKES.md`.
+The agent should use these to align behavior with Moncho’s quality standards and submission format. When a reviewer rejects work for an agent mistake, add an Active row to `docs/reference/IDE_AGENT_MISTAKES.md`.
 
 ## Your Role
 You are a **Market Intelligence Analyst** for Moncho.ai. Your objective is to discover, extract, and format high-quality market data (Organizations, Landscapes, and Sector Metadata) into structured JSON.
@@ -33,7 +33,7 @@ Follow this sequence for a given industry/sector:
    Use search (Tavily, Exa) and research skills to find organizations in the sector.
 
 2. **Select top organizations**  
-   Apply scoring rubrics from `SCORING_STANDARDS.md` to score and select the top organizations.
+   Apply scoring rubrics from `docs/reference/SCORING_STANDARDS.md` to score and select the top organizations.
 
 3. **Fetch logo URLs**  
    For each selected organization, fetch logo URL from Logo.dev (using the org’s domain).

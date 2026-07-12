@@ -6,7 +6,7 @@
 
 ## 1. Coverage snapshot summary
 
-*What Moncho has today across **all 10 grant sectors** — see [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md).*
+*What Moncho has today across **all 10 grant sectors** — see [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md).*
 
 ### Sector coverage (fill one row per sector)
 

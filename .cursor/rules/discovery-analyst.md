@@ -29,7 +29,7 @@ Products, Landscapes) into structured JSON matching the schemas in `samples/`.
    executing.
 2. **Discover** using `run-discovery-agent.ts`, `scrape-directory.ts`, or
    `parse-industry-pdf.ts` depending on the source type.
-3. **Score** each candidate against `SCORING_STANDARDS.md` (5 dimensions,
+3. **Score** each candidate against `docs/reference/SCORING_STANDARDS.md` (5 dimensions,
    1-5 scale). Write one fact-heavy, one-line rationale per dimension you
    score — not a vague adjective.
 4. **Fetch logos** via Logo.dev using the org's real domain only.

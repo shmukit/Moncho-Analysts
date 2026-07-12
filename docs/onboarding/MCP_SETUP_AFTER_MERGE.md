@@ -131,7 +131,7 @@ If rate limited, the tool returns structured text with **Retry after N seconds**
 | 429 rate limit | Wait for `retry_after_sec`; narrow queries |
 | `unknown_resource` | Use `hs-codes`, `market-facts`, `taxonomy-standards` (hyphenated) |
 
-Full reference: [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md)
+Full reference: [`ANALYST_DISCOVERY_MCP.md`](../discovery/ANALYST_DISCOVERY_MCP.md)
 
 ---
 

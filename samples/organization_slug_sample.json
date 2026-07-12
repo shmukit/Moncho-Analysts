@@ -1,0 +1,14 @@
+{
+  "name": "Example Org (slug-based handbook format)",
+  "website_url": "https://acme-edtech.com",
+  "description": "AI-powered adaptive learning platform for K-12 schools across Southeast Asia with offline sync and Bahasa curriculum support.",
+  "sector_slug": "edtech",
+  "segment_slugs": ["lms", "ai-tutoring"],
+  "hq_country_slug": "indonesia",
+  "founded_year": 2022,
+  "innovation_rationale": "Shipped adaptive AI tutoring used by 120 schools in Jakarta since 2024.",
+  "market_traction_rationale": "Reported 40% YoY revenue growth and 50,000 active student users in 2025.",
+  "competitiveness_rationale": "Only local LMS with Bahasa-first content aligned to national K-12 curriculum.",
+  "product_depth_rationale": "Offers LMS, parent portal, and offline mobile sync across 3 product tiers.",
+  "social_proof_rationale": "Winner of EdTech Asia 2025 \"Best K-12 Platform\" award in Singapore."
+}

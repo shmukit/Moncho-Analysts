@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Ruangguru",
+    "website_url": "https://www.ruangguru.com",
+    "description": "Indonesia's largest EdTech platform offering online tutoring, test prep, and school management tools for K-12 students across Southeast Asia and beyond.",
+    "sector_slug": "edtech",
+    "segment_slugs": ["lms", "ai-tutoring"],
+    "hq_country_slug": "indonesia",
+    "founded_year": 2014,
+    "innovation_rationale": "Pioneered live one-to-many online tutoring in Indonesia, reaching 22 million registered learners by 2023.",
+    "market_traction_rationale": "Raised $150M Series C in 2021 led by Tiger Global and General Atlantic at a reported $1B+ valuation.",
+    "competitiveness_rationale": "Dominant K-12 brand in Indonesia with localized Bahasa content and partnerships with 300+ schools nationwide.",
+    "product_depth_rationale": "Offers Ruangbelajar LMS, Brain Academy offline centers, and UTBK test-prep across web and mobile apps.",
+    "social_proof_rationale": "Named to Forbes Asia 100 to Watch list in 2020 and featured in Google Play Best of 2019 Indonesia."
+  },
+  {
+    "name": "CoderSchool",
+    "website_url": "https://coderschool.vn",
+    "description": "Vietnam-based coding bootcamp providing full-stack and data science programs for career switchers and university graduates in Ho Chi Minh City.",
+    "sector_slug": "edtech",
+    "segment_slugs": ["coding-bootcamp"],
+    "hq_country_slug": "vietnam",
+    "founded_year": 2015,
+    "innovation_rationale": "First Vietnamese bootcamp to offer income-share agreements tied to graduate job placement since 2018.",
+    "market_traction_rationale": "Graduated 3,000+ students across Vietnam with reported 85% job placement within 6 months of completion."
+  },
+  {
+    "name": "TotallyFakeEdTechQA",
+    "website_url": "https://this-website-does-not-exist-qa-test-99999.com",
+    "description": "An amazing innovative platform with a strong team serving customers worldwide across many industries with cutting edge technology.",
+    "sector_slug": "EdTech",
+    "segment_slugs": ["K-12 Learning"],
+    "founded_year": 1842,
+    "innovation_rationale": "Very innovative solution with a strong team and great technology.",
+    "market_traction_rationale": "Good market position with excellent growth potential in the region."
+  },
+  {
+    "name": "Ruangguru Indonesia",
+    "website_url": "https://www.ruangguru.com",
+    "description": "Indonesia's largest EdTech platform offering online tutoring, test prep, and school management tools for K-12 students across Southeast Asia and beyond.",
+    "sector_slug": "edtech",
+    "segment_slugs": ["lms"],
+    "hq_country_slug": "indonesia",
+    "founded_year": 2014,
+    "innovation_rationale": "Duplicate entry added intentionally to test whether the QA agent catches same-domain duplicates in one batch."
+  }
+]

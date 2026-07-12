@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Stripe",
+    "website_url": "https://stripe.com",
+    "description": "Global payments infrastructure company providing APIs for online checkout, billing, subscriptions, and marketplace payouts for internet businesses of every size worldwide.",
+    "sector_slug": "fintech",
+    "segment_slugs": ["payment-processing"],
+    "hq_country_slug": "united-states",
+    "founded_year": 2010,
+    "innovation_rationale": "Launched Stripe Atlas in 2016, letting founders incorporate Delaware C-corps and open US bank accounts entirely online.",
+    "market_traction_rationale": "Processed over $1 trillion in payment volume in 2023 across millions of merchant accounts globally.",
+    "competitiveness_rationale": "Operates in 46 countries with support for 135+ currencies and direct card network partnerships with Visa and Mastercard.",
+    "product_depth_rationale": "Product suite spans Payments, Billing, Connect payouts, Radar fraud tools, and Atlas incorporation services.",
+    "social_proof_rationale": "Ranked #1 on the Forbes Cloud 100 in 2023 and used by Amazon, Shopify, and Google for online payments.",
+    "source_urls": ["https://stripe.com", "https://www.forbes.com/cloud100/"]
+  },
+  {
+    "name": "Notion",
+    "website_url": "https://www.notion.so",
+    "description": "All-in-one workspace platform combining notes, wikis, tasks, and databases for teams and individuals building docs and project workflows collaboratively online.",
+    "sector_slug": "saas",
+    "segment_slugs": ["collaboration-tools"],
+    "hq_country_slug": "united-states",
+    "founded_year": 2016,
+    "innovation_rationale": "Pioneered block-based docs where text, tables, and embeds share one editable canvas, reaching 30M users by 2022.",
+    "market_traction_rationale": "Raised $275M Series E in 2021 led by Coatue and Sequoia at a $10B valuation reported by TechCrunch.",
+    "competitiveness_rationale": "Replaced separate Confluence, Trello, and Google Docs stacks for 50% of Y Combinator startups per 2023 survey data.",
+    "product_depth_rationale": "Ships Notion AI, Calendar, Sites publishing, and 10,000+ community templates across Free, Plus, and Enterprise tiers.",
+    "social_proof_rationale": "Named to TIME100 Most Influential Companies list in 2023 and adopted by Figma, Pixar, and Nike internal teams.",
+    "source_urls": ["https://www.notion.so", "https://techcrunch.com"]
+  },
+  {
+    "name": "Figma",
+    "website_url": "https://www.figma.com",
+    "description": "Browser-based collaborative design platform for UI, UX, and product teams to create prototypes, design systems, and handoff specs in real time together.",
+    "sector_slug": "design-software",
+    "segment_slugs": ["ui-design-tools"],
+    "hq_country_slug": "united-states",
+    "founded_year": 2012,
+    "innovation_rationale": "Introduced multiplayer canvas editing in 2017, letting 3+ designers co-edit the same Figma file simultaneously in-browser.",
+    "market_traction_rationale": "Grew to 4 million users by 2022 and reported $400M ARR before Adobe's abandoned $20B acquisition in 2023.",
+    "competitiveness_rationale": "Captured 77% of new UI design tool adoption among startups versus Sketch per 2022 State of Design survey.",
+    "product_depth_rationale": "Offers Figma Design, FigJam whiteboards, Dev Mode inspect, and Slides presentation tools in one platform.",
+    "social_proof_rationale": "Won Fast Company Most Innovative Companies 2022 and powers design workflows at Microsoft, Uber, and Airbnb.",
+    "source_urls": ["https://www.figma.com", "https://www.fastcompany.com"]
+  }
+]

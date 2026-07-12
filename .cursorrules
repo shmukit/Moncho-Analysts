@@ -5,14 +5,41 @@
 - Before running workflows or generating output, read and use the following so your behavior matches Moncho’s standards and schemas.
 
 ## Required reading (in order)
-1. **README.md** – Setup, .env (Tavily, Exa, Logo.dev, Moncho API), and high-level workflow.
-2. **IDE_AGENT_MISTAKES.md** – Recurring agent mistakes (scoring, taxonomy, products, MCP, submit). Do not repeat Active wrong patterns.
-3. **analyst_instructions.md** – Your role, extraction rules, and the step-by-step Discovery workflow.
-4. **skills/** – `research_strategy.md`, `extraction_logic.md`, `taxonomy_mapping.md`, `pdf_parsing.md` – How to research, map, extract, and parse.
-5. **SCORING_STANDARDS.md** + **PRODUCT_ORG_RUBRICS.md** – Universal org dims and product gate / normalization.
-6. **samples/** – Target JSON schemas (organizations, products, landscapes, experts).
+1. **instructions.md** – IDE entry point and mandatory QA/submit gate.
+2. **README.md** – Setup, .env (Tavily, Exa, Logo.dev, Moncho API), and high-level workflow.
+3. **IDE_AGENT_MISTAKES.md** – Recurring agent mistakes (scoring, taxonomy, products, MCP, submit). Do not repeat Active wrong patterns.
+4. **analyst_instructions.md** – Your role, extraction rules, and the step-by-step Discovery workflow.
+5. **skills/** – especially `validation_submission.md` before any submit; also research, extraction, taxonomy, pdf skills.
+6. **SCORING_STANDARDS.md** + **PRODUCT_ORG_RUBRICS.md** – Universal org dims and product gate / normalization.
+7. **samples/** – Target JSON schemas (organizations, products, landscapes, experts).
+8. **.cursor/rules/qa-reviewer.md** + **submit-gate.md** – QA output contract and submit hard rules.
 
-Use these to align search, scoring, extraction, and submission with the intended workflow and quality bar. After a rejected change request caused by agent error, add a row to `IDE_AGENT_MISTAKES.md`.
+After a rejected change request caused by agent error, add a row to `IDE_AGENT_MISTAKES.md`.
+
+## Mandatory QA gate (non-negotiable)
+
+Before **every** `npm run submit` (or any call to `scripts/submit_data.ts`):
+
+1. Write JSON under `data/pending/`.
+2. Run mechanical QA and wait for exit code 0 (no FAIL records):
+   ```bash
+   npx tsx scripts/utils/validate-analyst-data.ts data/pending/<file>.json --type organization
+   ```
+3. Optional but recommended for high-stakes batches:
+   ```bash
+   npx tsx scripts/qa_agent.ts --file data/pending/<file>.json --type organization --deep-check
+   ```
+4. Only then submit:
+   ```bash
+   npm run submit -- --file data/pending/<file>.json --type organization
+   ```
+
+Rules for IDE agents:
+- **Never** call submit if mechanical QA has any `FAIL` records.
+- **Never** pass `--skip-qa` unless a human admin explicitly ordered it.
+- `npm run submit` re-runs Stage 1 mechanical QA automatically and blocks on FAIL. That is a safety net, not a substitute for running QA yourself first and fixing the JSON.
+- Stage 1 needs no search API keys. Stage 2 (`--deep-check`) uses Tavily then Exa, plus Anthropic if set.
+- Read `skills/validation_submission.md` for the full checklist.
 
 ## Discovery workflow (summary)
 1. Discover organizations (Tavily/Exa).
@@ -21,5 +48,4 @@ Use these to align search, scoring, extraction, and submission with the intended
 4. Discover those orgs’ products.
 5. Select top products using scoring rubrics.
 6. Fetch canonical URLs for those products.
-
-Then extract into the repo schemas, validate, and submit via `scripts/submit_data.ts`.
+7. Extract into `samples/` schemas → **QA** → submit.

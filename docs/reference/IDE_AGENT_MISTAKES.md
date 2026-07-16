@@ -116,7 +116,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | P-02 | **Skip normalization** — store raw MRP only | Products/Prices scatter incomparable | Fill unit per `PRODUCT_ORG_RUBRICS.md` Part 3 (per test, per W, per seat, …). Spec-only allowed when price gated; still set the unit. |
 | P-03 | **Aggregator / third-party price pages as source** | Unverifiable; stale; policy reject | Official org/lab/product URL only. |
 | P-04 | **Attach global manufacturer SKUs to a local reseller** without local listing | BD landscape polluted with EU/CN brochure depth | Model must appear on the **local entity** site (or approved local catalog). Enrichment lists (e.g. SREDA NEM) are specs-only after site confirmation. |
-| P-05 | **Category-only “products”** — “Inverters”, “Lab Tests” with no model/test name | Fake catalog depth; D4/quality theater | Reject until a **named** test, panel, or model exists. |
+| P-05 | **Category-only “products”** — “Inverters”, “Lab Tests” with no model/test name | Fake catalog depth; D4/quality theater | Reject until a **named** test, panel, or model exists. Plain-language product rules: `skills/data_injection_planning.md` §2.4. |
 | P-06 | **Products before org gate** — harvest SKUs for every directory row | Wasted extraction on Tier-reject orgs | Score / eligibility-filter orgs first; products only for orgs that clear the agreed bar. |
 | P-07 | **Digital presence as core product quality** — Facebook freshness / follower-adjacent signals as a universal dim | Not globally comparable; overlaps digital UX; easy to game | Optional org activity note only. Product dims: spec, ops clarity, trust, transparency, fulfillment. |
 
@@ -157,6 +157,8 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | S-03 | **Submit without `validate_data.ts` / schema match** | Noise in review queue | Match `samples/*`; run validate; then submit. |
 | S-04 | **Fabricate websites, prices, or certifications** | Trust destroyer; ban risk | Missing evidence → omit field or reject candidate. Never invent URLs. |
 | S-05 | **Push straight to `main`** | Breaks shared workbench | Branch + PR. Founder merges. |
+| S-06 | **Treat 403 weekly limit as “API key dead”** after trial | Analyst stops; false outage | Key works. Post-trial cap = 3 pending/week until **earned** or Paid. Use Bulk inject or `--type` per entity; ask founder for earned grant. |
+| S-07 | **Submit `market_facts` as organization change requests** | 422 / wrong pipeline | Use `--type market_fact` or Bulk inject **Market fact** → `staging_market_facts`. Orgs/products use `--type organization` / `product`. |
 
 ---
 

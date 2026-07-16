@@ -69,6 +69,23 @@ No website → reject or backlog. Do not “validate” via `linkedin.com/compan
 6. Always set **normalization unit** (per test, per W, per kVA, per Ah, per HP, per seat, …) even if price is “on request.”  
 7. Official seller/lab URL only. No aggregator prices. No global manufacturer SKUs without a **local entity** listing page.
 
+#### Product template rules — in plain language (agents: follow this)
+
+When founders say “add a product template,” they mean all of the following:
+
+| Rule | Simple meaning | Do | Don’t |
+|------|----------------|----|-------|
+| **Named models only** | Submit real products people buy | `550W mono panel`, `3HP VFD pump`, `CBC test`, `Dengue package` | Category pages: “Solar Panels”, “Inverters”, “Lab Tests” |
+| **Cap per org** | Don’t dump whole catalogs | **5–15** best / comparable SKUs per org on first pass | 200 menu rows from one lab or reseller |
+| **Mandatory normalization unit** | Make prices/specs comparable | Energy: **per W / kVA / Ah / HP**. Diagnostics: **per test / per panel**. Always fill the unit even if price is missing | Raw MRP only with no unit (100W vs 550W look the same) |
+| **Equal 1–5 quality dims** | Simple, auditable scores | Rate each quality aspect 1–5, then average (or one overall 1–5) | Weight tables like “30% service, 20% convenience…” |
+| **Price separate (PQI later)** | Quality ≠ price | Store BDT/USD price (or “on request”) beside the quality score | Bake “expensive = high quality” into the score |
+| **Local listing required** | Country market truth | Model must appear on the **local company website** (e.g. BD seller page) | Treat a global/China/EU manufacturer brochure as a BD org win or “Tier A” catalog |
+
+**Energy example:** A BD EPC that only says “we sell solar panels” → no product rows yet. Same firm listing “SUNLEAF 2kW inverter” with watts on their BD site → one product row, unit = kW (or W), quality 1–5, price if published.
+
+**Diagnostics example:** “Pathology packages” → reject. “Dengue & Chikungunya Screening Package” with BDT price on the lab site → accept; normalize per panel (or per test if single assay).
+
 ### 2.5 Digital presence is not a universal quality dim
 
 Website freshness / Facebook activity may be an **optional org activity note**. It must not be a core product quality dimension worldwide. Prefer product dims that travel: spec completeness, operational clarity (sample/TAT or rated power), trust/accreditation, purchase transparency, fulfillment convenience.

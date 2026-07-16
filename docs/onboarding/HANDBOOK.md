@@ -142,10 +142,13 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/2026-01-25-onboardin
     - Shape your file like `docs/analyst/samples/organization_sample.json`.
     - Top level can be **one object** or an **array of objects**; each object becomes a separate change request.
     - For **new** organizations, **omit** `id` (the system will generate one). For **updates**, include the existing organization `id`.
-4.  **Submit**: Run the delivery script:
+4.  **Submit** (one entity type per file; max 50 objects per batch):
     ```bash
-    npm run submit -- --file data/pending/your-file.json --type organization
+    npm run submit -- --file data/pending/orgs.json --type organization
+    npm run submit -- --file data/pending/products.json --type product
+    npm run submit -- --file data/pending/facts.json --type market_fact
     ```
+    Or use **Bulk inject** at `/analyst/bulk-inject` in the Analyst Dashboard.
 5.  **Verification**: 
     - ✅ **Success**: Your data is now a **Change Request** in the system.
     - 🔍 **Review**: A Reviewer and Admin will check your work. 

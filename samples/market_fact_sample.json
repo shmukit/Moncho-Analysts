@@ -1,0 +1,15 @@
+[
+  {
+    "metric_key": "establishment_count",
+    "country": "Bangladesh",
+    "year": 2024,
+    "value": 1200,
+    "unit": "count",
+    "source_name": "BBS Economic Census 2024",
+    "source_url": "https://example.com/report",
+    "dimensions": {
+      "sector_slug": "healthcare",
+      "table_ref": "3.1"
+    }
+  }
+]

@@ -12,95 +12,93 @@ Use this skill **every time** you are about to submit data. IDE agents must trea
 
 ---
 
-### 2. What happens automatically vs what you must run
+### 2. Entity types and pipelines
+
+| `--type` / Bulk inject | Pipeline | Live table (after approval) |
+|------------------------|----------|-----------------------------|
+| `organization` | Change request → review → CMS apply | `metadata_organization` |
+| `product` | Change request → review → CMS apply | `product_metrics` |
+| `metadata` | Change request | sector/segment/need metadata |
+| `landscape` | Change request | landscapes |
+| `market_fact` | Stage for SML review | `staging_market_facts` → `market_facts` |
+| `expert` | Change request (workbench QA) | experts |
+
+**Market facts** do not go through the org change-request API. Required fields: `metric_key`, `country`, `year`, `value`, `unit`, `source_name`. See `samples/market_fact_sample.json`.
+
+**Batch limit:** max **50 JSON objects** per file or Bulk inject paste (50 orgs, 50 products, or 50 facts — not “50 lines”).
+
+---
+
+### 3. What happens automatically vs what you must run
 
 | Action | Automatic? | Notes |
 |--------|------------|--------|
-| Stage 1 mechanical QA on `npm run submit` | **Yes** | `submit_data.ts` calls `validate-analyst-data.ts` → `qa_reviewer.ts`. Blocks if any record **FAIL**s. |
-| Running QA in the IDE before submit | **You / IDE agent must do this** | So you can fix FAIL/FLAGGED rows before wasting a submit. |
-| Stage 2 deep fact-check (`--deep-check`) | **No** | Optional. Needs `TAVILY_API_KEY` and/or `EXA_API_KEY` (+ optional `ANTHROPIC_API_KEY`). |
-| Senior Analyst / Admin approval in the app | Separate | Change requests still go through `/analyst/review`. |
+| Stage 1 mechanical QA on `npm run submit` | **Yes** (org/product/landscape/expert) | `submit_data.ts` calls `validate-analyst-data.ts`. Blocks on **FAIL**. |
+| QA for `market_fact` | **Inline in submit script** | Required fields checked before POST to staging API. |
+| Running QA in the IDE before submit | **You / IDE agent must do this** | Fix FAIL/FLAGGED rows before wasting a submit. |
+| Stage 2 deep fact-check (`--deep-check`) | **No** | Optional. Needs Tavily/Exa (+ optional Anthropic). |
+| Senior Analyst / Admin approval | Separate | Change requests: `/analyst/review`. Facts: CMS staging review. |
 
 **Never use `--skip-qa`** unless a human admin explicitly told you to.
 
 ---
 
-### 3. File shape & naming
+### 4. Analyst access (trial vs earned)
 
-- **Top-level shape**: one object or an array of objects. Each object becomes its own change request.
+- **3-day trial:** unlimited submissions after `/analyst/apply`.
+- **After trial:** 3 pending submissions per rolling week unless **earned** (one applied approval) or Paid.
+- **403 + “Weekly submission limit”** = API key is fine; entitlement cap. Ask founder for earned access or get one row approved and applied.
+- **401 Unauthorized** = regenerate API key in **Settings → Developer** (`/analyst/settings`).
+
+---
+
+### 5. File shape & naming
+
+- **Top-level shape**: one object or an array of objects. Each object = one change request or one staged fact.
 - **Schema**: must follow the matching sample in `samples/`.
 - **IDs**: omit `id` for new records; include existing `id` for updates.
 - **Naming**: `data/pending/YYYY-MM-DD-topic-YOURNAME.json`
 
 ---
 
-### 4. Mandatory QA workflow (run this in the IDE)
+### 6. Mandatory QA workflow (run this in the IDE)
 
 ```bash
-# 1) Mechanical QA (required — no API keys needed)
+# Organizations
 npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization
-
-# 2) Full orchestrator (recommended) — same Stage 1 + reports under data/qa-reports/
 npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization
 
-# 3) Optional Stage 2 claim fact-check (Tavily → Exa, optional Anthropic)
-npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization --deep-check
+# Products
+npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type product
+
+# Market facts — required fields validated by submit script; match samples/market_fact_sample.json
 ```
 
 **Statuses:**
 - **PASS** — ok to submit (Senior Analyst may still spot-check).
-- **FLAGGED** — submit is allowed by the gate, but fix or annotate reasons first when possible.
-- **FAIL** — **do not submit**. Fix the JSON and re-run QA until FAIL count is 0.
-
-Reports (gitignored): `data/qa-reports/<basename>-qa-report.json`, `*-unified-qa-report.json`, `*-executive-summary.json`, and `*-factcheck-report.json` when deep-check ran.
-
-If more than ~15% of a batch FAILs, stop and escalate to a Senior Analyst instead of grinding record-by-record.
+- **FLAGGED** — submit allowed by gate; fix when possible.
+- **FAIL** — **do not submit**. Fix and re-run QA.
 
 ---
 
-### 5. Taxonomy & reference checks
-
-- Prefer live IDs: `npm run reference:sync` (writes `data/reference/valid-sector-ids.json` and `valid-segment-ids.json`).
-- Slugs must be kebab-case and come from reference taxonomy / dashboard — never invent `FinTech` or `P2P Lending`.
-- If unknown: leave sector/segment empty; do not guess numeric IDs like `2` or `201`.
-
----
-
-### 6. Submission (only after mechanical QA is green)
+### 7. Submission (only after QA is green)
 
 ```bash
-npm run submit -- --file data/pending/your-file.json --type organization
+npm run submit -- --file data/pending/orgs.json --type organization
+npm run submit -- --file data/pending/products.json --type product
+npm run submit -- --file data/pending/facts.json --type market_fact
 ```
 
-Adjust `--type` as needed: `organization`, `product`, `landscape`, `expert`.
+Or **Bulk inject** in the Analyst Dashboard: `/analyst/bulk-inject` (same types, max 50 objects).
 
 Requires `.env`: `MONCHO_API_URL`, `MONCHO_AUTH_TOKEN`.
 
-Submit creates **change requests**, not live DB rows.
-
 ---
 
-### 7. External tools by stage
+### 8. After submit
 
-| Stage | Tools |
-|-------|--------|
-| Stage 1 mechanical | Plain HTTPS checks of your URLs only. No Tavily/Exa. |
-| Stage 2 `--deep-check` | **Tavily** first, **Exa** fallback; optional **Anthropic** entailment judge. |
-| Discovery (separate) | Tavily, Exa, Logo.dev — for research, not for the submit gate. |
+- Track org/product/metadata/landscape rows in **My Work → Submissions**.
+- Market facts: founder/CMS reviews `staging_market_facts` before promotion to live SML.
+- Rejection notes appear in Submissions; fix JSON and resubmit.
 
----
-
-### 8. Checklist (copy-paste)
-
-```markdown
-Validation & Submission Checklist
-- [ ] JSON matches the correct sample schema in `samples/`
-- [ ] Sector/segment slugs or IDs come from reference data (not guessed)
-- [ ] All required URLs are real `https://...` links
-- [ ] Rationales have concrete facts (number/date/%/named entity)
-- [ ] `validate-analyst-data.ts` exit code 0 (zero FAIL records)
-- [ ] Reviewed `data/qa-reports/*-executive-summary.json` human_review_queue
-- [ ] Optional: `--deep-check` for high-stakes batches
-- [ ] `.env` has MONCHO_API_URL and MONCHO_AUTH_TOKEN
-- [ ] Submitted with `npm run submit` (no `--skip-qa`)
-```
+See also: `docs/onboarding/DASHBOARD_WALKTHROUGH.md` § Bulk inject notes.

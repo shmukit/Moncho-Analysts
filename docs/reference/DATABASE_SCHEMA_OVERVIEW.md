@@ -79,8 +79,30 @@ Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for browsin
 
 1. Research → JSON matching `samples/`.
 2. Score with [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md).
-3. Validate locally.
-4. Submit change request via `scripts/submit_data.ts` **or** hand JSON/SQL file to founder for review.
-5. Founder approves → production merge.
+3. Validate locally (mechanical QA in the workbench).
+4. Submit via one of:
+   - **IDE CLI**: `npm run submit -- --file path.json --type organization|product|market_fact|metadata|landscape`
+   - **Bulk inject** (browser): `/analyst/bulk-inject` — same entity types, max **50 JSON objects per batch**
+5. **Organizations / products / metadata / landscapes** → change requests in `audit_logs` (review queue → CMS apply).
+6. **Market facts** → `staging_market_facts` (`pending_review`); founder/CMS promotes to live `market_facts`.
 
-*Last updated: 2026-07-08*
+### Market fact required fields
+
+| Field | Required |
+|-------|----------|
+| `metric_key` | Yes |
+| `country` | Yes (must resolve in `metadata_country`) |
+| `year` | Yes |
+| `value` | Yes |
+| `unit` | Yes |
+| `source_name` | Yes |
+| `source_url` | Recommended |
+| `dimensions` | Optional JSON (e.g. `sector_slug`, `hs6_code`) |
+
+### Analyst access (trial vs permanent)
+
+- New analysts get a **3-day trial** with unlimited submissions.
+- After trial: **3 pending submissions per week** unless `entitlement_source = earned` (one applied approval) or Paid/Enterprise.
+- **403 "Weekly submission limit"** means the API key works; entitlement cap hit — not a dead key. Ask founder for earned access or get one submission approved and applied.
+
+*Last updated: 2026-07-16*

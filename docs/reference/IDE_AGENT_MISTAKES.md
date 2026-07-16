@@ -157,6 +157,8 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | S-03 | **Submit without `validate_data.ts` / schema match** | Noise in review queue | Match `samples/*`; run validate; then submit. |
 | S-04 | **Fabricate websites, prices, or certifications** | Trust destroyer; ban risk | Missing evidence → omit field or reject candidate. Never invent URLs. |
 | S-05 | **Push straight to `main`** | Breaks shared workbench | Branch + PR. Founder merges. |
+| S-06 | **Treat 403 weekly limit as “API key dead”** after trial | Analyst stops; false outage | Key works. Post-trial cap = 3 pending/week until **earned** or Paid. Use Bulk inject or `--type` per entity; ask founder for earned grant. |
+| S-07 | **Submit `market_facts` as organization change requests** | 422 / wrong pipeline | Use `--type market_fact` or Bulk inject **Market fact** → `staging_market_facts`. Orgs/products use `--type organization` / `product`. |
 
 ---
 

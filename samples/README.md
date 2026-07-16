@@ -10,6 +10,7 @@ Use these samples as the exact format for bulk or single uploads. **Do not chang
 | `landscape_sample.json` | Landscape with segments and TAM | `landscape_versions`, segments, TAM |
 | `expert_sample.json` | Expert profile and segment mapping | `experts`, `expert_to_segment_map` |
 | `product_sample.json` | Products and product images (two-table format) | `products`, `product_media` |
+| `market_fact_sample.json` | One SML fact row for staging | `staging_market_facts` → `market_facts` |
 
 ---
 

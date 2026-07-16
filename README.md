@@ -91,10 +91,13 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
    ```
    Optional deep fact-check (Tavily/Exa): add `--deep-check` to `qa_agent.ts`.
    Reports land in `data/qa-reports/` (gitignored). Fix every `FAIL` before submit.
-5. **Submit** (re-runs Stage 1 mechanical QA automatically; blocks on FAIL):
+5. **Submit** (re-runs Stage 1 mechanical QA for org/product/landscape/expert; max 50 JSON objects per batch):
    ```bash
-   npm run submit -- --file data/pending/your_output.json --type organization
+   npm run submit -- --file data/pending/orgs.json --type organization
+   npm run submit -- --file data/pending/products.json --type product
+   npm run submit -- --file data/pending/facts.json --type market_fact
    ```
+   Or use **Bulk inject** at `/analyst/bulk-inject` (Organization, Product, Market fact, Metadata, Landscape).
    Do **not** use `--skip-qa` unless an admin ordered it. Cursor rules: `.cursor/rules/submit-gate.md`.
 
 ## QA Agent Pipeline
@@ -138,9 +141,11 @@ npm run qa:test
 - `*-executive-summary.json` — what to do next
 
 **Submission format rules**:
-- You may send **one organization object** or an **array of organization objects**; the script will submit each object as a separate change request.
-- For **new** organizations, **omit** the `id` field (the system will generate one). For **updates**, include the existing organization `id` from the database.
-- Keep field names exactly as in `samples/organization_sample.json`; optional fields can be omitted.
+- Top level: **one object** or an **array** (max **50 objects** per batch = 50 orgs, products, or facts).
+- **Types**: `organization`, `product`, `market_fact`, `landscape`, `expert` via `--type`; or Bulk inject in the dashboard.
+- **New** records: omit `id`. **Updates**: include existing `id`.
+- **Market facts**: see `samples/market_fact_sample.json`; stages to `staging_market_facts` (not change requests).
+- Match field names in `samples/`; optional fields can be omitted.
 
 ## Task Types
 1. **Data Review**: Log in to the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) to review, curate, and edit existing data (see the [Dashboard Walkthrough](docs/onboarding/DASHBOARD_WALKTHROUGH.md) for details).

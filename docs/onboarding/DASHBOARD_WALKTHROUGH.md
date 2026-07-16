@@ -171,6 +171,21 @@ flowchart LR
    - **Changes Requested**: The reviewer provides feedback, and you can submit a corrected version.
    - **Rejected**: Inaccurate or duplicate submissions are declined.
 
+### Bulk inject (`/analyst/bulk-inject`)
+
+Browser alternative to `npm run submit` for batches up to **50 JSON objects**:
+
+| Entity type | Pipeline |
+|-------------|----------|
+| Organization | Change request → review → CMS apply |
+| Product | Change request |
+| Market fact | `staging_market_facts` (SML review) |
+| Metadata / Landscape | Change request |
+
+- **50 records** = 50 objects in the JSON array, not 50 lines of text.
+- Product creates need `product_name`; market facts need `metric_key`, `country`, `year`, `value`, `unit`, `source_name`.
+- After trial, **403 weekly limit** means entitlement cap (not a broken API key). Earned analysts have unlimited submissions.
+
 ---
 
 > [!NOTE]

@@ -1,0 +1,28 @@
+---
+description: Require product-image contact-sheet audit after product_shot harvests (any sector)
+alwaysApply: true
+---
+
+# Product Image Contact-Sheet Audit
+
+After creating, rematching, or changing any `product_shot` rows:
+
+1. Run the standalone Tier 0 audit:
+   `npm run audit:product-images -- --file data/pending/<products-file>.json`
+2. Open `data/qa-reports/<file-stem>-image-audit/contact-sheet.html`.
+3. Visually review every thumbnail at least once; prioritize cards marked `flag` or `review`.
+4. Keep a shot only when an identifiable product, interface, installed system, or concrete service deliverable is visible.
+5. People or nature may surround the product/system, but cannot be the only subject.
+6. Generic stock, hero, team, logo, certificate, and decorative images are not product shots.
+7. Service/advisory offerings default to logo-only unless the image visibly proves a concrete deliverable or installed system.
+8. Remove only the bad `product_shot`; never drop an otherwise valid product.
+9. Rerun this audit after corrections, then run normal mechanical product QA.
+
+Optional local-only vision check:
+`npm run audit:product-images -- --file <json> --clip`
+
+Skill: `skills/product_image_audit.md`  
+PRD: `docs/prd/PRODUCT_IMAGE_CONTACT_SHEET_AUDIT.md`  
+CLI: `scripts/utils/audit-product-images.mjs`
+
+Do not modify employer-owned `scripts/qa_agent.ts` for this workflow.

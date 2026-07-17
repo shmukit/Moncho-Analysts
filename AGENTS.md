@@ -37,6 +37,7 @@ Optional for discovery / agentic QA: `TAVILY_API_KEY`, `EXA_API_KEY`, `LOGO_DEV_
 - `scripts/extraction/scrape-directory.ts`
 - `scripts/extraction/csv-to-json-converter.ts`
 - `scripts/extraction/enrich-organization-data.ts`
+- `scripts/utils/audit-product-images.mjs` — product-shot contact-sheet audit (`npm run audit:product-images`; skill `skills/product_image_audit.md`)
 
 ## QA agent (Data Operations)
 

@@ -1,6 +1,6 @@
 # IDE agent mistakes registry (Analyst Workbench)
 
-**Last updated:** 2026-07-12  
+**Last updated:** 2026-07-18  
 **Owner:** Founder / Data Ops leads  
 **Repo:** [Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts) (this workbench)  
 **Purpose:** Living list of **recurring mistakes IDE coding agents make** while discovering, scoring, and submitting Moncho data. Prune aggressively — keep short and current.
@@ -119,6 +119,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | P-05 | **Category-only “products”** — “Inverters”, “Lab Tests” with no model/test name | Fake catalog depth; D4/quality theater | Reject until a **named** test, panel, or model exists. Plain-language product rules: `skills/data_injection_planning.md` §2.4. |
 | P-06 | **Products before org gate** — harvest SKUs for every directory row | Wasted extraction on Tier-reject orgs | Score / eligibility-filter orgs first; products only for orgs that clear the agreed bar. |
 | P-07 | **Digital presence as core product quality** — Facebook freshness / follower-adjacent signals as a universal dim | Not globally comparable; overlaps digital UX; easy to game | Optional org activity note only. Product dims: spec, ops clarity, trust, transparency, fulfillment. |
+| P-08 | **Call product shots “verified” after URL/provenance checks only** — attach stock portraits, nature heroes, logos, or page decoration | Live HTTP 200 images pass mechanical QA while showing no product; HITL cannot manually open every URL | Run `npm run audit:product-images` (`scripts/utils/audit-product-images.mjs`) after every media harvest, scan its contact sheet, and keep only images visibly showing the product, interface, installed system, or concrete deliverable. People/nature-only and generic stock → omit shot, keep valid SKU. |
 
 ### Example (P-02) — energy
 

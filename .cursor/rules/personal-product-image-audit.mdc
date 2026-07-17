@@ -1,0 +1,17 @@
+---
+description: Deprecated personal rule — use product-image-audit.mdc (employer CLI)
+alwaysApply: false
+---
+
+# Personal Product Image Audit (deprecated)
+
+Superseded by [`.cursor/rules/product-image-audit.mdc`](product-image-audit.mdc).
+
+Use:
+
+```bash
+npm run audit:product-images -- --file data/pending/<products-file>.json
+```
+
+Canonical CLI: `scripts/utils/audit-product-images.mjs`  
+Skill: `skills/product_image_audit.md`

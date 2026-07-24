@@ -34,10 +34,11 @@ Use this skill **every time** you are about to submit data. IDE agents must trea
 | Action | Automatic? | Notes |
 |--------|------------|--------|
 | Stage 1 mechanical QA on `npm run submit` | **Yes** (org/product/landscape/expert) | `submit_data.ts` calls `validate-analyst-data.ts`. Blocks on **FAIL**. |
-| QA for `market_fact` | **Inline in submit script** | Required fields checked before POST to staging API. |
+| QA for `market_fact` | **Inline in submit script** | Required fields checked before POST to staging API. Still match `samples/market_fact_sample.json` before submit. |
 | Running QA in the IDE before submit | **You / IDE agent must do this** | Fix FAIL/FLAGGED rows before wasting a submit. |
 | Stage 2 deep fact-check (`--deep-check`) | **No** | Optional. Needs Tavily/Exa (+ optional Anthropic). |
-| Senior Analyst / Admin approval | Separate | Change requests: `/analyst/review`. Facts: CMS staging review. |
+| Senior Analyst / Admin approval | Separate | Change requests: **Review Queue → Analyst submissions**. Analyst market facts: **Review Queue → Staged market facts**. AI/agent facts: CMS → AI Scraping → Market Facts. |
+| Auto reviewer agent (org/product) | **Yes** | Runs after submit (~30s max stagger). Verdict appears in Review Queue; human still approves before CMS apply. |
 
 **Never use `--skip-qa`** unless a human admin explicitly told you to.
 
@@ -64,20 +65,30 @@ Use this skill **every time** you are about to submit data. IDE agents must trea
 ### 6. Mandatory QA workflow (run this in the IDE)
 
 ```bash
-# Organizations
+# Organizations — check for duplicates BEFORE submitting (hard stop, not optional)
+# via MCP: moncho_check_duplicate, or REST:
+curl -s -X POST -H "Authorization: Bearer $MONCHO_AUTH_TOKEN" -H "Content-Type: application/json" \
+  -d '{"entity_type":"organization","name":"Acme Ltd","website_url":"https://acme.com"}' \
+  "$MONCHO_API_URL/api/v1/analyst/discovery/check-duplicate"
+
 npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization
 npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization
 
 # Products
 npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type product
 
-# Market facts — required fields validated by submit script; match samples/market_fact_sample.json
+# Market facts — check sample shape manually or with JSON schema tools
+# Required: metric_key, country, year, value, unit, source_name
 ```
 
 **Statuses:**
 - **PASS** — ok to submit (Senior Analyst may still spot-check).
 - **FLAGGED** — submit allowed by gate; fix when possible.
 - **FAIL** — **do not submit**. Fix and re-run QA.
+
+**Duplicate check is a hard stop for organization CREATE.** `POST /api/analyst/change-requests` returns **409** on **any** `isDuplicate: true` result from the check, including fuzzy `suggestedAction: "review"` name matches, not only exact `merge` matches. If `moncho_check_duplicate` (or the CLI check above) flags `isDuplicate: true`, do not create a new org: submit an **update** against the existing `entity_id` instead, or escalate to a Senior Analyst if you believe the match is wrong.
+
+**Domains:** prefer apex hostnames (`example.com`, `kmc.gov.bd`). Multi-part public suffixes (`gov.bd`, `co.uk`, …) are recognized via the Public Suffix List (`tldts`); the reviewer no longer treats those apex domains as “subdomains.” Prefer not to submit `www.` or path-only country sites when an apex URL exists.
 
 ---
 
@@ -98,7 +109,7 @@ Requires `.env`: `MONCHO_API_URL`, `MONCHO_AUTH_TOKEN`.
 ### 8. After submit
 
 - Track org/product/metadata/landscape rows in **My Work → Submissions**.
-- Market facts: founder/CMS reviews `staging_market_facts` before promotion to live SML.
+- Market facts: reviewers approve on **Review Queue → Staged market facts** (`POST /api/reviewer/staged-market-facts`). CMS Market Facts tab is for AI/agent pipelines only.
 - Rejection notes appear in Submissions; fix JSON and resubmit.
 
 See also: `docs/onboarding/DASHBOARD_WALKTHROUGH.md` § Bulk inject notes.

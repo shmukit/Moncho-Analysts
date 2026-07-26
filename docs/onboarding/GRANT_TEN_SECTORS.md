@@ -33,6 +33,8 @@
 
 **Target slugs** (`*-bd`) are grant naming only — **not** in `metadata_sector` yet.
 
+**Sherpa Gold certification** uses the Moncho slug column above plus pilot slugs in [`PILOT_GOLD_SECTORS.md`](./PILOT_GOLD_SECTORS.md). See [`gold-sectors.ts`](../../src/lib/sherpa/fixtures/gold-sectors.ts).
+
 ---
 
 ## How analysts use this

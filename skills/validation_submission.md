@@ -34,7 +34,7 @@ Use this skill **every time** you are about to submit data. IDE agents must trea
 | Action | Automatic? | Notes |
 |--------|------------|--------|
 | Stage 1 mechanical QA on `npm run submit` | **Yes** (org/product/landscape/expert) | `submit_data.ts` calls `validate-analyst-data.ts`. Blocks on **FAIL**. |
-| QA for `market_fact` | **Inline in submit script** | Required fields checked before POST to staging API. Still match `samples/market_fact_sample.json` before submit. |
+| QA for `market_fact` | **Manual** | Validate against `samples/market_fact_sample.json` before submit. |
 | Running QA in the IDE before submit | **You / IDE agent must do this** | Fix FAIL/FLAGGED rows before wasting a submit. |
 | Stage 2 deep fact-check (`--deep-check`) | **No** | Optional. Needs Tavily/Exa (+ optional Anthropic). |
 | Senior Analyst / Admin approval | Separate | Change requests: **Review Queue → Analyst submissions**. Analyst market facts: **Review Queue → Staged market facts**. AI/agent facts: CMS → AI Scraping → Market Facts. |

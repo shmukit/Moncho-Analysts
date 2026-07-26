@@ -10,9 +10,9 @@ Analysts **do not inject SQL** into production. You produce JSON (or draft SQL f
 
 | Entity | DB table(s) | Submission JSON |
 |--------|-------------|-----------------|
-| **Organization** | `metadata_organization`, `organization_to_segment_map` | [`samples/organization_sample.json`](../../samples/organization_sample.json) |
-| **Product** | `products`, `product_media`, `product_metrics` | [`samples/product_sample.json`](../../samples/product_sample.json) |
-| **Landscape / segment** | `metadata_sector`, `segments`, `landscape_versions`, `sector_segments` | [`samples/landscape_sample.json`](../../samples/landscape_sample.json) |
+| **Organization** | `metadata_organization`, `organization_to_segment_map` | [`samples/organization_sample.json`](samples/organization_sample.json) |
+| **Product** | `products`, `product_media`, `product_metrics` | [`samples/product_sample.json`](samples/product_sample.json) |
+| **Landscape / segment** | `metadata_sector`, `segments`, `landscape_versions`, `sector_segments` | [`samples/landscape_sample.json`](samples/landscape_sample.json) |
 | **Market facts (SML)** | `market_facts` | Draft seed/JSON for founder ingest (not self-merged) |
 
 ---
@@ -46,7 +46,7 @@ Analysts **do not inject SQL** into production. You produce JSON (or draft SQL f
 | `segments` | Grid cells / market niches |
 | `sector_segments` | Segment graph for a landscape |
 
-Grant deliverable: **10 Bangladesh sector landscapes** with positioned orgs. See [`GRANT_TEN_SECTORS.md`](../onboarding/GRANT_TEN_SECTORS.md) for the full sector list and Moncho slug mapping.
+Grant deliverable: **10 Bangladesh sector landscapes** with positioned orgs. See [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) for the full sector list and Moncho slug mapping.
 
 ---
 
@@ -84,7 +84,7 @@ Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for browsin
    - **IDE CLI**: `npm run submit -- --file path.json --type organization|product|market_fact|metadata|landscape`
    - **Bulk inject** (browser): `/analyst/bulk-inject` — same entity types, max **50 JSON objects per batch**
 5. **Organizations / products / metadata / landscapes** → change requests in `audit_logs` (review queue → CMS apply).
-6. **Market facts** → `staging_market_facts` (`pending_review`); founder/CMS promotes to live `market_facts`.
+6. **Market facts** → `staging_market_facts` (`pending_review`); **Review Queue → Staged market facts** promotes to live `market_facts`. AI/agent rows in the same table are reviewed in CMS → AI Scraping.
 
 ### Market fact required fields
 

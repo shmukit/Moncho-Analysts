@@ -41,12 +41,6 @@ MONCHO_API_URL="https://app.moncho.ai"
 MONCHO_AUTH_TOKEN="your_api_key_here"
 
 # Your existing discovery keys (Tavily, Exa, Logo.dev) stay unchanged
-TAVILY_API_KEY="your_tavily_api_key"
-EXA_API_KEY="your_exa_api_key"
-LOGO_DEV_API_KEY="your_logo_dev_api_key"
-
-# Agentic QA (Stage 2 deep fact-check) — only needed for --deep-check
-ANTHROPIC_API_KEY="your_anthropic_api_key"
 ```
 
 ---
@@ -131,7 +125,7 @@ If rate limited, the tool returns structured text with **Retry after N seconds**
 | 429 rate limit | Wait for `retry_after_sec`; narrow queries |
 | `unknown_resource` | Use `hs-codes`, `market-facts`, `taxonomy-standards` (hyphenated) |
 
-Full reference: [`ANALYST_DISCOVERY_MCP.md`](../discovery/ANALYST_DISCOVERY_MCP.md)
+Full reference: [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md)
 
 ---
 

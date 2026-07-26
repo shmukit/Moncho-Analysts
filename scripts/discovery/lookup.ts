@@ -6,7 +6,9 @@
  *   npx tsx scripts/discovery/lookup.ts coverage --sector_slug=ict-services
  *   npx tsx scripts/discovery/lookup.ts orgs --q=grameen --country=Bangladesh
  *   npx tsx scripts/discovery/lookup.ts market-facts --sector_slug=energy --mode=summary
+ *   npx tsx scripts/discovery/lookup.ts analysis-structure --sector_slug=agriculture --home_mode=draft_report
  *   npx tsx scripts/discovery/lookup.ts hs-codes --q=6107 --level=6
+ *   npx tsx scripts/discovery/lookup.ts sector-hscode-links --sector_slug=ict-services
  */
 import * as dotenv from 'dotenv';
 import * as path from 'path';
@@ -22,7 +24,7 @@ async function main(): Promise<void> {
   if (!resource) {
     console.error('Usage: lookup.ts <resource> [--key=value ...]');
     console.error(
-      'Resources: taxonomy | coverage | orgs | products | pricing | needs | hs-codes | taxonomy-standards | market-facts',
+      'Resources: taxonomy | coverage | orgs | products | pricing | needs | hs-codes | sector-hscode-links | taxonomy-standards | market-facts | analysis-structure',
     );
     process.exit(1);
   }

@@ -38,7 +38,7 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md)
 | **Agri value chain LinkedIn series** | Mini-series started from agri / export-pilot JSON | Social → signup quotas |
 | **Newsletter reactivated** | Existing list audited; ≥1 send to current subscribers | New subscriber growth targets |
 | **Reels (optional)** | Short videos from carousel hooks where low effort | YouTube scale targets |
-| **Student access** | `/student-access` mentioned in sends or posts | Managed cohort |
+| **Student access** | Route removed (Tranche 1); use `/pricing` or managed cohort links in copy | Managed cohort |
 | **Learn** | Kill/scale note per channel | MQLs, demos, CRM pipeline |
 
 ---
@@ -49,7 +49,7 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md)
 - [ ] Ask founder for the **import substitution** and **agri VC** briefs + JSON files (they may share a folder or paste into this workbench under `sample-data/`)
 - [ ] Open any `sample-data/` LinkedIn/JSON assets present in this repo
 - [ ] Find **existing newsletter tool + subscriber list** (ask founder — no new platform required)
-- [ ] Audit site: `/pricing`, `/student-access`, contact form; note PostHog access if granted
+- [ ] Audit site: `/pricing`, contact form; note PostHog access if granted
 - [ ] Baseline: subscriber count, last send date, any prior post performance
 
 **Coverage Snapshot must answer:**
@@ -84,7 +84,7 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md)
 | Agri VC series | ~1× / week | Agri JSON + founder notes |
 | Newsletter | Biweekly (existing list) | 1 sector pulse + 1 HS card + CTA — **reactivate subscribers, not growth targets** |
 | YouTube / LinkedIn reel | ~1× / week if bandwidth | Repurpose slides 1+3 |
-| Student access | Ongoing in CTAs | `/student-access` — self-serve only |
+| Student access | Ongoing in CTAs | `/pricing` — self-serve tier (route `/student-access` removed) |
 
 **UTM pattern (when linking to site):**  
 `utm_source=linkedin|newsletter|youtube&utm_campaign=<series>&utm_content=<post_id>`
@@ -99,7 +99,7 @@ Full slug map: [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md)
 |------|-------------|
 | 1 | Lock carousel layout template (1080×1350, 5 slides) |
 | 2 | Publish LinkedIn Post #1 (framework) |
-| 3 | Publish Posts 2–3 (Ready tier); promote `/student-access` in CTA where fit |
+| 3 | Publish Posts 2–3 (Ready tier); promote `/pricing` in CTA where fit |
 | 4 | First newsletter send to **existing** subscribers |
 | 5 | First agri VC post; first reel (optional) |
 | 6 | **Kill/scale review** — which channel to double down on |

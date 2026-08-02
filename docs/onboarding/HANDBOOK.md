@@ -142,17 +142,17 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/2026-01-25-onboardin
     - Shape your file like `docs/analyst/samples/organization_sample.json`.
     - Top level can be **one object** or an **array of objects**; each object becomes a separate change request.
     - For **new** organizations, **omit** `id` (the system will generate one). For **updates**, include the existing organization `id`.
-4.  **Submit** (one entity type per file; max 50 objects per batch):
+4.  **Submit**: Run the delivery script (one entity type per file):
     ```bash
     npm run submit -- --file data/pending/orgs.json --type organization
     npm run submit -- --file data/pending/products.json --type product
     npm run submit -- --file data/pending/facts.json --type market_fact
     ```
-    Or use **Bulk inject** at `/analyst/bulk-inject` in the Analyst Dashboard.
+    Or use **Bulk inject** (`/analyst/bulk-inject`) for the same types in the browser (max 50 JSON objects per batch).
 5.  **Verification**: 
     - ✅ **Success**: Your data is now a **Change Request** in the system.
     - 🔍 **Review**: A Reviewer and Admin will check your work. 
-    - 🏆 **Approval**: Once approved, your data is pushed to the main database, and your **Profile Stats** will update automatically.
+    - 🏆 **Approval**: Once a senior analyst approves **and** a CMS admin **applies**, your data lands in production (`completed`), contribution stats / reputation update, and you get an in-app notification.
 
 ---
 **⚠️ Important Reminder**: You are submitting *requests*, not direct database entries. High-quality data leads to faster approvals and higher Reputation Ranks.
@@ -166,13 +166,15 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/2026-01-25-onboardin
 **Goal**: Monitor your progress, retrieve credentials, and utilize curation tools.
 **Time**: 5 Minutes.
 
-The **Analyst Dashboard** is the command center for all your activities on Moncho. It hosts several essential components:
-1. **Workbench Access (API Key)**: You must copy your unique key from the "Workbench Access" card and save it in your local `.env` file as `MONCHO_AUTH_TOKEN` to run the local developer tools (Hub 1).
-2. **Curation Statistics**: Tracks your count of approved contributions and displays your reputation score, which is determined by the Judge Agent based on quality rationales.
-3. **Recent Activity Feed**: Follow the progress of your submitted change requests.
-4. **Sherpa AI turns**: Monitor your remaining daily and monthly chat turn count limits.
+The **Analyst Dashboard** (`/analyst/dashboard`) is the command center for awareness (market pulse, what's next, coverage). Day-to-day execution lives on **My Work** (`/analyst/work`).
 
-To explore all interactive sidebar modules like the **Landscape Builder**, **Organizations Manager**, **Metadata Manager**, and **Reports**, please read our complete [Analyst Dashboard Walkthrough](DASHBOARD_WALKTHROUGH.md).
+1. **Workbench Access (API Key)**: Copy your key from **Settings → Developer** (`/analyst/settings`) and save it in your local `.env` as `MONCHO_AUTH_TOKEN` for Hub 1 scripts. (Not on the dashboard itself.)
+2. **Curation Statistics**: Reputation and approved/completed contributions on the identity strip and public profile (`/a/[username]`).
+3. **Submissions**: Track change requests under **My Work → Submissions** (filter Pending / In review / Completed / Rejected). Status `completed` means CMS Apply injected the row.
+4. **Sherpa AI turns**: Quota strip on dashboard and My Work (daily / monthly limits).
+5. **Bulk inject** and **Data Terminal**: Sidebar entries for JSON review-queue batches and table explore / joins.
+
+To explore all interactive sidebar modules (Landscape Builder, Organizations, Metadata Manager, Reports, Bulk inject, etc.), read the [Analyst Dashboard Walkthrough](DASHBOARD_WALKTHROUGH.md).
 
 ---
 

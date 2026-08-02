@@ -41,7 +41,7 @@ Products that pass the gate get a **Quality Score** (1–5, Y-axis on the Produc
 
 ### Product template — plain language (required for injection plans)
 
-Full detail: [`skills/data_injection_planning.md`](../../skills/data_injection_planning.md) §2.4.
+Full detail: [`skills/data_injection_planning.md`](skills/data_injection_planning.md) §2.4.
 
 1. **Named models only** — not “Inverters” / “Lab Tests.”  
 2. **Cap ~5–15 SKUs per org** on first pass.  
@@ -112,5 +112,5 @@ Score 0–2 each layer. ≥ 7 / 10 = strong sector readiness for Sherpa retrieva
 - [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) — universal org rubric (canonical; independent of product rollup)
 - [`IDE_AGENT_MISTAKES.md`](IDE_AGENT_MISTAKES.md) — recurring IDE agent wrong patterns (scoring, taxonomy, products)
 - [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) — `products`, `product_metrics`, `metadata_organization`
-- [`roles/DATA_OPS_ONBOARDING.md`](../../roles/DATA_OPS_ONBOARDING.md) — sector depth rubric and submission workflow
-- [`GRANT_TEN_SECTORS.md`](../onboarding/GRANT_TEN_SECTORS.md) — slug mapping for the 10 grant sectors
+- [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) — sector depth rubric and submission workflow
+- [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) — slug mapping for the 10 grant sectors

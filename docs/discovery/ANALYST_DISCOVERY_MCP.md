@@ -16,7 +16,8 @@ This is Moncho's **first MCP server**. It gives your IDE agent read-only access 
 | `products` | `products` | Search by name/group/category; sector/segment via org linkage |
 | `pricing` | `product_metrics` | Brand/SKU pricing rows |
 | `needs` | `needs` + `segment_needs` | Segment needs titles |
-| `hs-codes` | `hs_codes` | HS2/4/6 lookup |
+| `hs-codes` | `hs_codes` | HS2/4/6 taxonomy lookup (names, hierarchy). **Not** trade values. |
+| `sector-hscode-links` | `sector_hscode_links` + `sector_trade_coverage` | Governed Moncho sector ↔ HS include/exclude scope. **Requires `sector_slug`**. Distinct from global HS↔ISIC concordance. |
 | `taxonomy-standards` | `taxonomy_standards` | ISIC and other standards |
 | `market-facts` | `market_facts` | **Not** a full dump |
 | `analysis-structure` | Sherpa analysis plan (in-memory) | **Preview only** — section outline for sector + home workflow + depth (0 credits, no LLM) |
@@ -93,7 +94,7 @@ Guidance: Minute burst limit reached (60/min). Wait for retry_after_sec, then re
 
 | Resource | Default rows | Max rows |
 |----------|-------------:|---------:|
-| `orgs`, `products`, `pricing`, `needs`, `hs-codes`, `taxonomy-standards` | 20 | 50 |
+| `orgs`, `products`, `pricing`, `needs`, `hs-codes`, `sector-hscode-links`, `taxonomy-standards` | 20 | 50 |
 | `market-facts` (`mode=search`) | 20 | 25 |
 | `market-facts` (`mode=summary`) | aggregates only | sampled up to 5,000 matching rows |
 | `taxonomy` | full reference graph | cached |

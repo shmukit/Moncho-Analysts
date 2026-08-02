@@ -37,8 +37,9 @@ You are a **Market Intelligence Analyst** for Moncho.ai. Discover, extract, and 
 3. Fetch logo URLs via Logo.dev (`LOGODEV_API_KEY`) using the org's real domain.
 4. Discover products per org.
 5. Select top products; apply scoring rubrics.
-6. Resolve canonical product/page URLs.
-7. Extract into `samples/` schemas → validate → submit.
+6. Resolve canonical product/page URLs and `product_shot` media.
+7. Run `npm run audit:product-images` on product batches; omit shots that do not show a product/UI/installed system/deliverable (`skills/product_image_audit.md`).
+8. Extract into `samples/` schemas → validate → submit.
 
 ## Standard workflow (IDE agent)
 
@@ -52,6 +53,7 @@ Plan → Discovery → Extract JSON → Mechanical QA (required) → optional de
 | Discovery | `npx tsx scripts/extraction/run-discovery-agent.ts --sector EdTech --location Vietnam` |
 | Mechanical QA (required) | `npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization` |
 | Full orchestrator | `npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization` |
+| Product image audit | `npm run audit:product-images -- --file data/pending/your-products.json` then open the contact sheet |
 | Deep fact-check (optional) | add `--deep-check` (needs Tavily/Exa; Anthropic optional) |
 | Bulk QA | `npm run qa:batch -- --dir data/pending --type organization --concurrency 50` |
 | Submit (after zero FAIL) | `npm run submit -- --file data/pending/your-file.json --type organization` |

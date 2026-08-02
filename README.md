@@ -33,9 +33,11 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 
 - `scripts/utils/validate-analyst-data.ts` — mechanical QA (required before submit)
 - `scripts/qa_agent.ts`, `scripts/qa_reviewer.ts`, `scripts/deep_fact_check.ts` — QA pipeline
+- `scripts/utils/audit-product-images.mjs` — product-shot contact-sheet audit (`npm run audit:product-images`)
 - `scripts/submit_data.ts` — submit JSON (QA-gated)
 - `scripts/extraction/`, `scripts/discovery/` — discovery helpers
 - `skills/validation_submission.md` — submit ritual for IDE agents
+- `skills/product_image_audit.md` — visual product-media audit before submit
 - `samples/` — JSON schemas for Organizations, Products, Landscapes, Experts
 
 ## Setup
@@ -89,7 +91,12 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
    npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type organization
    npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organization
    ```
-   Optional deep fact-check (Tavily/Exa): add `--deep-check` to `qa_agent.ts`.
+   For products with `product_shot` media, also run the contact-sheet audit and scan every thumbnail before claiming media reviewed:
+   ```bash
+   npm run audit:product-images -- --file data/pending/your-products.json
+   # open data/qa-reports/<stem>-image-audit/contact-sheet.html
+   ```
+   See `skills/product_image_audit.md`. Optional deep fact-check (Tavily/Exa): add `--deep-check` to `qa_agent.ts`.
    Reports land in `data/qa-reports/` (gitignored). Fix every `FAIL` before submit.
 5. **Submit** (re-runs Stage 1 mechanical QA for org/product/landscape/expert; max 50 JSON objects per batch):
    ```bash

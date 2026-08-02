@@ -49,8 +49,6 @@ const HARD_DENY_TERMS = [
   "pixabay",
   "shutterstock",
   "istock",
-  "mangrove",
-  "forest",
   "landscape",
   "nature",
   "chairman",

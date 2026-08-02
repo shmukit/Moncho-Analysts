@@ -10,8 +10,9 @@ The system has two stages:
 | **2 — Agentic** | `deep_fact_check.ts` | Web search (Tavily/Exa) + LLM entailment on rationale claims |
 | **Orchestrator** | `qa_agent.ts` | Runs both stages and writes unified + executive reports |
 | **Bulk** | `qa_batch.ts` | Scale QA across folders or large chunked JSON files |
+| **Product images** | `utils/audit-product-images.mjs` | Contact-sheet visual triage for `product_shot` rows (`npm run audit:product-images`; not folded into `qa_agent`) |
 
-See also: [`lib/README.md`](lib/README.md) for agentic internals, [`utils/README.md`](utils/README.md) for the validation entrypoint, and [`../.cursor/rules/qa-reviewer.md`](../.cursor/rules/qa-reviewer.md) for the QA agent contract.
+See also: [`lib/README.md`](lib/README.md) for agentic internals, [`utils/README.md`](utils/README.md) for the validation entrypoint, [`../skills/product_image_audit.md`](../skills/product_image_audit.md) for the product-image ritual, and [`../.cursor/rules/qa-reviewer.md`](../.cursor/rules/qa-reviewer.md) for the QA agent contract.
 
 ---
 

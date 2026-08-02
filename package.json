@@ -12,7 +12,8 @@
     "submit": "tsx scripts/submit_data.ts",
     "reference": "tsx scripts/extraction/fetch-reference-data.ts",
     "reference:sync": "tsx scripts/sync-reference-ids.ts",
-    "discover": "tsx scripts/extraction/run-discovery-agent.ts"
+    "discover": "tsx scripts/extraction/run-discovery-agent.ts",
+    "audit:product-images": "node scripts/utils/audit-product-images.mjs"
   },
   "dependencies": {
     "ts-node": "^10.9.2",

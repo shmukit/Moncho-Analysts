@@ -77,10 +77,13 @@ npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organizati
 # Products
 npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type product
 
+# Product shots (any sector) — contact-sheet visual audit before claiming media reviewed
+npm run audit:product-images -- --file data/pending/your-file.json
+# Then open data/qa-reports/<stem>-image-audit/contact-sheet.html (see skills/product_image_audit.md)
+
 # Market facts — check sample shape manually or with JSON schema tools
 # Required: metric_key, country, year, value, unit, source_name
 ```
-
 **Statuses:**
 - **PASS** — ok to submit (Senior Analyst may still spot-check).
 - **FLAGGED** — submit allowed by gate; fix when possible.

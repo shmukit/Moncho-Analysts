@@ -111,8 +111,13 @@ Requires `.env`: `MONCHO_API_URL`, `MONCHO_AUTH_TOKEN`.
 
 ### 8. After submit
 
-- Track org/product/metadata/landscape rows in **My Work → Submissions**.
+- Track org/product/metadata/landscape rows in **My Work → Submissions** (`/analyst/work?tab=submissions`).
 - Market facts: reviewers approve on **Review Queue → Staged market facts** (`POST /api/reviewer/staged-market-facts`). CMS Market Facts tab is for AI/agent pipelines only.
-- Rejection notes appear in Submissions; fix JSON and resubmit.
+- Open a row at `/analyst/submissions/[id]`:
+  - **Pending (unclaimed):** **Edit** payload in place, or **Withdraw** (does not create a second row).
+  - **Rejected / changes requested:** **Edit & resubmit** — same submission returns to `pending` (no duplicate change request).
+  - Works on phone and desktop (sticky actions on small screens).
+- **Do not** `npm run submit` a second CREATE for the same fix if you can Edit & resubmit the existing row.
+- **MCP cannot edit or resubmit.** Discovery MCP is read-only. Use the web detail page for author edits. `moncho_list_my_rejected` only exports rejected payloads for offline review.
 
-See also: `docs/onboarding/DASHBOARD_WALKTHROUGH.md` § Bulk inject notes.
+See also: `docs/onboarding/DASHBOARD_WALKTHROUGH.md` § Submissions details.

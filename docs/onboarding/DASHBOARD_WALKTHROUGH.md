@@ -197,6 +197,22 @@ Two sections on the tab:
 
 Rows are clickable and open the detail page. Reviewer/agent notes appear for in-review, changes-requested, and rejected rows.
 
+#### Edit, withdraw, and resubmit (author only)
+
+On the detail page (`/analyst/submissions/[id]`), if you are the submitter:
+
+| Status | What you can do |
+|--------|-----------------|
+| **Pending** and not claimed by a reviewer | **Edit** the payload in place, or **Withdraw** (status → `withdrawn`) |
+| **Rejected** or **Changes requested** | **Edit & resubmit** — same row returns to `pending` for review (no second submission) |
+| Claimed pending, approved, completed, withdrawn | No author edit (open a new change request if needed) |
+
+- Works on **phone and desktop** (sticky action bar on small screens; field editor by default, Advanced JSON optional).
+- Edits always **UPDATE the same `audit_logs` row** — they never create a duplicate submission.
+- CREATE org/product edits re-run the same duplicate checks as first submit (`409 duplicate_detected` if blocked).
+- Staged market facts are still read-only on this page (use staged-facts review / re-inject flows).
+- **MCP cannot edit or resubmit.** Discovery MCP is read-only; use the web app (or `POST /api/analyst/change-requests` for a *new* submission). Rejected payloads can be *exported* via `moncho_list_my_rejected` for offline fix-ups, then resubmit in-app or as a new CR.
+
 **Channel attribution** (after DB patch `20260723120000_audit_logs_submission_metadata`): bulk inject, CLI (`npm run submit`), API key, and form UI submissions store `submission_channel` and optional `batch_id` (shared per bulk inject session). Since 2026-07-24 the UI shows a friendly label per channel (`formatSubmissionChannelLabel`) instead of the raw snake_case value — e.g. `cli` → **"CLI / IDE terminal"**, `bulk_inject` → **"Bulk Inject UI"**. Legacy `analyst_bulk_inject` rows (pre-dating per-channel tracking) show **"Bulk Inject (legacy)"** — if you submitted via CLI or a form before this patch shipped, your rows may still show that legacy label even though you did not use Bulk Inject.
 
 Status filter vocabulary (live path):
@@ -216,7 +232,7 @@ If you are a senior analyst or admin who also submits data, keep the surfaces se
 
 | Hat | Surface | What you do |
 |-----|---------|-------------|
-| **Submitter** (every role) | My Work → Submissions | Track **your** rows only; no approve/reject here |
+| **Submitter** (every role) | My Work → Submissions | Track **your** rows; edit/withdraw/resubmit as above; no approve/reject of peers |
 | **Reviewer** | Review Queue `/analyst/review` | Claim, approve, reject peers' rows |
 | **Publisher** | CMS Approvals | Apply `reviewer_approved` rows to live data |
 

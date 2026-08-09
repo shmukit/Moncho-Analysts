@@ -1,6 +1,6 @@
 # IDE agent mistakes registry (Analyst Workbench)
 
-**Last updated:** 2026-07-18  
+**Last updated:** 2026-08-09  
 **Owner:** Founder / Data Ops leads  
 **Repo:** [Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts) (this workbench)  
 **Purpose:** Living list of **recurring mistakes IDE coding agents make** while discovering, scoring, and submitting Moncho data. Prune aggressively — keep short and current.
@@ -143,6 +143,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | M-02 | **Dump PDF extraction on founder as “the plan”** | No market intelligence; ops theater | For `market_facts`, list **5–10 concrete** rows: metric, year, country, source URL, sector/landscape slug. |
 | M-03 | **Skip duplicate check** | Duplicate orgs/products; reviewer churn | Use Discovery MCP / `scripts/discovery/check-duplicate.ts` / Dashboard before JSON. Org CREATE now **hard-blocks (409)** at submit on any `isDuplicate: true`, including fuzzy `review`-level name matches — not just exact `merge` matches. A `review` hit almost always means update the existing org (`entity_id`) instead of creating a new one. |
 | M-08 | **Conclude trade data is missing from `coverage.market_facts_with_sector_tag`** | False "no trade data" reports; wasted re-harvest of data that already exists | Trade rows live in `market_facts` (`metric_key: import_trade_value_usd` / `export_trade_value_usd`, `fact_type: trade`) and are frequently ingested without a `sector_slug`, so `coverage` undercounts them. Query `market-facts` directly with `fact_type=trade` (+ `hs_code`, `country`) before reporting a gap. See `ANALYST_DISCOVERY_MCP.md` § International trade data. |
+| M-10 | **Exact catch-all segment name not in `taxonomy` ⇒ “segment missing from DB”** | False gap reports (e.g. Sports: `Sports Equipment` vs `Sports Equipment Manufacture` / `Retail`; `Stadiums & Arenas` was also hidden when Moncho taxonomy API truncated at 1000 rows) | Prefer `coverage?sector_slug=…` for counts, then `taxonomy?sector_slug=…` and match by **slug** / closest existing name. Flag catch-all renames for founder; do not invent new segments (T-02). Platform fix: paginated `fetchReferenceTaxonomy` in Moncho-V1. |
 | M-09 | **Use `hs-codes` for sector trade scope or expect `sector_hscode_links` on `coverage`** | 500 on broken hs-codes probes (fixed 2026-07-26) or empty scope when only coverage was queried | `hs-codes` = global HS taxonomy only. Governed sector ↔ HS edges: `resource=sector-hscode-links&sector_slug=<slug>`. Trade **values**: `market-facts&fact_type=trade`. |
 | M-04 | **Commit `.env` or paste API keys into chat/PRs** | Key leak; rotate cost | Keep `MONCHO_AUTH_TOKEN` and search keys local only. |
 | M-05 | **Ignore MCP rate limits / invent DB credentials** | 429 loops; security fail | Read-only API + MCP only. Back off on 429. Never ask for Supabase keys. |

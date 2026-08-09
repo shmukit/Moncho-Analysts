@@ -36,9 +36,9 @@ There is no dedicated trade table. Import/export values are `market_facts` rows 
 
 - `metric_key`: `import_trade_value_usd` or `export_trade_value_usd`
 - `fact_type`: `trade`
-- `dimensions`: `hs2_code`/`hs4_code`/`hs6_code` (+ `_name`) identifying the HS classification level, plus `section`/`section_id`
+- `dimensions`: preferred WCO keys `wco_hs2_code` / `wco_hs6_code`, plus legacy OEC `hs2_code`/`hs4_code`/`hs6_code` (+ `_name`), and `section`/`section_id`
 
-To check whether trade data exists for a specific HS code, filter `market-facts` with `fact_type=trade` and `hs_code=<HS2|HS4|HS6 digits>` (e.g. `hs_code=8471`), not `hs-codes` (that resource is taxonomy lookup only — HS names/levels, no trade values).
+To check whether trade data exists for a specific HS code, filter `market-facts` with `fact_type=trade` and `hs_code=<HS2|HS4|HS6 digits>` (e.g. `hs_code=8471`). Discovery matches WCO fields first (and prefixes on `wco_hs6_code` for chapter/heading queries), with legacy OEC keys as fallback. Do not use `hs-codes` for this — that resource is taxonomy lookup only (HS names/levels, no trade values).
 
 **Do not conclude trade data is missing from `coverage.market_facts_with_sector_tag` alone.** That count only includes rows tagged with a `sector_slug`; OEC trade rows are frequently ingested without one, so a low or zero coverage count does not mean the country/HS code has no trade data — query `market-facts` with `fact_type=trade` directly to confirm.
 
@@ -108,9 +108,31 @@ Pass `limit=50` on list resources when you need the maximum page size. If `meta.
 ## What it cannot do
 
 - Raw SQL or arbitrary table browse
-- Write or inject data (submissions still go through `POST /api/analyst/change-requests`)
+- **Write, edit, withdraw, or resubmit** change requests (no MCP mutate tools). Submissions go through the Moncho web app:
+  - New: `POST /api/analyst/change-requests`
+  - Author edit / withdraw / resubmit (same row): `PATCH /api/analyst/submissions/[id]` on `/analyst/submissions/[id]` (phone or desktop)
 - Service-role or Supabase credentials in the workbench repo
 - Unbounded `market_facts` export
+- Export **pending** or **pending_review** payloads (use My Work → Submissions in the app for backlog still under human review)
+
+**Fix-and-resubmit without duplicates:** prefer **Edit & resubmit** on the submission detail page (updates the same `audit_logs` id). Do **not** POST a second change request for the same fix unless you intentionally want a new row. MCP `moncho_list_my_rejected` is for offline review of rejected/`changes_requested` payloads only.
+
+---
+
+## Rejected work export (`moncho_list_my_rejected`)
+
+Use this MCP tool (or REST) to pull your own **fix-and-resubmit** pack offline. It returns:
+
+| Bucket | Statuses included | Never included |
+|--------|-------------------|----------------|
+| Change requests (`kind=submissions` or `all`) | `rejected`, `changes_requested` | `pending`, `pending_review`, `reviewer_approved`, `completed` |
+| Staging market facts (`kind=staging` or `all`) | `rejected` (analyst-origin rows you submitted) | `pending_review` |
+
+**REST:** `GET /api/v1/analyst/my-rejected?kind=all&page=1&limit=50` with the same API key as discovery.
+
+**Why not pending?** Pending rows are still in the reviewer lane. Exporting them invites parallel edits while a human is about to approve or reject. Authors can edit unclaimed pending rows in the web app (`PATCH /api/analyst/submissions/[id]`) instead of exporting via MCP.
+
+**Pagination:** `page` (default 1) and `limit` (default 50, max 200). Staging totals are computed from a full rejected scan; submissions use SQL count + range.
 
 ---
 
@@ -162,6 +184,7 @@ Point `MONCHO_AUTH_TOKEN` at your local `.env` value or paste via your host's en
 | `moncho_discovery_lookup` | Read-only search on any resource above (including `analysis-structure`) |
 | `moncho_analysis_structure_preview` | Sherpa section plan preview for sector + home workflow + depth |
 | `moncho_check_duplicate` | Org/product duplicate check — **required** before every organization CREATE, not optional. Any `isDuplicate: true` (including `suggestedAction: "review"`) will be hard-blocked (409) at submit. |
+| `moncho_list_my_rejected` | Export own `rejected` / `changes_requested` change requests and rejected staging facts for offline resubmit (no pending payloads) |
 
 ### Example prompts (IDE)
 
@@ -186,6 +209,9 @@ curl -s -X POST -H "Authorization: Bearer $MONCHO_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"entity_type":"organization","name":"Acme Ltd","website_url":"https://acme.com"}' \
   "https://app.moncho.ai/api/v1/analyst/discovery/check-duplicate"
+
+curl -s -H "Authorization: Bearer $MONCHO_AUTH_TOKEN" \
+  "https://app.moncho.ai/api/v1/analyst/my-rejected?kind=all&page=1&limit=50"
 ```
 
 Workbench scripts: `scripts/discovery/lookup.ts`, `scripts/discovery/check-duplicate.ts`.

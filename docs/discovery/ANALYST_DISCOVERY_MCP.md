@@ -19,8 +19,24 @@ This is Moncho's **first MCP server**. It gives your IDE agent read-only access 
 | `hs-codes` | `hs_codes` | HS2/4/6 taxonomy lookup (names, hierarchy). **Not** trade values. |
 | `sector-hscode-links` | `sector_hscode_links` + `sector_trade_coverage` | Governed Moncho sector ↔ HS include/exclude scope. **Requires `sector_slug`**. Distinct from global HS↔ISIC concordance. |
 | `taxonomy-standards` | `taxonomy_standards` | ISIC and other standards |
+| `taxonomy-crosswalk-links` | `taxonomy_crosswalk_links` (+ nested ISIC label) | Global HS/BSIC → ISIC concordance. **Requires `hs_code`, `q`, or `from_scheme`**. |
+| `value-chain-hs-stage-map` | `value_chain_hs_stage_map` (+ nested stage) | Pilot HS → value-chain stage. **Requires `hs_code` or `pilot_id`**. |
+| `competencies` | `competencies` | Skills/credentials (ESCO, O*NET, BTEB, UGC, …). Optional `source`, `competency_type`, `country`, `q`. |
+| `occupations` | `occupations` | Occupation catalog. Optional `q`, `country`. |
 | `market-facts` | `market_facts` | **Not** a full dump |
 | `analysis-structure` | Sherpa analysis plan (in-memory) | **Preview only** — section outline for sector + home workflow + depth (0 credits, no LLM) |
+
+### Import-substitution / LinkedIn HS + skills workflow
+
+Typical read-only path (no raw SQL):
+
+1. `market-facts` with `fact_type=trade` + `hs_code=…` (BD import/export values)
+2. `hs-codes` for product labels
+3. `taxonomy-crosswalk-links` with `hs_code=…` (HS → ISIC)
+4. `value-chain-hs-stage-map` with `hs_code=…` or `pilot_id=…` (HS → stage)
+5. `competencies` / `occupations` for skills narrative (do **not** treat `competency_edges` as HS↔ISIC)
+
+Same caps as other list resources (default 20 / max 50). For broader table browse and occupations↔competencies joins, use **Data Terminal** (Analyst-tier entitlement).
 
 ### `market_facts` limits
 
@@ -94,7 +110,7 @@ Guidance: Minute burst limit reached (60/min). Wait for retry_after_sec, then re
 
 | Resource | Default rows | Max rows |
 |----------|-------------:|---------:|
-| `orgs`, `products`, `pricing`, `needs`, `hs-codes`, `sector-hscode-links`, `taxonomy-standards` | 20 | 50 |
+| `orgs`, `products`, `pricing`, `needs`, `hs-codes`, `sector-hscode-links`, `taxonomy-standards`, `competencies`, `occupations`, `taxonomy-crosswalk-links`, `value-chain-hs-stage-map` | 20 | 50 |
 | `market-facts` (`mode=search`) | 20 | 25 |
 | `market-facts` (`mode=summary`) | aggregates only | sampled up to 5,000 matching rows |
 | `taxonomy` | full reference graph | cached |
@@ -193,6 +209,9 @@ Point `MONCHO_AUTH_TOKEN` at your local `.env` value or paste via your host's en
 - "Search orgs named Grameen in Bangladesh ICT"
 - "market_facts summary for sector_slug ict-services"
 - "market_facts search for fact_type=trade, hs_code=8471, country=Bangladesh"
+- "taxonomy-crosswalk-links for hs_code=9607"
+- "value-chain-hs-stage-map for hs_code=9607 or pilot_id=bd-rmg-apparel"
+- "competencies source=bd_bteb q=sewing"
 - "Check duplicate org: name=… website=…"
 
 ---
@@ -240,8 +259,10 @@ Duplicate guard: `POST /api/analyst/change-requests` returns **409** on **any** 
 |---------|-----|
 | 401 Unauthorized | Regenerate API key; check `MONCHO_AUTH_TOKEN` |
 | 429 rate limit | Read the structured MCP response: `Retry after`, `Limit tier`, and `Guidance` lines; wait, then narrow filters |
-| `unknown_resource` | Use hyphenated names: `hs-codes`, `market-facts`, `taxonomy-standards` |
+| `unknown_resource` | Use hyphenated names: `hs-codes`, `market-facts`, `taxonomy-standards`, `taxonomy-crosswalk-links`, `value-chain-hs-stage-map` |
 | `filter_required` on market-facts | Add `mode=summary` or a search filter (`metric_key`, `sector_slug`, `fact_type`, `year`, `hs_code`, or `q`) |
+| `filter_required` on taxonomy-crosswalk-links | Pass `hs_code`, `q`, or `from_scheme` |
+| `filter_required` on value-chain-hs-stage-map | Pass `hs_code` or `pilot_id` |
 | "Trade data missing" but you expect it to exist | Don't rely on `coverage.market_facts_with_sector_tag` — query `market-facts` directly with `fact_type=trade` (+ `hs_code`, `country`); `hs-codes` resource has no trade values |
 | MCP not listed in Cursor | Check `npx` resolves `@moncho-ai/analyst-discovery-mcp`; run `npx -y @moncho-ai/analyst-discovery-mcp` in a terminal to confirm it installs and starts |
 

@@ -9,6 +9,9 @@
  *   npx tsx scripts/discovery/lookup.ts analysis-structure --sector_slug=agriculture --home_mode=draft_report
  *   npx tsx scripts/discovery/lookup.ts hs-codes --q=6107 --level=6
  *   npx tsx scripts/discovery/lookup.ts sector-hscode-links --sector_slug=ict-services
+ *   npx tsx scripts/discovery/lookup.ts taxonomy-crosswalk-links --hs_code=9607
+ *   npx tsx scripts/discovery/lookup.ts value-chain-hs-stage-map --hs_code=9607
+ *   npx tsx scripts/discovery/lookup.ts competencies --source=bd_bteb --q=sewing
  */
 import * as dotenv from 'dotenv';
 import * as path from 'path';
@@ -24,7 +27,7 @@ async function main(): Promise<void> {
   if (!resource) {
     console.error('Usage: lookup.ts <resource> [--key=value ...]');
     console.error(
-      'Resources: taxonomy | coverage | orgs | products | pricing | needs | hs-codes | sector-hscode-links | taxonomy-standards | market-facts | analysis-structure',
+      'Resources: taxonomy | coverage | orgs | products | pricing | needs | hs-codes | sector-hscode-links | taxonomy-standards | taxonomy-crosswalk-links | value-chain-hs-stage-map | competencies | occupations | market-facts | analysis-structure',
     );
     process.exit(1);
   }

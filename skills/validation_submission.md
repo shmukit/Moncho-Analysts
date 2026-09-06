@@ -23,6 +23,8 @@ Use this skill **every time** you are about to submit data. IDE agents must trea
 | `market_fact` | Stage for SML review | `staging_market_facts` → `market_facts` |
 | `expert` | Change request (workbench QA) | experts |
 
+**Priced SKUs (Dashboard):** follow `docs/reference/SKU_PRICING_SUBMISSION_GUIDE.md` and `skills/product_sku_submission.md` before every product submit (BD vs global track, segment slugs, no Pass 2 gap-fill).
+
 **Market facts** do not go through the org change-request API. Required fields: `metric_key`, `country`, `year`, `value`, `unit`, `source_name`. See `samples/market_fact_sample.json`.
 
 **Batch limit:** max **50 JSON objects** per file or Bulk inject paste (50 orgs, 50 products, or 50 facts — not “50 lines”).

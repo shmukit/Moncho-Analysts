@@ -11,9 +11,10 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
 
 **Docs** — see [`docs/README.md`](docs/README.md)
 - `docs/onboarding/` — handbook, ICT grant, sectors, dashboard, MCP setup
-- `docs/reference/` — schema, scoring, product rubrics, IDE agent mistakes
+- `docs/reference/` — schema, scoring, product rubrics, IDE agent mistakes, SKU pricing guide
 - `docs/discovery/` — discovery MCP guide
 - `skills/data_injection_planning.md` — **required** before sector/landscape injection plans
+- `docs/reference/SKU_PRICING_SUBMISSION_GUIDE.md` + `skills/product_sku_submission.md` — Dashboard SKU pricing (BD vs global; no harvest CLIs)
 
 ## ICT Division grant — contract analysts (3 months)
 
@@ -37,6 +38,7 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 - `scripts/submit_data.ts` — submit JSON (QA-gated)
 - `scripts/extraction/`, `scripts/discovery/` — discovery helpers
 - `skills/validation_submission.md` — submit ritual for IDE agents
+- `skills/product_sku_submission.md` — Dashboard SKU pricing checklist
 - `skills/product_image_audit.md` — visual product-media audit before submit
 - `samples/` — JSON schemas for Organizations, Products, Landscapes, Experts
 

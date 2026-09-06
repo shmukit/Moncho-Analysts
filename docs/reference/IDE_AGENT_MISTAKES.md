@@ -1,6 +1,6 @@
 # IDE agent mistakes registry (Analyst Workbench)
 
-**Last updated:** 2026-08-16  
+**Last updated:** 2026-09-06  
 **Owner:** Founder / Data Ops leads  
 **Repo:** [Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts) (this workbench)  
 **Purpose:** Living list of **recurring mistakes IDE coding agents make** while discovering, scoring, and submitting Moncho data. Prune aggressively — keep short and current.
@@ -25,7 +25,7 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 2. **This file** (`IDE_AGENT_MISTAKES.md`)
 3. `analyst_instructions.md`
 4. `SCORING_STANDARDS.md` + `PRODUCT_ORG_RUBRICS.md`
-5. `skills/data_injection_planning.md` when writing a **sector / landscape injection plan**
+5. `skills/data_injection_planning.md` when writing a **sector / landscape injection plan**; `SKU_PRICING_SUBMISSION_GUIDE.md` when submitting prices
 6. `skills/taxonomy_mapping.md` + relevant skills
 7. `samples/*` for the entity you are submitting
 8. `ANALYST_DISCOVERY_MCP.md` / `MCP_SETUP_AFTER_MERGE.md` when looking up live data
@@ -38,6 +38,7 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 |------|----------------|
 | Org scoring (5 dims) | [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) |
 | Product gate + normalization | [`PRODUCT_ORG_RUBRICS.md`](PRODUCT_ORG_RUBRICS.md) |
+| SKU pricing (Dashboard) | [`SKU_PRICING_SUBMISSION_GUIDE.md`](SKU_PRICING_SUBMISSION_GUIDE.md) · [`../../skills/product_sku_submission.md`](../../skills/product_sku_submission.md) |
 | Sector / landscape / segment IDs | [`skills/taxonomy_mapping.md`](skills/taxonomy_mapping.md) · `GET /api/reference/taxonomy` |
 | Grant sector slugs | [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) |
 | Discovery MCP / CLI | [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md) |
@@ -120,6 +121,9 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | P-06 | **Products before org gate** — harvest SKUs for every directory row | Wasted extraction on Tier-reject orgs | Score / eligibility-filter orgs first; products only for orgs that clear the agreed bar. |
 | P-07 | **Digital presence as core product quality** — Facebook freshness / follower-adjacent signals as a universal dim | Not globally comparable; overlaps digital UX; easy to game | Optional org activity note only. Product dims: spec, ops clarity, trust, transparency, fulfillment. |
 | P-08 | **Call product shots “verified” after URL/provenance checks only** — attach stock portraits, nature heroes, logos, or page decoration | Live HTTP 200 images pass mechanical QA while showing no product; HITL cannot manually open every URL | Run `npm run audit:product-images` (`scripts/utils/audit-product-images.mjs`) after every media harvest, scan its contact sheet, and keep only images visibly showing the product, interface, installed system, or concrete deliverable. People/nature-only and generic stock → omit shot, keep valid SKU. |
+| P-12 | **Trust MCP `coverage.products` = 0 as “no SKUs”** | False empty grant table; wasted re-harvest of live pricing | Query `pricing?sector_slug=<moncho-slug>` and read `products_live`. Use Moncho slugs, not `*-bd`. Pending / HITL-hold rows are not live. See `ANALYST_DISCOVERY_MCP.md`. |
+| P-13 | **Submit orgs with sector tag only** — omit segment slugs | `organizations_by_sector_id` without landscape placement; MCP shows a gap | Always pass taxonomy **segment slugs** on org apply (T-01). Sector_id-only vs segment-only are different placements, not a counter bug. |
+| P-14 | **Pass 2 open-web gap fill for missing prices** — secondary search when the official page has no number | Expensive, ~4% fill in a prior BD harvest; invented or aggregator prices | One official URL. If no public price: `pricing_gap` or skip. Interns never run harvest CLIs or Exa gap-fill. |
 
 ### Example (P-02) — energy
 

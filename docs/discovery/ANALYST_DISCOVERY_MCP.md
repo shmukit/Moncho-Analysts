@@ -11,10 +11,10 @@ This is Moncho's **first MCP server**. It gives your IDE agent read-only access 
 | Resource | Tables / data | Notes |
 |----------|---------------|-------|
 | `taxonomy` | sectors, landscapes, segments | Full reference graph; filter with `sector_slug` |
-| `coverage` | counts per sector | Requires `sector_slug`; orgs, products, pricing, market_facts, needs links |
+| `coverage` | counts per sector | Requires `sector_slug`; orgs, `products_live`, pricing rows, market_facts, needs links |
 | `orgs` | `metadata_organization` | Search by name, website, country, sector |
-| `products` | `products` | Search by name/group/category; sector/segment via org linkage |
-| `pricing` | `product_metrics` | Brand/SKU pricing rows |
+| `products` | `products` | Search by name/group/category; sector/segment via `product_metrics` (not `created_by`) |
+| `pricing` | `product_metrics` | Brand/SKU pricing rows. Prefer this for SKU depth. |
 | `needs` | `needs` + `segment_needs` | Segment needs titles |
 | `hs-codes` | `hs_codes` | HS2/4/6 taxonomy lookup (names, hierarchy). **Not** trade values. |
 | `sector-hscode-links` | `sector_hscode_links` + `sector_trade_coverage` | Governed Moncho sector ↔ HS include/exclude scope. **Requires `sector_slug`**. Distinct from global HS↔ISIC concordance. |
@@ -57,6 +57,22 @@ There is no dedicated trade table. Import/export values are `market_facts` rows 
 To check whether trade data exists for a specific HS code, filter `market-facts` with `fact_type=trade` and `hs_code=<HS2|HS4|HS6 digits>` (e.g. `hs_code=8471`). Discovery matches WCO fields first (and prefixes on `wco_hs6_code` for chapter/heading queries), with legacy OEC keys as fallback. Do not use `hs-codes` for this — that resource is taxonomy lookup only (HS names/levels, no trade values).
 
 **Do not conclude trade data is missing from `coverage.market_facts_with_sector_tag` alone.** That count only includes rows tagged with a `sector_slug`; OEC trade rows are frequently ingested without one, so a low or zero coverage count does not mean the country/HS code has no trade data — query `market-facts` with `fact_type=trade` directly to confirm.
+
+### `coverage` product and org counts
+
+Requires `sector_slug` (Moncho slug, e.g. `financial-services`, not grant `finance-banking-bd`). Multi-slug grant rows (Agriculture = `agri-agro-processing` + `fisheries`) need **one coverage call per slug**.
+
+| Field | Meaning |
+|-------|---------|
+| `products_live` | Distinct catalog products with at least one `product_metrics` row on this sector's **canonical** segments (`segments.id`) |
+| `products` | Deprecated alias of `products_live` (kept so older MCP clients still work) |
+| `pricing_rows_on_segments` | `product_metrics` rows on those same canonical segments |
+| `organizations_by_sector_id` | Orgs with `metadata_organization.sector_id` set to this sector |
+| `organizations_on_segments` | Distinct orgs in `organization_to_segment_map` using **`sector_segments.id`** (junction PK) |
+
+**SKU depth:** use `resource=pricing` (or `products` with `sector_slug`) plus `coverage.products_live`. Do not treat an old `products: 0` snapshot as "no SKUs"; that field used to filter `products.created_by` against org ids, which almost always returned 0.
+
+**Org gap:** `organizations_by_sector_id` and `organizations_on_segments` measure **different placements**. Sector-id-only orgs are tagged but not on a landscape cell. Segment-only orgs sit on the grid with a null `sector_id`. Empty segment graphs (0 `sector_segments` rows) cannot attach orgs.
 
 ### `analysis-structure` (Sherpa preview)
 
@@ -264,6 +280,7 @@ Duplicate guard: `POST /api/analyst/change-requests` returns **409** on **any** 
 | `filter_required` on taxonomy-crosswalk-links | Pass `hs_code`, `q`, or `from_scheme` |
 | `filter_required` on value-chain-hs-stage-map | Pass `hs_code` or `pilot_id` |
 | "Trade data missing" but you expect it to exist | Don't rely on `coverage.market_facts_with_sector_tag` — query `market-facts` directly with `fact_type=trade` (+ `hs_code`, `country`); `hs-codes` resource has no trade values |
+| "Products live = 0" but you know SKUs exist | Query `pricing?sector_slug=<moncho-slug>` and read `coverage.products_live`. Use Moncho slugs, not `*-bd`. Pending / HITL-hold rows are not live. |
 | MCP not listed in Cursor | Check `npx` resolves `@moncho-ai/analyst-discovery-mcp`; run `npx -y @moncho-ai/analyst-discovery-mcp` in a terminal to confirm it installs and starts |
 
 ---

@@ -2,7 +2,7 @@
 
 **Audience:** IDE agents writing sector plans, coverage snapshots, or harvest rationales for Data Ops.  
 **When to use:** Before any org/product/market-facts injection plan; before inventing scoring dims.  
-**Also read:** `IDE_AGENT_MISTAKES.md`, `SCORING_STANDARDS.md`, `PRODUCT_ORG_RUBRICS.md`, `skills/taxonomy_mapping.md`  
+**Also read:** `IDE_AGENT_MISTAKES.md`, `SCORING_STANDARDS.md`, `PRODUCT_ORG_RUBRICS.md`, `SKU_PRICING_SUBMISSION_GUIDE.md`, `skills/taxonomy_mapping.md`, `skills/product_sku_submission.md`  
 (In the nested workbench layout these live under `docs/reference/`.)
 
 ---

@@ -20,7 +20,9 @@ This is Moncho's **first MCP server**. It gives your IDE agent read-only access 
 | `sector-hscode-links` | `sector_hscode_links` + `sector_trade_coverage` | Governed Moncho sector ↔ HS include/exclude scope. **Requires `sector_slug`**. Distinct from global HS↔ISIC concordance. |
 | `taxonomy-standards` | `taxonomy_standards` | ISIC and other standards |
 | `taxonomy-crosswalk-links` | `taxonomy_crosswalk_links` (+ nested ISIC label) | Global HS/BSIC → ISIC concordance. **Requires `hs_code`, `q`, or `from_scheme`**. |
-| `value-chain-hs-stage-map` | `value_chain_hs_stage_map` (+ nested stage) | Pilot HS → value-chain stage. **Requires `hs_code` or `pilot_id`**. |
+| `value-chain-hs-node-map` | `value_chain_hs_node_map` (+ nested node) | Pilot HS → value-chain node. **Requires `hs_code` or `pilot_id`**. |
+| `hs-competency-supply` | View `hs_competency_supply` | Derived BD degree/TVET supply via shared node. **Requires `hs_code` or `pilot_id`**. `claim_kind=derived`. |
+| `hs-competency-map` | `hs_competency_map` | Materialized HS↔competency (`supply_pipeline` / `demands_skill`). **Requires `hs_code`, `pilot_id`, or `q`**. |
 | `competencies` | `competencies` | Skills/credentials (ESCO, O*NET, BTEB, UGC, …). Optional `source`, `competency_type`, `country`, `q`. |
 | `occupations` | `occupations` | Occupation catalog. Optional `q`, `country`. |
 | `market-facts` | `market_facts` | **Not** a full dump |
@@ -33,7 +35,7 @@ Typical read-only path (no raw SQL):
 1. `market-facts` with `fact_type=trade` + `hs_code=…` (BD import/export values)
 2. `hs-codes` for product labels
 3. `taxonomy-crosswalk-links` with `hs_code=…` (HS → ISIC)
-4. `value-chain-hs-stage-map` with `hs_code=…` or `pilot_id=…` (HS → stage)
+4. `value-chain-hs-node-map` with `hs_code=…` or `pilot_id=…` (HS → stage)
 5. `competencies` / `occupations` for skills narrative (do **not** treat `competency_edges` as HS↔ISIC)
 
 Same caps as other list resources (default 20 / max 50). For broader table browse and occupations↔competencies joins, use **Data Terminal** (Analyst-tier entitlement).
@@ -64,9 +66,9 @@ Requires `sector_slug` (Moncho slug, e.g. `financial-services`, not grant `finan
 
 | Field | Meaning |
 |-------|---------|
-| `products_live` | Distinct catalog products with at least one `product_metrics` row on this sector's **canonical** segments (`segments.id`) |
+| `products_live` | Distinct catalog products with at least one `product_metrics` row on this sector's **canonical** segments (`segments.id`) **or** published `landscape_versions` |
 | `products` | Deprecated alias of `products_live` (kept so older MCP clients still work) |
-| `pricing_rows_on_segments` | `product_metrics` rows on those same canonical segments |
+| `pricing_rows_on_segments` | Distinct `product_metrics` rows on those same segments or published landscapes |
 | `organizations_by_sector_id` | Orgs with `metadata_organization.sector_id` set to this sector |
 | `organizations_on_segments` | Distinct orgs in `organization_to_segment_map` using **`sector_segments.id`** (junction PK) |
 
@@ -126,12 +128,16 @@ Guidance: Minute burst limit reached (60/min). Wait for retry_after_sec, then re
 
 | Resource | Default rows | Max rows |
 |----------|-------------:|---------:|
-| `orgs`, `products`, `pricing`, `needs`, `hs-codes`, `sector-hscode-links`, `taxonomy-standards`, `competencies`, `occupations`, `taxonomy-crosswalk-links`, `value-chain-hs-stage-map` | 20 | 50 |
+| `orgs`, `products`, `pricing`, `needs`, `hs-codes`, `sector-hscode-links`, `taxonomy-standards`, `competencies`, `occupations`, `taxonomy-crosswalk-links`, `value-chain-hs-node-map`, `hs-competency-map`, `hs-competency-supply` | 20 | 50 |
 | `market-facts` (`mode=search`) | 20 | 25 |
 | `market-facts` (`mode=summary`) | aggregates only | sampled up to 5,000 matching rows |
 | `taxonomy` | full reference graph | cached |
 | `coverage` | counts only | no row list |
 | `analysis-structure` | one outline object | section count in `meta.count` |
+
+**Do not treat `coverage.organizations_on_segments = 0` as missing org data** until you confirm against the website API or `organization_to_segment_map`. The map stores `sector_segments.id` (junction PK), not `segments.id`. The public org directory and CMS use the junction id correctly; a prior Discovery MCP bug undercounted mapped orgs when filtering on canonical segment ids.
+
+**Do not treat `coverage.products` / `products_live` = 0 as missing SKUs** until you also query `pricing?sector_slug=…`. Pending change requests are not live. HITL-hold harvests are not live until applied.
 
 Pass `limit=50` on list resources when you need the maximum page size. If `meta.truncated` is `true`, refine your query (`sector_slug`, `q`, `country`) rather than requesting again with the same filters.
 
@@ -226,7 +232,7 @@ Point `MONCHO_AUTH_TOKEN` at your local `.env` value or paste via your host's en
 - "market_facts summary for sector_slug ict-services"
 - "market_facts search for fact_type=trade, hs_code=8471, country=Bangladesh"
 - "taxonomy-crosswalk-links for hs_code=9607"
-- "value-chain-hs-stage-map for hs_code=9607 or pilot_id=bd-rmg-apparel"
+- "value-chain-hs-node-map for hs_code=9607 or pilot_id=bd-rmg-apparel"
 - "competencies source=bd_bteb q=sewing"
 - "Check duplicate org: name=… website=…"
 
@@ -275,10 +281,10 @@ Duplicate guard: `POST /api/analyst/change-requests` returns **409** on **any** 
 |---------|-----|
 | 401 Unauthorized | Regenerate API key; check `MONCHO_AUTH_TOKEN` |
 | 429 rate limit | Read the structured MCP response: `Retry after`, `Limit tier`, and `Guidance` lines; wait, then narrow filters |
-| `unknown_resource` | Use hyphenated names: `hs-codes`, `market-facts`, `taxonomy-standards`, `taxonomy-crosswalk-links`, `value-chain-hs-stage-map` |
+| `unknown_resource` | Use hyphenated names: `hs-codes`, `market-facts`, `taxonomy-standards`, `taxonomy-crosswalk-links`, `value-chain-hs-node-map` |
 | `filter_required` on market-facts | Add `mode=summary` or a search filter (`metric_key`, `sector_slug`, `fact_type`, `year`, `hs_code`, or `q`) |
 | `filter_required` on taxonomy-crosswalk-links | Pass `hs_code`, `q`, or `from_scheme` |
-| `filter_required` on value-chain-hs-stage-map | Pass `hs_code` or `pilot_id` |
+| `filter_required` on value-chain-hs-node-map | Pass `hs_code` or `pilot_id` |
 | "Trade data missing" but you expect it to exist | Don't rely on `coverage.market_facts_with_sector_tag` — query `market-facts` directly with `fact_type=trade` (+ `hs_code`, `country`); `hs-codes` resource has no trade values |
 | "Products live = 0" but you know SKUs exist | Query `pricing?sector_slug=<moncho-slug>` and read `coverage.products_live`. Use Moncho slugs, not `*-bd`. Pending / HITL-hold rows are not live. |
 | MCP not listed in Cursor | Check `npx` resolves `@moncho-ai/analyst-discovery-mcp`; run `npx -y @moncho-ai/analyst-discovery-mcp` in a terminal to confirm it installs and starts |

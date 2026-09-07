@@ -4,7 +4,7 @@
 **Job:** Submit a small set of **named, sourced, priced offerings** so they can become live `product_metrics` rows after review.  
 **Not this guide:** Automated harvest CLIs, Exa/Tavily gap-fill, bulk apply. Those stay with the founder.
 
-Also read: `PRODUCT_ORG_RUBRICS.md`, `skills/product_sku_submission.md`, `IDE_AGENT_MISTAKES.md` (P-01 through P-14), `GRANT_TEN_SECTORS.md`.
+Also read: `PRODUCT_ORG_RUBRICS.md` (Part 3 units **and** Part 3c industry harvest cards), `skills/product_sku_submission.md`, `IDE_AGENT_MISTAKES.md` (P-01 through P-15, A-03), `GRANT_TEN_SECTORS.md`.
 
 ---
 
@@ -23,6 +23,14 @@ Also read: `PRODUCT_ORG_RUBRICS.md`, `skills/product_sku_submission.md`, `IDE_AG
 - Whole menus (cap **5–15 flagship SKUs** per org on first pass)
 
 **Global-only exclusions:** labeled Bangladesh orgs, EPB stubs, `.com.bd`, orgs that already have any SKU in live pricing, non-digital sectors, government / SOE.
+
+---
+
+## Pick the pricing object first
+
+Industries do not share one SKU shape. Before you open a page, match the grant sector to the harvest card in `PRODUCT_ORG_RUBRICS.md` Part 3c (test vs panel, hardware model, named fee, lane/tariff, list plan, pack, ticket).
+
+Set `metadata.template_id` to that approved id when the form allows it. Do not invent a new id (A-03). Mixing objects on one landscape (a solar watt next to a lab test) makes the price chart unusable (P-15).
 
 ---
 
@@ -54,7 +62,8 @@ Match `samples/product_sample.json` / `samples/sports_revenue_sample.json` and t
 | Price | Number. `0` is allowed for a labeled free tier. Never invent. Never `"85000-180000"` in one field |
 | Currency | Currency **on the page**. BD pages in ৳ → BDT. Global USD page → USD. Do not default |
 | Country | BD track → BD. Global track → ISO of the published market, or omit if the page is global and unlabeled |
-| Unit | `variant_unit` from `PRODUCT_ORG_RUBRICS.md` (per test, per W, per seat, `mo` / `yr`, ticket, …) |
+| Unit | `variant_unit` from `PRODUCT_ORG_RUBRICS.md` Part 3 / 3c (per test, per W, per seat, `mo` / `yr`, ticket, …) |
+| Template | `metadata.template_id` from Part 3c when the form has metadata |
 | Price kind | List / public / quote. If you cannot name how the price is published, stop and ask |
 
 **Org apply:** always include **segment slugs** so the org lands on the landscape cell, not sector-tag-only (P-13).
@@ -63,14 +72,15 @@ Match `samples/product_sample.json` / `samples/sports_revenue_sample.json` and t
 
 ## What not to submit as a plan SKU
 
-From the global pricing QA (add-ons, meters, credits):
+SaaS / ICT first pass (add-ons, meters, credits). Other sectors: use Part 3c, not this table.
 
-| Object | Submit as priced plan SKU? | Instead |
-|--------|----------------------------|---------|
+| Object | Submit as priced SKU? | Instead |
+|--------|------------------------|---------|
 | Named list plan (Free / Pro) | Yes | One row per plan × billing period |
 | Feature checkbox on a plan | No | Note in description / metadata |
 | Overage rate (“+$9 per 100k”) | No | Note on the parent plan |
-| Priced add-on / usage meter | Not on first pass | Founder backlog |
+| Priced add-on / usage meter with a **number on the official page** | Yes (own row, not a checkbox) | Leave `attaches_to` blank if the page does not name the parent plan |
+| Priced add-on / meter with **no** number | No | Skip or `pricing_gap`. Never invent |
 | API credit tables | No | Skip |
 | Infra instance ladders (hourly) | Not on first pass | Founder backlog |
 | “Contact us” / “starts at” | No | `pricing_gap` or omit. Never invent a number |
@@ -88,11 +98,12 @@ If the official page has no public number: submit a **pricing gap** or skip the 
 ## Pre-submit checklist
 
 1. Org already exists or is submitted with **segment slugs**. Duplicate-check first (M-03).
-2. SKU is named, on the official page, in-scope for BD **or** global (not mixed).
-3. Price is a number in the page’s currency; unit filled; free tier is `0` not blank.
-4. Cap 5–15 SKUs for this org.
-5. Not an add-on, meter, credit table, or contact-us quote.
-6. Run `skills/validation_submission.md` QA. Then submit via Dashboard or `npm run submit` in the Analysts repo.
+2. Pricing object matches Part 3c for this grant sector (P-15). Template id set when metadata exists.
+3. SKU is named, on the official page, in-scope for BD **or** global (not mixed).
+4. Price is a number in the page’s currency; unit filled; free tier is `0` not blank.
+5. Cap 5–15 SKUs for this org.
+6. SaaS: no credit tables, contact-us quotes, or invented “starts at” numbers. Priced extras only when the page shows a number.
+7. Run `skills/validation_submission.md` QA. Then submit via Dashboard or `npm run submit` in the Analysts repo.
 
 Founder-side audit (`product-pricing:audit-submissions`) is **not** an intern command. Your checklist above is the intern equivalent.
 

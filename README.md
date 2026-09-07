@@ -14,7 +14,7 @@ Welcome to the Moncho Analyst Workbench. This repository contains the tools and 
 - `docs/reference/` — schema, scoring, product rubrics, IDE agent mistakes, SKU pricing guide
 - `docs/discovery/` — discovery MCP guide
 - `skills/data_injection_planning.md` — **required** before sector/landscape injection plans
-- `docs/reference/SKU_PRICING_SUBMISSION_GUIDE.md` + `skills/product_sku_submission.md` — Dashboard SKU pricing (BD vs global; no harvest CLIs)
+- `docs/reference/SKU_PRICING_SUBMISSION_GUIDE.md` + `skills/product_sku_submission.md` + `docs/reference/PRODUCT_ORG_RUBRICS.md` Part 3c — Dashboard SKU pricing (pricing object by industry, BD vs global; no harvest CLIs)
 
 ## ICT Division grant — contract analysts (3 months)
 

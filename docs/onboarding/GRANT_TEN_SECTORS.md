@@ -44,6 +44,8 @@
 | **Data Ops** | Score orgs/products per sector; Coverage Snapshot grades all 10 (🟢/🟡/🔴) |
 | **GTM Ops** | Tie posts and newsletter issues to sector stories |
 
+**SKU harvest:** match each grant sector to a **pricing object** (lab test, hardware model, named fee, lane/tariff, list plan, pack, ticket). Cards: `PRODUCT_ORG_RUBRICS.md` Part 3c. Do not mix objects on one landscape.
+
 **Discovery deliverable:** one row per grant sector — landscape count, org/product count, biggest gap.
 
 **MCP coverage:** call `coverage` **once per Moncho slug**, not once per grant row. Product depth is `products_live` / `pricing` (live `product_metrics`). `organizations_by_sector_id` vs `organizations_on_segments` are different placements, not a broken counter. Grant `*-bd` slugs are not in `metadata_sector`.

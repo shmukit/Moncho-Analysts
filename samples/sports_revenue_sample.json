@@ -1,0 +1,85 @@
+{
+  "_comment": "Sports clubs / venues: service revenue as products + product_metrics. See PRODUCT_ORG_RUBRICS.md § Sports service revenue.",
+  "products": [
+    {
+      "product_name": "Match-Day Ticket",
+      "product_group": "Ticketing",
+      "product_category": "Match Fees",
+      "product_description": "Single-match spectator admission; gallery and VIP tiers on club ticketing page.",
+      "hs_code": null
+    },
+    {
+      "product_name": "Jersey Sponsorship Package",
+      "product_group": "Sponsorship",
+      "product_category": "Brand Rights",
+      "product_description": "Season-long jersey front branding plus ground hoardings (commercial page).",
+      "hs_code": null
+    },
+    {
+      "product_name": "Academy Season Fee",
+      "product_group": "Academy",
+      "product_category": "Training",
+      "product_description": "Youth academy enrollment for a fixed season (sessions per week on academy page).",
+      "hs_code": null
+    }
+  ],
+  "product_metrics": [
+    {
+      "group_label": "Match-Day Ticket",
+      "brand_name": "Example FC",
+      "variant_label": "Gallery",
+      "variant_value": 1,
+      "variant_unit": "ticket",
+      "price": 200,
+      "currency": "bdt",
+      "quality": 3,
+      "metadata": {
+        "revenue_stream": "ticketing",
+        "billing": "one_off",
+        "b2b": false,
+        "source_url": "https://example.com/tickets",
+        "segment_slug": "outdoor-team-sports",
+        "organization_name": "Example FC"
+      }
+    },
+    {
+      "group_label": "Jersey Sponsorship Package",
+      "brand_name": "Example FC",
+      "variant_label": "Season 2026",
+      "variant_value": 1,
+      "variant_unit": "year",
+      "price": 5000000,
+      "currency": "bdt",
+      "quality": 4,
+      "is_bundle": true,
+      "bundle_items": ["jersey-front", "ground-hoardings"],
+      "metadata": {
+        "revenue_stream": "sponsorship",
+        "billing": "recurring_annual",
+        "b2b": true,
+        "source_url": "https://example.com/commercial",
+        "segment_slug": "sports-sponsorship-marketing",
+        "organization_name": "Example FC"
+      }
+    },
+    {
+      "group_label": "Academy Season Fee",
+      "brand_name": "Example FC",
+      "variant_label": "6-month season",
+      "variant_value": 6,
+      "variant_unit": "month",
+      "normalization_mag": 1,
+      "price": 18000,
+      "currency": "bdt",
+      "quality": 4,
+      "metadata": {
+        "revenue_stream": "academy",
+        "billing": "recurring_seasonal",
+        "b2b": false,
+        "source_url": "https://example.com/academy",
+        "segment_slug": "multi-sport-academies",
+        "organization_name": "Example FC"
+      }
+    }
+  ]
+}

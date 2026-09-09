@@ -170,7 +170,7 @@ The **Analyst Dashboard** (`/analyst/dashboard`) is the command center for aware
 
 1. **Workbench Access (API Key)**: Copy your key from **Settings → Developer** (`/analyst/settings`) and save it in your local `.env` as `MONCHO_AUTH_TOKEN` for Hub 1 scripts. (Not on the dashboard itself.)
 2. **Curation Statistics**: Reputation and approved/completed contributions on the identity strip and public profile (`/a/[username]`).
-3. **Submissions**: Track change requests under **My Work → Submissions** (filter Pending / In review / Completed / Rejected). Status `completed` means CMS Apply injected the row.
+3. **Submissions**: Track change requests under **My Work → Submissions** (filter Pending / In review / Completed / Rejected). Status `completed` means CMS Apply injected the row. **Pending edits:** open your unclaimed pending row there to Edit or Withdraw. Do not look for Edit on the public Organizations directory.
 4. **Sherpa AI turns**: Quota strip on dashboard and My Work (daily / monthly limits).
 5. **Bulk inject** and **Data Terminal**: Sidebar entries for JSON review-queue batches and table explore / joins.
 

@@ -19,11 +19,24 @@ Use this skill **every time** you are about to submit data. IDE agents must trea
 | `organization` | Change request → review → CMS apply | `metadata_organization` |
 | `product` | Change request → review → CMS apply | `product_metrics` |
 | `metadata` | Change request | sector/segment/need metadata |
+
+**Product pricing shapes (what populates Pricing Intelligence):**
+
+| Shape | Required fields | Pricing tab after publish? |
+|-------|-----------------|----------------------------|
+| CMS modal | `brand_name`, `group_label`, `price` | Yes (when segment links to a published landscape) |
+| Harvest / CLI | `product_name`, `group_label`, `price_bdt` | Yes |
+| Harvest bundle | `products[]` with `price_bdt` per SKU | Yes (one `product_metrics` row per priced SKU) |
+| Pricing gap | `pricing_gap: true`, no numeric price | No (intelligence / gap tracking only) |
+| Rubric / catalog | `product_name`, quality dims, no `price_bdt` | No |
+
+`market_facts` staging uses a JSON `dimensions` object (HS, operator, grain). **Product** change requests do not have that column. Product rubric scores are fields like `offering_completeness_score`, `d1_technical_score`, `dim_scores`, plus `*_rationale`. After apply they land in `product_metrics.metadata.scoring.dimensions`. Do not assume every accepted product row included a price; reviewers accept rubric and gap rows by design. Do not assume a scalar `quality_score` means dims were skipped.
+
+**Priced SKUs (Dashboard):** follow `SKU_PRICING_SUBMISSION_GUIDE.md` and `product_sku_submission.md` before every product submit (BD vs global track, segment slugs, no Pass 2 gap-fill).
+
 | `landscape` | Change request | landscapes |
 | `market_fact` | Stage for SML review | `staging_market_facts` → `market_facts` |
 | `expert` | Change request (workbench QA) | experts |
-
-**Priced SKUs (Dashboard):** follow `docs/reference/SKU_PRICING_SUBMISSION_GUIDE.md` and `skills/product_sku_submission.md` before every product submit (BD vs global track, segment slugs, no Pass 2 gap-fill).
 
 **Market facts** do not go through the org change-request API. Required fields: `metric_key`, `country`, `year`, `value`, `unit`, `source_name`. See `samples/market_fact_sample.json`.
 
@@ -79,13 +92,10 @@ npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organizati
 # Products
 npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type product
 
-# Product shots (any sector) — contact-sheet visual audit before claiming media reviewed
-npm run audit:product-images -- --file data/pending/your-file.json
-# Then open data/qa-reports/<stem>-image-audit/contact-sheet.html (see skills/product_image_audit.md)
-
 # Market facts — check sample shape manually or with JSON schema tools
 # Required: metric_key, country, year, value, unit, source_name
 ```
+
 **Statuses:**
 - **PASS** — ok to submit (Senior Analyst may still spot-check).
 - **FLAGGED** — submit allowed by gate; fix when possible.
@@ -114,6 +124,7 @@ Requires `.env`: `MONCHO_API_URL`, `MONCHO_AUTH_TOKEN`.
 ### 8. After submit
 
 - Track org/product/metadata/landscape rows in **My Work → Submissions** (`/analyst/work?tab=submissions`).
+- **Can I edit pending data?** Yes, on that detail page when the row is still **unclaimed pending** (Edit or Withdraw). Public sector organization cards are live catalog, not this queue. MCP cannot edit.
 - Market facts: reviewers approve on **Review Queue → Staged market facts** (`POST /api/reviewer/staged-market-facts`). CMS Market Facts tab is for AI/agent pipelines only.
 - Open a row at `/analyst/submissions/[id]`:
   - **Pending (unclaimed):** **Edit** payload in place, or **Withdraw** (does not create a second row).

@@ -157,7 +157,7 @@ The left nav collapses to icons on narrow layouts. When collapsed, **hover a nav
 | **Metadata Manager**| `/analyst/metadata` | Sectors, segments, countries, taxonomy standards, and HS codes (read + suggest edits). |
 | **Value Chain** | `/analyst/value-chain` | Manage stages, gaps, and HS→stage mappings per pilot. |
 | **Landscape Builder**| `/analyst/landscapes` | Interactive tool to map organizations onto sector layouts. |
-| **Run analysis** | `/sherpa?from=analyst` | Sherpa deep research / market sizing. |
+| **Run analysis with Sherpa** | `/sherpa?from=analyst` | Sherpa deep research / market sizing. |
 | **Settings** | `/analyst/settings` | API keys (Developer) and coverage sector editor (max 6). |
 | **Public Profile** | `/a/[username]` | Shareable portfolio. Edit via **Edit Profile** on your own page. |
 
@@ -198,6 +198,8 @@ Two sections on the tab:
 Rows are clickable and open the detail page. Reviewer/agent notes appear for in-review, changes-requested, and rejected rows.
 
 #### Edit, withdraw, and resubmit (author only)
+
+**Can I edit pending data I submitted?** Yes, if the row is still **unclaimed pending**: open it from **My Work → Submissions** (not the public Organizations directory, and not via MCP). After a reviewer claims it, wait or ask them to release. Rejected or changes-requested: use **Edit & resubmit** on the same row. Staged market facts on this page stay read-only. The public sector org note that more profiles are awaiting review is verification (`is_verified`), not your change-request queue.
 
 On the detail page (`/analyst/submissions/[id]`), if you are the submitter:
 
@@ -322,7 +324,7 @@ Legacy / orphan path may still show `reviewed` → `approved`. Treat **`complete
 - Market fact rows need `metric_key`, `country`, `year`, `value`, `unit`, `source_name`.
 - IDE CLI: `npm run submit -- --file path.json --type organization|product|market_fact|metadata|landscape`
 
-For reviewer/admin integration buckets, see [REVIEW_QUEUE_PLAYBOOK.md](../06-operations/REVIEW_QUEUE_PLAYBOOK.md).
+For reviewer/admin integration buckets and the founder **operator loop** (batch agent triage → Review Queue → CMS Apply), see [REVIEW_QUEUE_PLAYBOOK.md](../06-operations/REVIEW_QUEUE_PLAYBOOK.md) § Operator loop.
 
 ---
 

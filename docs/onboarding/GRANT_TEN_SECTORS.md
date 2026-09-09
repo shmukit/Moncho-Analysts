@@ -48,7 +48,7 @@
 
 **Discovery deliverable:** one row per grant sector — landscape count, org/product count, biggest gap.
 
-**MCP coverage:** call `coverage` **once per Moncho slug**, not once per grant row. Product depth is `products_live` / `pricing` (live `product_metrics`). `organizations_by_sector_id` vs `organizations_on_segments` are different placements, not a broken counter. Grant `*-bd` slugs are not in `metadata_sector`.
+**MCP coverage:** call `coverage` **once per Moncho slug**, not once per grant row. Product depth is `products_live` / `pricing` (live `product_metrics`). **Org census** is `organizations_on_segments` (same as `/sectors/{slug}/organizations`). `organizations_by_sector_id` is only the sector_id tag. Agri and RMG are segment-first, so that tag is much smaller than the directory. Grant `*-bd` slugs are not in `metadata_sector`.
 
 **Products live = 0** in an old snapshot was a Discovery MCP bug (`products.created_by` vs org ids). Recheck with `pricing?sector_slug=<moncho-slug>` after the coverage fix. HITL-hold harvests still do not count as live until applied.
 
@@ -71,6 +71,8 @@ Read-only `npm run analyst:audit-grant-sector-gap`. Counts use canonical `produc
 
 Agriculture and RMG are **segment-first seeds** (null `sector_id` on most mapped orgs). ICT/Energy/Sports/Retail can have orgs on the grid with **no live priced SKUs** yet. Energy’s 9 pricing rows have no `product_id`, so `products_live` stays 0. Do not auto-backfill maps from this table.
 
+**Org census (2026-09-10):** Intern MCP answered 63 Agri orgs from `organizations_by_sector_id`. The public Agri directory showed 691 because org-map reads stopped at PostgREST's ~1000-row cap (1115 map rows, about 691 unique). Distinct mapped orgs for `agri-agro-processing` were **784** (681 EPB-like). After paging, `coverage.organizations_on_segments` matches `pagination.total`. Do not drop EPB stubs from the census to match 63.
+
 ---
 
-*Last updated: 2026-09-06*
+*Last updated: 2026-09-10*

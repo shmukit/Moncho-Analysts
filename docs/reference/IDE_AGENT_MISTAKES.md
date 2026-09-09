@@ -1,6 +1,6 @@
 # IDE agent mistakes registry (Analyst Workbench)
 
-**Last updated:** 2026-09-06  
+**Last updated:** 2026-09-10  
 **Owner:** Founder / Data Ops leads  
 **Repo:** [Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts) (this workbench)  
 **Purpose:** Living list of **recurring mistakes IDE coding agents make** while discovering, scoring, and submitting Moncho data. Prune aggressively — keep short and current.
@@ -59,6 +59,7 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 | A-05 | **Worked examples that fail your own bar** — publish sample scores below the submit threshold you wrote | Agents copy failing examples into submissions | Recalibrate examples or lower the bar. Every sample in a plan must pass the stated rule. |
 | A-06 | **Score value-chain position** — points for collection/lab/EPC/O&M/finance boxes | Rewards vertical integration; penalizes specialists; confuses map with quality | Value chain = placement notes only. Never a 1–5 quality dim. See `skills/data_injection_planning.md`. |
 | A-07 | **Weighted product quality %** — 30% Service, 20% Convenience, … as analyst rubric | Opaque scores; mismatch with `product_metrics.quality` int; arbitrary until validated | Equal **1–5** dims → average. Evidence JSON OK; weights are founder/eng later only. |
+| A-08 | **Submit only the average `quality_score`** when the landscape template has five dims | Pricing card shows "Dimension scores were not recorded" or org fallback; founder thinks dims were never scored | Put the template keys on the product JSON (`offering_completeness_score` / `d1_technical_score` / `dim_scores` + rationales). Apply stores them in `metadata.scoring`. Scalar Quality on the CMS form is not a breakdown. |
 
 ### Example (A-01)
 
@@ -128,6 +129,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | P-13 | **Submit orgs with sector tag only** — omit segment slugs | `organizations_by_sector_id` without landscape placement; MCP shows a gap | Always pass taxonomy **segment slugs** on org apply (T-01). Sector_id-only vs segment-only are different placements, not a counter bug. |
 | P-14 | **Pass 2 open-web gap fill for missing prices** — secondary search when the official page has no number | Expensive, ~4% fill in a prior BD harvest; invented or aggregator prices | One official URL. If no public price: `pricing_gap` or skip. Interns never run harvest CLIs or Exa gap-fill. |
 | P-15 | **Harvest the wrong pricing object** — solar watts next to lab tests, insurance reimbursement as hospital list, loan ceiling as a product price, OTA snapshot as a hotel BAR | Incomparable scatter; CDRO reject; poisoned `product_metrics` | Match grant sector → object in `PRODUCT_ORG_RUBRICS.md` Part 3c. Set `metadata.template_id` when the form allows it. |
+| P-16 | **Treat empty SKU `metadata.scoring` as "analysts skipped dims"** — look for a `dimensions` column (that is `market_facts` grain) | Wrong empty-state copy on the pricing card; re-harvest of scores that already sit in `audit_logs` | Dim keys are `*_score` / `dim_scores` / `d1_*` on the product payload. Platform apply copies them into `metadata.scoring`. Interns still must submit those keys (A-08). |
 
 ### Example (P-02) — energy
 
@@ -158,6 +160,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | M-05 | **Ignore MCP rate limits / invent DB credentials** | 429 loops; security fail | Read-only API + MCP only. Back off on 429. Never ask for Supabase keys. |
 | M-06 | **Validate org via LinkedIn only** — `linkedin.com/company` or headcount as eligibility/credibility | Fake validity; weak evidence | **Website required** for validity. LinkedIn = supporting activity among other sources — never sole cite for a dim. |
 | M-07 | **Re-scrape HIES / bulletins without checking Moncho** | Duplicate `market_facts`; wasted PDF work | MCP/Dashboard/founder: list existing keys (e.g. `hies_2022` health tables) first; inject gaps only. |
+| M-12 | **Treat `coverage.organizations_by_sector_id` (or a 20-row `orgs` list) as directory size** | Intern said Agri has 63 orgs; website showed 691+ mapped names (mostly EPB stubs with null `sector_id`) | Report `coverage.organizations_on_segments`. Agri/RMG are segment-first. `orgs` is a sample, max 50. See `ANALYST_DISCOVERY_MCP.md` § coverage. |
 
 ---
 

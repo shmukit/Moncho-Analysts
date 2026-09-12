@@ -1,6 +1,6 @@
 # IDE agent mistakes registry (Analyst Workbench)
 
-**Last updated:** 2026-09-06  
+**Last updated:** 2026-09-12  
 **Owner:** Founder / Data Ops leads  
 **Repo:** [Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts) (this workbench)  
 **Purpose:** Living list of **recurring mistakes IDE coding agents make** while discovering, scoring, and submitting Moncho data. Prune aggressively — keep short and current.
@@ -38,7 +38,7 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 |------|----------------|
 | Org scoring (5 dims) | [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) |
 | Product gate + normalization | [`PRODUCT_ORG_RUBRICS.md`](PRODUCT_ORG_RUBRICS.md) |
-| SKU pricing (Dashboard) | [`SKU_PRICING_SUBMISSION_GUIDE.md`](SKU_PRICING_SUBMISSION_GUIDE.md) · [`skills/product_sku_submission.md`](skills/product_sku_submission.md) |
+| SKU pricing (Dashboard) | [`SKU_PRICING_SUBMISSION_GUIDE.md`](SKU_PRICING_SUBMISSION_GUIDE.md) · [`skills/product_sku_submission.md`](skills/product_sku_submission.md) · [`skills/sku-pricing-canon.md`](skills/sku-pricing-canon.md) |
 | Sector / landscape / segment IDs | [`skills/taxonomy_mapping.md`](skills/taxonomy_mapping.md) · `GET /api/reference/taxonomy` |
 | Grant sector slugs | [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) |
 | Discovery MCP / CLI | [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md) |
@@ -59,6 +59,7 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 | A-05 | **Worked examples that fail your own bar** — publish sample scores below the submit threshold you wrote | Agents copy failing examples into submissions | Recalibrate examples or lower the bar. Every sample in a plan must pass the stated rule. |
 | A-06 | **Score value-chain position** — points for collection/lab/EPC/O&M/finance boxes | Rewards vertical integration; penalizes specialists; confuses map with quality | Value chain = placement notes only. Never a 1–5 quality dim. See `skills/data_injection_planning.md`. |
 | A-07 | **Weighted product quality %** — 30% Service, 20% Convenience, … as analyst rubric | Opaque scores; mismatch with `product_metrics.quality` int; arbitrary until validated | Equal **1–5** dims → average. Evidence JSON OK; weights are founder/eng later only. |
+| A-08 | **Submit only the average `quality_score`** when the landscape template has five dims | Pricing card shows "Dimension scores were not recorded" or org fallback; founder thinks dims were never scored | Put the template keys on the product JSON (`offering_completeness_score` / `d1_technical_score` / `dim_scores` + rationales). Apply stores them in `metadata.scoring`. Scalar Quality on the CMS form is not a breakdown. |
 
 ### Example (A-01)
 
@@ -128,6 +129,14 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | P-13 | **Submit orgs with sector tag only** — omit segment slugs | `organizations_by_sector_id` without landscape placement; MCP shows a gap | Always pass taxonomy **segment slugs** on org apply (T-01). Sector_id-only vs segment-only are different placements, not a counter bug. |
 | P-14 | **Pass 2 open-web gap fill for missing prices** — secondary search when the official page has no number | Expensive, ~4% fill in a prior BD harvest; invented or aggregator prices | One official URL. If no public price: `pricing_gap` or skip. Interns never run harvest CLIs or Exa gap-fill. |
 | P-15 | **Harvest the wrong pricing object** — solar watts next to lab tests, insurance reimbursement as hospital list, loan ceiling as a product price, OTA snapshot as a hotel BAR | Incomparable scatter; CDRO reject; poisoned `product_metrics` | Match grant sector → object in `PRODUCT_ORG_RUBRICS.md` Part 3c. Set `metadata.template_id` when the form allows it. |
+| P-16 | **Treat empty SKU `metadata.scoring` as "analysts skipped dims"** — look for a `dimensions` column (that is `market_facts` grain) | Wrong empty-state copy on the pricing card; re-harvest of scores that already sit in `audit_logs` | Dim keys are `*_score` / `dim_scores` / `d1_*` on the product payload. Platform apply copies them into `metadata.scoring`. Interns still must submit those keys (A-08). |
+| P-17 | **Derive a unit rate from a pack** — store `$0.0025/credit` from a 20,000-credit `$50` pack, or put pack size in `variant_value` | Scatter shows a fake unit price; pack menu collapses to one row | One row per published pack: `price` = listed amount, `meter_unit: credit`, `meter_increment` = pack size. Only store a unit rate when the page prints it (`$0.01486 per credit`). |
+| P-18 | **Explode a named plan into its credit slider** — Pipedream `$29/mo` becomes 10 pack SKUs | Duplicate rows; slider ticks are not SKUs | One plan row; `meter_increment` = included credits. A slider with no published price per tick is not a SKU. |
+| P-19 | **Store a platform take-rate as USD or gap a printed %** — OpenRouter `5.5%` becomes `$5.50` or a pricing gap | Fee plots as dollars; Business 8% missing | `service_fee` + `metadata.platform_fee_pct`, no ISO currency. `N/A` is not `0`. Custom discounts stay a gap. |
+| P-20 | **Convert cadence** — yearly÷12, or emit both hour and second for the same meter | Two fake SKUs; wrong monthly price | `variant_unit` is the listed period. Hour vs second toggle: keep the page default only. Annual prepaid is a separate row, not monthly×12. |
+| P-21 | **Stamp org HQ country on every product** — `.com` page gets `US` | Wrong geo filter; Canada storefront shows as US | `country_code` only from storefront locale (`/en-ca/` → `CA`) or an explicit region name. Omit on unlabeled `.com`. |
+| P-22 | **Invent "starts at" as the list price** — Enterprise `Starting at $1,800` stored as `$1,800` | Overstates transparency; comparability break | `pricing_gap: true` + `metadata.list_vs_starting_at: starting_at`. Never invent the number. |
+| P-23 | **Model emits `offering_name` or `name` instead of `product_name`** — schema validation drops every row; report says "URL filter dropped" but the rows never reached the filter | Whole org skipped (Skyvern, LangWatch, PulseMCP, Google Vertex AI); misleading debug message | Extract schema accepts `product_name`, `offering_name`, or `name` as aliases. When debugging "all rows dropped," check schema validation first, not the URL filter. |
 
 ### Example (P-02) — energy
 
@@ -158,6 +167,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | M-05 | **Ignore MCP rate limits / invent DB credentials** | 429 loops; security fail | Read-only API + MCP only. Back off on 429. Never ask for Supabase keys. |
 | M-06 | **Validate org via LinkedIn only** — `linkedin.com/company` or headcount as eligibility/credibility | Fake validity; weak evidence | **Website required** for validity. LinkedIn = supporting activity among other sources — never sole cite for a dim. |
 | M-07 | **Re-scrape HIES / bulletins without checking Moncho** | Duplicate `market_facts`; wasted PDF work | MCP/Dashboard/founder: list existing keys (e.g. `hies_2022` health tables) first; inject gaps only. |
+| M-12 | **Treat `coverage.organizations_by_sector_id` (or a 20-row `orgs` list) as directory size** | Intern said Agri has 63 orgs; website showed 691+ mapped names (mostly EPB stubs with null `sector_id`) | Report `coverage.organizations_on_segments`. Agri/RMG are segment-first. `orgs` is a sample, max 50. See `ANALYST_DISCOVERY_MCP.md` § coverage. |
 
 ---
 

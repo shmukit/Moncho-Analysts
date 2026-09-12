@@ -12,7 +12,7 @@ This is Moncho's **first MCP server**. It gives your IDE agent read-only access 
 |----------|---------------|-------|
 | `taxonomy` | sectors, landscapes, segments | Full reference graph; filter with `sector_slug` |
 | `coverage` | counts per sector | Requires `sector_slug`; orgs, `products_live`, pricing rows, market_facts, needs links |
-| `orgs` | `metadata_organization` | Search by name, website, country, sector |
+| `orgs` | `metadata_organization` | Search by name, website, country, sector. With `sector_slug`, includes sector_id **or** mapped directory orgs (sample, max 50). Census: `coverage.organizations_on_segments`. |
 | `products` | `products` | Search by name/group/category; sector/segment via `product_metrics` (not `created_by`) |
 | `pricing` | `product_metrics` | Brand/SKU pricing rows. Prefer this for SKU depth. |
 | `needs` | `needs` + `segment_needs` | Segment needs titles |
@@ -69,12 +69,15 @@ Requires `sector_slug` (Moncho slug, e.g. `financial-services`, not grant `finan
 | `products_live` | Distinct catalog products with at least one `product_metrics` row on this sector's **canonical** segments (`segments.id`) **or** published `landscape_versions` |
 | `products` | Deprecated alias of `products_live` (kept so older MCP clients still work) |
 | `pricing_rows_on_segments` | Distinct `product_metrics` rows on those same segments or published landscapes |
-| `organizations_by_sector_id` | Orgs with `metadata_organization.sector_id` set to this sector |
-| `organizations_on_segments` | Distinct orgs in `organization_to_segment_map` using **`sector_segments.id`** (junction PK) |
+| `organizations_by_sector_id` | Orgs with `metadata_organization.sector_id` set to this sector (placement tag only) |
+| `organizations_on_segments` | Distinct orgs in `organization_to_segment_map` using **`sector_segments.id`** (junction PK). **This is the public directory census** (`/sectors/{slug}/organizations`). |
+| `organizations_epb_like` | Subset of `organizations_on_segments` whose description starts with `EPB Exporter` or whose website is an EPB directory URL |
+
+**When asked how many orgs are in a sector, report `organizations_on_segments`, not `organizations_by_sector_id`.** Agri and RMG are segment-first: most directory orgs have a null `sector_id`. `resource=orgs` is a sample (default 20, max 50); do not infer sector size from the list length. `notes.directory_org_count` repeats this on every coverage payload.
 
 **SKU depth:** use `resource=pricing` (or `products` with `sector_slug`) plus `coverage.products_live`. Do not treat an old `products: 0` snapshot as "no SKUs"; that field used to filter `products.created_by` against org ids, which almost always returned 0.
 
-**Org gap:** `organizations_by_sector_id` and `organizations_on_segments` measure **different placements**. Sector-id-only orgs are tagged but not on a landscape cell. Segment-only orgs sit on the grid with a null `sector_id`. Empty segment graphs (0 `sector_segments` rows) cannot attach orgs.
+**Org gap:** `organizations_by_sector_id` and `organizations_on_segments` measure **different placements**. Sector-id-only orgs are tagged but not on a landscape cell. Segment-only orgs sit on the grid with a null `sector_id`. Empty segment graphs (0 `sector_segments` rows) cannot attach orgs. Do not treat EPB-like stubs as missing from MCP: they are in the directory census when mapped.
 
 ### `analysis-structure` (Sherpa preview)
 
@@ -135,7 +138,7 @@ Guidance: Minute burst limit reached (60/min). Wait for retry_after_sec, then re
 | `coverage` | counts only | no row list |
 | `analysis-structure` | one outline object | section count in `meta.count` |
 
-**Do not treat `coverage.organizations_on_segments = 0` as missing org data** until you confirm against the website API or `organization_to_segment_map`. The map stores `sector_segments.id` (junction PK), not `segments.id`. The public org directory and CMS use the junction id correctly; a prior Discovery MCP bug undercounted mapped orgs when filtering on canonical segment ids.
+**Do not treat `coverage.organizations_on_segments = 0` as missing org data** until you confirm against the website API or `organization_to_segment_map`. The map stores `sector_segments.id` (junction PK), not `segments.id`. The public org directory and CMS use the junction id correctly; a prior Discovery MCP bug undercounted mapped orgs when filtering on canonical segment ids. Map reads must page past PostgREST's ~1000-row cap (`fetchAllRows`); Agri previously showed ~691 unique orgs on the website while ~784 distinct mapped orgs existed.
 
 **Do not treat `coverage.products` / `products_live` = 0 as missing SKUs** until you also query `pricing?sector_slug=…`. Pending change requests are not live. HITL-hold harvests are not live until applied.
 
@@ -146,7 +149,7 @@ Pass `limit=50` on list resources when you need the maximum page size. If `meta.
 ## What it cannot do
 
 - Raw SQL or arbitrary table browse
-- **Write, edit, withdraw, or resubmit** change requests (no MCP mutate tools). Submissions go through the Moncho web app:
+- **Write, edit, withdraw, or resubmit** change requests (no MCP mutate tools). **Can I edit pending data?** Yes, in the web app only: unclaimed pending rows on `/analyst/submissions/[id]`. MCP cannot mutate. Submissions go through the Moncho web app:
   - New: `POST /api/analyst/change-requests`
   - Author edit / withdraw / resubmit (same row): `PATCH /api/analyst/submissions/[id]` on `/analyst/submissions/[id]` (phone or desktop)
 - Service-role or Supabase credentials in the workbench repo

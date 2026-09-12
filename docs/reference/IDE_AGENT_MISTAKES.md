@@ -1,6 +1,6 @@
 # IDE agent mistakes registry (Analyst Workbench)
 
-**Last updated:** 2026-09-10  
+**Last updated:** 2026-09-12  
 **Owner:** Founder / Data Ops leads  
 **Repo:** [Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts) (this workbench)  
 **Purpose:** Living list of **recurring mistakes IDE coding agents make** while discovering, scoring, and submitting Moncho data. Prune aggressively — keep short and current.
@@ -38,7 +38,7 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 |------|----------------|
 | Org scoring (5 dims) | [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) |
 | Product gate + normalization | [`PRODUCT_ORG_RUBRICS.md`](PRODUCT_ORG_RUBRICS.md) |
-| SKU pricing (Dashboard) | [`SKU_PRICING_SUBMISSION_GUIDE.md`](SKU_PRICING_SUBMISSION_GUIDE.md) · [`skills/product_sku_submission.md`](skills/product_sku_submission.md) |
+| SKU pricing (Dashboard) | [`SKU_PRICING_SUBMISSION_GUIDE.md`](SKU_PRICING_SUBMISSION_GUIDE.md) · [`skills/product_sku_submission.md`](skills/product_sku_submission.md) · [`skills/sku-pricing-canon.md`](skills/sku-pricing-canon.md) |
 | Sector / landscape / segment IDs | [`skills/taxonomy_mapping.md`](skills/taxonomy_mapping.md) · `GET /api/reference/taxonomy` |
 | Grant sector slugs | [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) |
 | Discovery MCP / CLI | [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md) |
@@ -130,6 +130,13 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | P-14 | **Pass 2 open-web gap fill for missing prices** — secondary search when the official page has no number | Expensive, ~4% fill in a prior BD harvest; invented or aggregator prices | One official URL. If no public price: `pricing_gap` or skip. Interns never run harvest CLIs or Exa gap-fill. |
 | P-15 | **Harvest the wrong pricing object** — solar watts next to lab tests, insurance reimbursement as hospital list, loan ceiling as a product price, OTA snapshot as a hotel BAR | Incomparable scatter; CDRO reject; poisoned `product_metrics` | Match grant sector → object in `PRODUCT_ORG_RUBRICS.md` Part 3c. Set `metadata.template_id` when the form allows it. |
 | P-16 | **Treat empty SKU `metadata.scoring` as "analysts skipped dims"** — look for a `dimensions` column (that is `market_facts` grain) | Wrong empty-state copy on the pricing card; re-harvest of scores that already sit in `audit_logs` | Dim keys are `*_score` / `dim_scores` / `d1_*` on the product payload. Platform apply copies them into `metadata.scoring`. Interns still must submit those keys (A-08). |
+| P-17 | **Derive a unit rate from a pack** — store `$0.0025/credit` from a 20,000-credit `$50` pack, or put pack size in `variant_value` | Scatter shows a fake unit price; pack menu collapses to one row | One row per published pack: `price` = listed amount, `meter_unit: credit`, `meter_increment` = pack size. Only store a unit rate when the page prints it (`$0.01486 per credit`). |
+| P-18 | **Explode a named plan into its credit slider** — Pipedream `$29/mo` becomes 10 pack SKUs | Duplicate rows; slider ticks are not SKUs | One plan row; `meter_increment` = included credits. A slider with no published price per tick is not a SKU. |
+| P-19 | **Store a platform take-rate as USD or gap a printed %** — OpenRouter `5.5%` becomes `$5.50` or a pricing gap | Fee plots as dollars; Business 8% missing | `service_fee` + `metadata.platform_fee_pct`, no ISO currency. `N/A` is not `0`. Custom discounts stay a gap. |
+| P-20 | **Convert cadence** — yearly÷12, or emit both hour and second for the same meter | Two fake SKUs; wrong monthly price | `variant_unit` is the listed period. Hour vs second toggle: keep the page default only. Annual prepaid is a separate row, not monthly×12. |
+| P-21 | **Stamp org HQ country on every product** — `.com` page gets `US` | Wrong geo filter; Canada storefront shows as US | `country_code` only from storefront locale (`/en-ca/` → `CA`) or an explicit region name. Omit on unlabeled `.com`. |
+| P-22 | **Invent "starts at" as the list price** — Enterprise `Starting at $1,800` stored as `$1,800` | Overstates transparency; comparability break | `pricing_gap: true` + `metadata.list_vs_starting_at: starting_at`. Never invent the number. |
+| P-23 | **Model emits `offering_name` or `name` instead of `product_name`** — schema validation drops every row; report says "URL filter dropped" but the rows never reached the filter | Whole org skipped (Skyvern, LangWatch, PulseMCP, Google Vertex AI); misleading debug message | Extract schema accepts `product_name`, `offering_name`, or `name` as aliases. When debugging "all rows dropped," check schema validation first, not the URL filter. |
 
 ### Example (P-02) — energy
 

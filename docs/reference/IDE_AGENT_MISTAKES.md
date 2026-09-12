@@ -168,6 +168,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | M-06 | **Validate org via LinkedIn only** — `linkedin.com/company` or headcount as eligibility/credibility | Fake validity; weak evidence | **Website required** for validity. LinkedIn = supporting activity among other sources — never sole cite for a dim. |
 | M-07 | **Re-scrape HIES / bulletins without checking Moncho** | Duplicate `market_facts`; wasted PDF work | MCP/Dashboard/founder: list existing keys (e.g. `hies_2022` health tables) first; inject gaps only. |
 | M-12 | **Treat `coverage.organizations_by_sector_id` (or a 20-row `orgs` list) as directory size** | Intern said Agri has 63 orgs; website showed 691+ mapped names (mostly EPB stubs with null `sector_id`) | Report `coverage.organizations_on_segments`. Agri/RMG are segment-first. `orgs` is a sample, max 50. See `ANALYST_DISCOVERY_MCP.md` § coverage. |
+| M-13 | **Submit market facts without `sector_slug` and `fact_type`** | 400 at staging; reviewer `request_changes`; post-inject later has to infer columns (disk IO) | Every analyst fact must name a Moncho `sector_slug` and a Sherpa `fact_type`. Match `samples/market_fact_sample.json`. Do not dump untagged national macros. |
 
 ---
 

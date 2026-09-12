@@ -153,7 +153,7 @@ npm run qa:test
 - Top level: **one object** or an **array** (max **50 objects** per batch = 50 orgs, products, or facts).
 - **Types**: `organization`, `product`, `market_fact`, `landscape`, `expert` via `--type`; or Bulk inject in the dashboard.
 - **New** records: omit `id`. **Updates**: include existing `id`.
-- **Market facts**: see `samples/market_fact_sample.json`; stages to `staging_market_facts` (not change requests).
+- **Market facts**: see `samples/market_fact_sample.json`; stages to `staging_market_facts` (not change requests). Require `sector_slug` and `fact_type`. Untagged rows are rejected.
 - Match field names in `samples/`; optional fields can be omitted.
 
 ## Task Types

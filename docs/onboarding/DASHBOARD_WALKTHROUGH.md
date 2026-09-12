@@ -321,7 +321,7 @@ Legacy / orphan path may still show `reviewed` → `approved`. Treat **`complete
 - Entity types: **Organization**, **Product**, **Market fact** (→ `staging_market_facts`, review on **Review Queue → Staged market facts**), **Metadata**, **Landscape**.
 - For metadata rows, set `metadata_type` on each object or use the Bulk inject default dropdown.
 - Organization **creates** need `name`; product **creates** need `product_name`.
-- Market fact rows need `metric_key`, `country`, `year`, `value`, `unit`, `source_name`.
+- Market fact rows need `metric_key`, `country`, `year`, `value`, `unit`, `source_name`, plus `sector_slug` and `fact_type`. Untagged rows are rejected at submit and by the reviewer agent.
 - IDE CLI: `npm run submit -- --file path.json --type organization|product|market_fact|metadata|landscape`
 
 For reviewer/admin integration buckets and the founder **operator loop** (batch agent triage → Review Queue → CMS Apply), see [REVIEW_QUEUE_PLAYBOOK.md](../06-operations/REVIEW_QUEUE_PLAYBOOK.md) § Operator loop.

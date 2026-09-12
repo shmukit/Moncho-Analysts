@@ -47,7 +47,7 @@ Extraction JSON usually has:
 - **report**: country, title, year, url, etc.
 - **tables**: `{ id, header[], rows[][], caption?, pageNumber? }`
 
-Use those tables for research notes or for drafting org/product / fact JSON that matches `samples/`. Submit via change request or hand the file to founder — do not expect harvest scripts in this workbench.
+Use those tables for research notes or for drafting org/product / fact JSON that matches `samples/`. Market fact rows need `sector_slug` and `fact_type` (see `samples/market_fact_sample.json`). Submit via change request or staged fact; do not expect harvest scripts in this workbench.
 
 ## 4. Day-to-day data access
 

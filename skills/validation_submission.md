@@ -38,7 +38,7 @@ Use this skill **every time** you are about to submit data. IDE agents must trea
 | `market_fact` | Stage for SML review | `staging_market_facts` → `market_facts` |
 | `expert` | Change request (workbench QA) | experts |
 
-**Market facts** do not go through the org change-request API. Required fields: `metric_key`, `country`, `year`, `value`, `unit`, `source_name`. See `samples/market_fact_sample.json`.
+**Market facts** do not go through the org change-request API. Required fields: `metric_key`, `country`, `year`, `value`, `unit`, `source_name`, plus **`sector_slug`** (Moncho sector, in `dimensions` or top-level) and **`fact_type`** (`trade`, `production`, `consumption`, `monetary`, `employment`, `growth`, `demographic`, `investment`, `policy`, `technology`, `research`, `other`). The API and reviewer agent reject untagged rows. See `samples/market_fact_sample.json`.
 
 **Batch limit:** max **50 JSON objects** per file or Bulk inject paste (50 orgs, 50 products, or 50 facts — not “50 lines”).
 
@@ -49,7 +49,7 @@ Use this skill **every time** you are about to submit data. IDE agents must trea
 | Action | Automatic? | Notes |
 |--------|------------|--------|
 | Stage 1 mechanical QA on `npm run submit` | **Yes** (org/product/landscape/expert) | `submit_data.ts` calls `validate-analyst-data.ts`. Blocks on **FAIL**. |
-| QA for `market_fact` | **Manual** | Validate against `samples/market_fact_sample.json` before submit. |
+| QA for `market_fact` | **CLI + API** | `npm run submit` checks `sector_slug` and `fact_type`. Staging API returns 400 if either is missing. |
 | Running QA in the IDE before submit | **You / IDE agent must do this** | Fix FAIL/FLAGGED rows before wasting a submit. |
 | Stage 2 deep fact-check (`--deep-check`) | **No** | Optional. Needs Tavily/Exa (+ optional Anthropic). |
 | Senior Analyst / Admin approval | Separate | Change requests: **Review Queue → Analyst submissions**. Analyst market facts: **Review Queue → Staged market facts**. AI/agent facts: CMS → AI Scraping → Market Facts. |
@@ -93,7 +93,7 @@ npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --type organizati
 npx tsx scripts/utils/validate-analyst-data.ts data/pending/your-file.json --type product
 
 # Market facts — check sample shape manually or with JSON schema tools
-# Required: metric_key, country, year, value, unit, source_name
+# Required: metric_key, country, year, value, unit, source_name, sector_slug, fact_type
 ```
 
 **Statuses:**

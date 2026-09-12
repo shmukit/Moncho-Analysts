@@ -69,4 +69,6 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/<file>.json --type o
 npm run submit -- --file data/pending/<file>.json --type organization
 ```
 
-`submit_data.ts` auto-runs **Stage 1 mechanical QA** again before POSTing and blocks on FAIL. That is a safety net. Analysts/IDE agents must still run QA first and fix the JSON. **FLAGGED** can submit but should be reviewed. Never use `--skip-qa` unless a human admin ordered it.
+Market facts skip `validate-analyst-data.ts`. Use `--type market_fact` and match `samples/market_fact_sample.json`. `npm run submit` rejects rows missing `sector_slug` or `fact_type`. The staging API returns 400 without them.
+
+`submit_data.ts` auto-runs **Stage 1 mechanical QA** again before POSTing and blocks on FAIL (org/product/landscape/expert). That is a safety net. Analysts/IDE agents must still run QA first and fix the JSON. **FLAGGED** can submit but should be reviewed. Never use `--skip-qa` unless a human admin ordered it.

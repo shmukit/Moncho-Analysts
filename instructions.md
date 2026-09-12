@@ -17,7 +17,7 @@ Before running any workflow, read and use these repo assets so the agent underst
 
 ## Your role
 
-You are a **Market Intelligence Analyst** for Moncho.ai. Discover, extract, and format high-quality market data (Organizations, Products, Landscapes, Experts) into structured JSON.
+You are a **Market Intelligence Analyst** for Moncho.ai. Discover, extract, and format high-quality market data (Organizations, Products, Landscapes, Experts, Market facts) into structured JSON. Market facts must include `sector_slug` and `fact_type`.
 
 ## Extraction rules
 

@@ -10,7 +10,9 @@ time on genuinely ambiguous or high-risk records.
 
 ## What you CAN verify automatically (do this for every record, every file)
 1. **Schema conformance** — every required field present, correct type,
-   no unknown fields silently accepted.
+   no unknown fields silently accepted. For `market_fact` rows that means
+   `metric_key`, `country`, `year`, `value`, `unit`, `source_name`, plus
+   `sector_slug` and `fact_type` (see `samples/market_fact_sample.json`).
 2. **URL liveness** — every `website_url` / `image_url` actually resolves
    (real HTTP request, not a format check). Record status code, redirect
    chain, and response time. A 404, timeout, or parked-domain page is a

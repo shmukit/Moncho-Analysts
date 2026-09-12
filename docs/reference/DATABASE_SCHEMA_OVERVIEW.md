@@ -59,9 +59,9 @@ Atomic metrics: trade, BBS, SMI, surveys, pricing proxies.
 | `metric_key` | e.g. `import_trade_value_usd`, `students_total` |
 | `country` | `Bangladesh` / `BD` |
 | `year` | Observation year |
-| `dimensions` | JSON: `hs6_code`, `sector_slug`, `isic_class`, etc. |
-| `fact_type` | Sherpa retrieval family (`trade`, `production`, …) |
-| `sector_slug` | Prefer set on new rows |
+| `dimensions` | JSON grain (`hs6_code`, `sector_slug`, `isic_class`, etc.) |
+| `fact_type` | **Required on analyst submits.** Family: `trade`, `production`, `consumption`, `monetary`, `employment`, `growth`, `demographic`, `investment`, `policy`, `technology`, `research`, `other` |
+| `sector_slug` | **Required on analyst submits.** Moncho kebab slug (e.g. `healthcare`). Put it in `dimensions.sector_slug` or top-level. |
 
 **Bangladesh trade:** OEC import/export rows are **already ingested**. Data Ops does not re-run bulk trade ingest; focus on org/product quality, official stats gaps, and sector mapping.
 
@@ -97,7 +97,9 @@ Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for browsin
 | `unit` | Yes |
 | `source_name` | Yes |
 | `source_url` | Recommended |
-| `dimensions` | Optional JSON (e.g. `sector_slug`, `hs6_code`) |
+| `sector_slug` | Yes (`dimensions.sector_slug` or top-level) |
+| `fact_type` | Yes (`dimensions.fact_type` or top-level) |
+| `dimensions` | JSON grain. Must include `sector_slug` and `fact_type`, plus HS/table refs as needed |
 
 ### Analyst access (trial vs permanent)
 

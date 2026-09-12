@@ -149,6 +149,7 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/2026-01-25-onboardin
     npm run submit -- --file data/pending/facts.json --type market_fact
     ```
     Or use **Bulk inject** (`/analyst/bulk-inject`) for the same types in the browser (max 50 JSON objects per batch).
+    Market facts also need `sector_slug` and `fact_type` (see `samples/market_fact_sample.json`). Untagged rows are rejected.
 5.  **Verification**: 
     - ✅ **Success**: Your data is now a **Change Request** in the system.
     - 🔍 **Review**: A Reviewer and Admin will check your work. 
@@ -170,7 +171,7 @@ The **Analyst Dashboard** (`/analyst/dashboard`) is the command center for aware
 
 1. **Workbench Access (API Key)**: Copy your key from **Settings → Developer** (`/analyst/settings`) and save it in your local `.env` as `MONCHO_AUTH_TOKEN` for Hub 1 scripts. (Not on the dashboard itself.)
 2. **Curation Statistics**: Reputation and approved/completed contributions on the identity strip and public profile (`/a/[username]`).
-3. **Submissions**: Track change requests under **My Work → Submissions** (filter Pending / In review / Completed / Rejected). Status `completed` means CMS Apply injected the row. **Pending edits:** open your unclaimed pending row there to Edit or Withdraw. Do not look for Edit on the public Organizations directory.
+3. **Submissions**: Track change requests under **My Work → Submissions**. Chips: **Waiting for review**, **Needs your edits**, **Accepted, not live** (reviewer said yes, CMS has not published), **Live**, **Rejected**, **All**. **Live** means CMS published the row. **Pending edits:** open your unclaimed waiting-for-review row to Edit or Withdraw. Do not look for Edit on the public Organizations directory.
 4. **Sherpa AI turns**: Quota strip on dashboard and My Work (daily / monthly limits).
 5. **Bulk inject** and **Data Terminal**: Sidebar entries for JSON review-queue batches and table explore / joins.
 

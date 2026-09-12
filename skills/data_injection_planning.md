@@ -140,6 +140,8 @@ Market: Bangladesh (or named country) · Date: YYYY-MM-DD
 
 ## 4. Market facts
 - 5–10 concrete rows (after DB check)
+- Each row: `metric_key`, `country`, `year`, `value`, `unit`, `source_name`, **`sector_slug`**, **`fact_type`**
+- Untagged rows are rejected at submit. Do not leave sector or fact family for later.
 - Tier 1 gov/stats sources vs tertiary press
 
 ## 5. Risks + founder sign-off checklist

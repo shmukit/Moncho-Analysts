@@ -110,7 +110,7 @@ Outcome after rematch (**v5b**): 80 logos + 80 shots, **66 unique**, curl-verifi
 | D8 | Org/product-style scoring on atomic facts | Facts = provenance + metric; **no** D1–D5 rubric. |
 | D9 | Dumping PDF extraction as “the market facts plan” (M-02) | Concrete rows: `metric_key`, year, value, URL, sector/landscape. |
 | D10 | Counting untagged Moncho cost rows as energy RE coverage | Untagged ≠ coverage. MCP `sector_slug=energy` was **0** at seed time. |
-| D11 | Leaving `_family` / `_note` (analyst scratch) on API-bound market fact rows | Before API prep: strip underscore fields. Family/notes live in the **review MD** only. Submit shape = sample columns (`metric_key`, country, year, value, unit, dimensions, source_*, extracted_at, …). |
+| D11 | Leaving `_family` / `_note` (analyst scratch) on API-bound market fact rows | Before API prep: strip underscore fields. Family/notes live in the **review MD** only. Submit shape = sample columns (`metric_key`, country, year, value, unit, `source_*`, `sector_slug`, `fact_type`, dimensions). |
 
 **API prep (2026-07-16):** 20 facts cleaned to sample columns; paired → `pilot14`; `_enrich/1c` removed from pending. Do **not** API-push until founder says go.
 
@@ -123,7 +123,7 @@ Outcome after rematch (**v5b**): 80 logos + 80 shots, **66 unique**, curl-verifi
 | E1 | Showing `*-qa-all.json` (flattened holds+submit) as the employer deliverable | Meeting show: **submit JSON + review MD**. QA-all is Stage 1 scaffolding only. |
 | E2 | Committing live Logo.dev `pk_` tokens to GitHub | Always rewrite `token=…` → `token=REDACTED` in the private vault. |
 | E3 | Running Stage 2 `--deep-check` before sample freeze when user asked for sample-only | Match the ask: Stage 1 mechanical first unless told otherwise. |
-| E4 | Assuming QA supports `market_fact` out of the box | Without a type, facts with `sector_slug` mis-detect as **organizations**. Use / add `--type market_fact` + sample shape before claiming “QA passed”. |
+| E4 | Assuming QA supports `market_fact` out of the box, or submitting facts without `sector_slug` / `fact_type` | Without a type, facts with `sector_slug` mis-detect as **organizations**. Use `--type market_fact` + `samples/market_fact_sample.json`. Staging API and `npm run submit` reject rows missing `sector_slug` or `fact_type`. |
 | E5 | Leaving `_enrich/`, one-off `_*.js|ts`, HTML caches, probe JSON, `qa-*-test*.json`, `*-qa-all.json`, and Templates cluttering `data/pending` after API prep | **Pending keep-set only:** submit JSON (orgs / products / market facts) · matching `*-review.md` · `*-holds.json`. Delete the rest when freezing for API. Scratch enrichment may live outside pending or be wiped. |
 | E6 | Writing / keeping separate QA report files (`*-qa-report.json`, unified/executive summaries) in `data/pending` or as “deliverables” | Run Stage 1 QA when needed; **report PASS / FAIL / FLAGGED counts in chat only**. Do **not** create durable QA report files for the analyst pack, and delete any temp QA out-dir after reading counts. |
 | E7 | Putting the product-image contact-sheet audit inside employer-owned `qa_agent.ts` | Keep it standalone at `scripts/utils/audit-product-images.mjs` (`npm run audit:product-images`) so general QA stays separate. Generated contact sheets/assets belong under ignored `data/qa-reports/`, never in `data/pending` or the employer deliverable. |

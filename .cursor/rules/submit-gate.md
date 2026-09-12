@@ -7,6 +7,8 @@ Before calling `npm run submit` or `scripts/submit_data.ts`, you MUST run mechan
 npx tsx scripts/utils/validate-analyst-data.ts data/pending/<file>.json --type <organization|product|landscape|expert>
 ```
 
+For `--type market_fact`, `npm run submit` itself checks required fields including `sector_slug` and `fact_type`. The API also returns 400 without them. Match `samples/market_fact_sample.json`.
+
 Then open `data/qa-reports/<basename>-executive-summary.json` and address the `human_review_queue`.
 
 ## Never

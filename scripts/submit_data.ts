@@ -69,12 +69,55 @@ async function submitRecord(entityType: string, record: any, index: number) {
     }
 }
 
+const MARKET_FACT_TYPES = new Set([
+    'production',
+    'consumption',
+    'monetary',
+    'trade',
+    'employment',
+    'growth',
+    'demographic',
+    'investment',
+    'policy',
+    'technology',
+    'research',
+    'other',
+]);
+
+function strField(value: unknown): string {
+    return typeof value === 'string' ? value.trim() : '';
+}
+
 function validateMarketFactRecord(record: any, index: number): string | null {
     const required = ['metric_key', 'country', 'year', 'value', 'unit', 'source_name'] as const;
     for (const field of required) {
         if (record[field] == null || (typeof record[field] === 'string' && !String(record[field]).trim())) {
             return `Record ${index + 1}: missing required field ${field}`;
         }
+    }
+    const dimensions =
+        record.dimensions != null && typeof record.dimensions === 'object' && !Array.isArray(record.dimensions)
+            ? record.dimensions
+            : {};
+    const sectorSlug = (
+        strField(record.sector_slug) ||
+        strField(dimensions.sector_slug) ||
+        strField(dimensions.sector)
+    )
+        .toLowerCase()
+        .replace(/\s+/g, '-');
+    if (!sectorSlug) {
+        return `Record ${index + 1}: sector_slug is required (top-level or dimensions.sector_slug)`;
+    }
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(sectorSlug)) {
+        return `Record ${index + 1}: sector_slug "${sectorSlug}" must be kebab-case (e.g. ict-services)`;
+    }
+    const factType = (strField(record.fact_type) || strField(dimensions.fact_type)).toLowerCase();
+    if (!factType) {
+        return `Record ${index + 1}: fact_type is required (top-level or dimensions.fact_type)`;
+    }
+    if (!MARKET_FACT_TYPES.has(factType)) {
+        return `Record ${index + 1}: fact_type "${factType}" is not allowed`;
     }
     return null;
 }

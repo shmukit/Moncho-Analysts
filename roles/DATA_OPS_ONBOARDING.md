@@ -96,6 +96,8 @@ Document one-line rationale per dimension in research notes. Submit only orgs th
 | Completeness | Description + category + (price or spec) where available |
 | Evidence | Not duplicate/stale listing; logo or media when possible |
 
+Then score the **landscape template dimensions** in [`PRODUCT_ORG_RUBRICS.md`](../docs/reference/PRODUCT_ORG_RUBRICS.md) Part 3c. Submit each dim + one-line rationale on the product JSON, plus the average as `quality_score`. After apply, the average is `product_metrics.quality` and the dims are `metadata.scoring.dimensions`. Org scores (Part 1 / Part 7 shims) are a separate table.
+
 ---
 
 ## Sector depth rubric (non-trade layers)
@@ -121,7 +123,7 @@ Score 0–2 each; ≥7/10 = strong sector readiness:
 | **B. Org harvest** | Discover → score → JSON → founder review |
 | **C. Product harvest** | Per priority orgs → score → JSON → founder review |
 | **D. Landscape map** | Position approved orgs on segments |
-| **E. Non-trade facts** | Draft `market_facts` seeds for gaps (founder merges) |
+| **E. Non-trade facts** | Draft tagged `market_facts` (`sector_slug` + `fact_type`) and submit `--type market_fact`; untagged rows are rejected |
 | **F. QA** | Provenance check; gap table for Sep report |
 
 Use workbench `skills/` and `samples/` for discovery and JSON shape. For value-chain or sector playbooks beyond this repo, ask the founder.

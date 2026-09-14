@@ -78,7 +78,9 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 
    Get API keys from: [Tavily](https://tavily.com), [Exa](https://exa.ai), [Logo.dev](https://logo.dev), [Anthropic](https://console.anthropic.com). Keep `.env` in `.gitignore`.
 
-4. **Sync reference taxonomy IDs** (required once per clone, and after taxonomy changes):
+4. **Cursor Discovery MCP** (optional; same API key): copy [`.cursor/mcp.json.example`](.cursor/mcp.json.example) to `.cursor/mcp.json`. Cursor reads `MONCHO_AUTH_TOKEN` from `.env` via `envFile`. Do not call `mcp_auth`. Full steps: [`docs/onboarding/MCP_SETUP_AFTER_MERGE.md`](docs/onboarding/MCP_SETUP_AFTER_MERGE.md). If MCP fails, REST or `npx tsx scripts/discovery/lookup.ts coverage --sector_slug=ict-services`.
+
+5. **Sync reference taxonomy IDs** (required once per clone, and after taxonomy changes):
    ```bash
    npm run reference:sync
    ```

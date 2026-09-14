@@ -195,7 +195,7 @@ The MCP server is published to npm. **No Moncho-V1 access, no local build, no No
 
 ### 3. Cursor MCP config
 
-Add to `.cursor/mcp.json` in your **Moncho-Analysts** workspace (or user-level MCP settings):
+Add to `.cursor/mcp.json` in your **Moncho-Analysts** workspace (or user-level MCP settings). Cursor loads the API key from the repo-root `.env` via `envFile`. `${env:MONCHO_AUTH_TOKEN}` only works if that variable is already in the **OS** environment.
 
 ```json
 {
@@ -204,17 +204,15 @@ Add to `.cursor/mcp.json` in your **Moncho-Analysts** workspace (or user-level M
       "command": "npx",
       "args": ["-y", "@moncho-ai/analyst-discovery-mcp"],
       "env": {
-        "MONCHO_API_URL": "https://app.moncho.ai",
-        "MONCHO_AUTH_TOKEN": "${env:MONCHO_AUTH_TOKEN}"
-      }
+        "MONCHO_API_URL": "https://app.moncho.ai"
+      },
+      "envFile": "${workspaceFolder}/.env"
     }
   }
 }
 ```
 
-This same config shape (`command: npx`, `args: ["-y", "@moncho-ai/analyst-discovery-mcp"]`) works in Claude Desktop, Claude Code (`claude mcp add`), Windsurf, VS Code MCP extensions, and any other host that supports local stdio MCP servers — not just Cursor.
-
-Point `MONCHO_AUTH_TOKEN` at your local `.env` value or paste via your host's env UI. Restart your IDE/host after saving.
+`envFile` is Cursor-only. Other stdio hosts: put `MONCHO_AUTH_TOKEN` in the server `env` object. This server is **stdio + Bearer API key**, not OAuth. Do **not** call Cursor `mcp_auth`. Fully quit and reopen the IDE after saving.
 
 ---
 
@@ -291,6 +289,8 @@ Duplicate guard: `POST /api/analyst/change-requests` returns **409** on **any** 
 | "Trade data missing" but you expect it to exist | Don't rely on `coverage.market_facts_with_sector_tag` — query `market-facts` directly with `fact_type=trade` (+ `hs_code`, `country`); `hs-codes` resource has no trade values |
 | "Products live = 0" but you know SKUs exist | Query `pricing?sector_slug=<moncho-slug>` and read `coverage.products_live`. Use Moncho slugs, not `*-bd`. Pending / HITL-hold rows are not live. |
 | MCP not listed in Cursor | Check `npx` resolves `@moncho-ai/analyst-discovery-mcp`; run `npx -y @moncho-ai/analyst-discovery-mcp` in a terminal to confirm it installs and starts |
+| `Cannot call tool before MCP process client is registered` | Cursor Agent catalog vs live stdio client. Not a Moncho 401. Do not call `mcp_auth` (stdio + API key, not OAuth). Toggle the server, fully quit Cursor, new chat. Cloud Agent cannot use local `npx` stdio. Use REST or `npx tsx scripts/discovery/lookup.ts` |
+| 401 after MCP lists tools | Token not reaching the stdio process. Cursor: `envFile` → repo-root `.env`. Other hosts: `MONCHO_AUTH_TOKEN` in MCP `env`. `${env:}` does not read `.env` |
 
 ---
 

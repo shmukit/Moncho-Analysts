@@ -1,6 +1,6 @@
 # IDE agent mistakes registry (Analyst Workbench)
 
-**Last updated:** 2026-09-12  
+**Last updated:** 2026-09-15  
 **Owner:** Founder / Data Ops leads  
 **Repo:** [Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts) (this workbench)  
 **Purpose:** Living list of **recurring mistakes IDE coding agents make** while discovering, scoring, and submitting Moncho data. Prune aggressively — keep short and current.
@@ -169,6 +169,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | M-07 | **Re-scrape HIES / bulletins without checking Moncho** | Duplicate `market_facts`; wasted PDF work | MCP/Dashboard/founder: list existing keys (e.g. `hies_2022` health tables) first; inject gaps only. |
 | M-12 | **Treat `coverage.organizations_by_sector_id` (or a 20-row `orgs` list) as directory size** | Intern said Agri has 63 orgs; website showed 691+ mapped names (mostly EPB stubs with null `sector_id`) | Report `coverage.organizations_on_segments`. Agri/RMG are segment-first. `orgs` is a sample, max 50. See `ANALYST_DISCOVERY_MCP.md` § coverage. |
 | M-13 | **Submit market facts without `sector_slug` and `fact_type`** | 400 at staging; reviewer `request_changes`; post-inject later has to infer columns (disk IO) | Every analyst fact must name a Moncho `sector_slug` and a Sherpa `fact_type`. Match `samples/market_fact_sample.json`. Do not dump untagged national macros. |
+| M-14 | **Treat Cursor `process client is registered` / `mcp_auth` failure as a Moncho API outage** | Analysts stop; false 401 reports | Discovery REST is up. Do not call `mcp_auth` on this stdio server. Point Cursor `envFile` at `.env`. Fallback: curl or `npx tsx scripts/discovery/lookup.ts`. Fully quit Cursor + toggle MCP + new chat. Cloud Agent cannot use local `npx`. |
 
 ---
 

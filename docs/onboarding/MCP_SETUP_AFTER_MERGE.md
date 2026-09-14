@@ -23,8 +23,9 @@ git pull origin main
 
 Confirm these files exist:
 
-- `ANALYST_DISCOVERY_MCP.md`
-- `PRODUCT_ORG_RUBRICS.md`
+- `docs/discovery/ANALYST_DISCOVERY_MCP.md`
+- `docs/onboarding/MCP_SETUP_AFTER_MERGE.md`
+- `.cursor/mcp.json.example`
 - `scripts/discovery/lookup.ts`
 - `scripts/discovery/check-duplicate.ts`
 
@@ -49,7 +50,7 @@ MONCHO_AUTH_TOKEN="your_api_key_here"
 
 The MCP server is published to npm as `@moncho-ai/analyst-discovery-mcp`. **No Moncho-V1 repo access, no local build, no shared files.**
 
-Add to `.cursor/mcp.json` in your **Moncho-Analysts** workspace (Cursor). The same shape works in Claude Desktop, Claude Code, Windsurf, and VS Code MCP extensions:
+Copy [`.cursor/mcp.json.example`](../../.cursor/mcp.json.example) to `.cursor/mcp.json` in this workbench (or paste the block below). Cursor loads `MONCHO_AUTH_TOKEN` from the repo-root `.env` via `envFile`. Do not use `${env:MONCHO_AUTH_TOKEN}` unless that variable is already in your **OS** environment; Cursor does not read `.env` for `${env:}` interpolation.
 
 ```json
 {
@@ -58,15 +59,17 @@ Add to `.cursor/mcp.json` in your **Moncho-Analysts** workspace (Cursor). The sa
       "command": "npx",
       "args": ["-y", "@moncho-ai/analyst-discovery-mcp"],
       "env": {
-        "MONCHO_API_URL": "https://app.moncho.ai",
-        "MONCHO_AUTH_TOKEN": "${env:MONCHO_AUTH_TOKEN}"
-      }
+        "MONCHO_API_URL": "https://app.moncho.ai"
+      },
+      "envFile": "${workspaceFolder}/.env"
     }
   }
 }
 ```
 
-Restart your IDE/host after saving.
+`envFile` is Cursor-specific. Claude Desktop / Claude Code / Windsurf: put `MONCHO_AUTH_TOKEN` in the server `env` object (or your host's env UI). This server is **stdio + API key**, not OAuth. Do **not** run Cursor `mcp_auth` against it.
+
+Fully quit and reopen the IDE after saving. A window reload is not enough.
 
 ---
 
@@ -84,12 +87,16 @@ Success: JSON with `data` and `meta` fields.
 
 ## Step 5 — CLI fallback (optional)
 
-If MCP is not configured yet:
+If MCP is not configured, or Cursor Agent says the process client is not registered, use REST or the CLI (same API key). Run from the workbench root after `npm install`:
 
 ```bash
 npx tsx scripts/discovery/lookup.ts coverage --sector_slug=ict-services
 npx tsx scripts/discovery/check-duplicate.ts organization "Acme Ltd" https://acme.com
 ```
+
+Or: `npm run discovery:lookup -- coverage --sector_slug=ict-services`
+
+The CLIs load `.env` via `scripts/lib/load_env.ts` (same helper as submit). They do not use the `dotenv` npm package.
 
 ---
 
@@ -120,12 +127,13 @@ If rate limited, the tool returns structured text with **Retry after N seconds**
 
 | Symptom | Fix |
 |---------|-----|
-| 401 Unauthorized | Regenerate API key; check `MONCHO_AUTH_TOKEN` in `.env` |
-| MCP not listed | Run `npx -y @moncho-ai/analyst-discovery-mcp` directly in a terminal to confirm it installs; restart IDE/host |
+| 401 Unauthorized | Regenerate API key; check `MONCHO_AUTH_TOKEN` in `.env`. Confirm `envFile` points at that file (Cursor) or the token is in MCP `env`. |
+| MCP not listed | Run `npx -y @moncho-ai/analyst-discovery-mcp` in a terminal; fully quit Cursor and reopen |
+| `Cannot call tool before MCP process client is registered` | Cursor Agent bridge, not a Moncho 401. Do not call `mcp_auth`. Toggle `moncho-discovery` off/on, fully quit Cursor, new chat. Cloud Agent cannot use local `npx` stdio. Use REST or the CLI until MCP reconnects. |
 | 429 rate limit | Wait for `retry_after_sec`; narrow queries |
 | `unknown_resource` | Use `hs-codes`, `market-facts`, `taxonomy-standards` (hyphenated) |
 
-Full reference: [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md)
+Full reference: [`ANALYST_DISCOVERY_MCP.md`](../discovery/ANALYST_DISCOVERY_MCP.md)
 
 ---
 

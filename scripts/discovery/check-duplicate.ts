@@ -4,12 +4,10 @@
  *   npx tsx scripts/discovery/check-duplicate.ts organization "Acme Ltd" https://acme.com
  *   npx tsx scripts/discovery/check-duplicate.ts product "Flash Cards for Animals"
  */
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
 import { formatDiscoveryApiError } from './format-api-error';
+import { loadEnv } from '../lib/load_env.js';
 
-dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+loadEnv();
 
 async function main(): Promise<void> {
   const [entityType, entityName, websiteUrl] = process.argv.slice(2);

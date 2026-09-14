@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "moncho-discovery": {
+      "command": "npx",
+      "args": ["-y", "@moncho-ai/analyst-discovery-mcp"],
+      "env": {
+        "MONCHO_API_URL": "https://app.moncho.ai"
+      },
+      "envFile": "${workspaceFolder}/.env"
+    }
+  }
+}

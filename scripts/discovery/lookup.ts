@@ -13,12 +13,10 @@
  *   npx tsx scripts/discovery/lookup.ts value-chain-hs-stage-map --hs_code=9607
  *   npx tsx scripts/discovery/lookup.ts competencies --source=bd_bteb --q=sewing
  */
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
 import { formatDiscoveryApiError } from './format-api-error';
+import { loadEnv } from '../lib/load_env.js';
 
-dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+loadEnv();
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);

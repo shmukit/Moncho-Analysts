@@ -4,6 +4,8 @@
 **Roles:** Data Ops Analyst · GTM Ops Analyst (optional / experimental)  
 **Checkpoint:** September 2026 progress report to ICT Division
 
+Grant-ten is **coverage snapshots for the ICT Division list**. It is **not** the paid consultant Track A (7 sectors including **jute**). If you are on a sizing-audit assignment, use [`skills/sizing-audit.md`](../../skills/sizing-audit.md) and pack `bd-gtm-consultant-7` unless the founder told you otherwise.
+
 ---
 
 ## 1. Grant goals (what Moncho owes ICT Division)
@@ -14,9 +16,9 @@
 | **~1 million BD data points** | ≥1,000,000 rows in `market_facts` and related tables, `country=BD` |
 | **Two-sided platform** | Analyst workbench + consumer Sherpa usable |
 
-## 2. Ten priority sectors (all analyst work)
+## 2. Ten priority sectors (grant work)
 
-Every Coverage Snapshot, org harvest, and content plan must reference these **10 sectors**.
+Every Coverage Snapshot, org harvest, and **grant** content plan must reference these **10 sectors**. Paid Track A sizing work uses a different pack (includes jute; omits education/ICT/e-commerce/sports as the first wave).
 
 Sector slugs and landscape counts: [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md). Browse live coverage in the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard).
 
@@ -77,7 +79,7 @@ September report frames work as **Phase 1 in progress**, not finished.
 1. Contract + bank details.
 2. Moncho login; analyst profile; save API key.
 3. Clone **this** workbench repo; Cursor + `.env` (never commit).
-4. Read this file + [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) + your role doc + [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md).
+4. Read this file + [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) + your role doc + [`DATABASE_SCHEMA_OVERVIEW.md`](../reference/DATABASE_SCHEMA_OVERVIEW.md).
 5. Skim [`HANDBOOK.md`](HANDBOOK.md).
 
 ### Step 2 — Discovery (before big execution)
@@ -93,9 +95,9 @@ September report frames work as **Phase 1 in progress**, not finished.
 **Data Ops discovery** (no database CLI — use the app and MCP):
 
 - [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for live orgs, products, and sector coverage
-- [**Analyst Discovery MCP**](ANALYST_DISCOVERY_MCP.md) in Cursor for taxonomy, coverage, duplicate checks, and capped `market_facts` lookup
+- [**Analyst Discovery MCP**](../discovery/ANALYST_DISCOVERY_MCP.md) in Cursor for taxonomy, coverage, duplicate checks, capped `market_facts` lookup, and `sizing-readiness`
 - Sector status in [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
-- Schema shapes in [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md)
+- Schema shapes in [`DATABASE_SCHEMA_OVERVIEW.md`](../reference/DATABASE_SCHEMA_OVERVIEW.md)
 - Ask founder only if a national fact count or export is missing from the dashboard and MCP
 
 **Deliverable:** **Coverage Snapshot** (2–4 pages) — **one row per grant sector (all 10)**, facts, gaps, depth grade, blockers.
@@ -104,7 +106,7 @@ September report frames work as **Phase 1 in progress**, not finished.
 
 ### Step 3 — Your 2-month plan (founder approves)
 
-Use [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](roles/TWO_MONTH_PLAN_TEMPLATE.md): outcomes, step milestones, metrics, risks, Sep report section.
+Use [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](../../roles/TWO_MONTH_PLAN_TEMPLATE.md): outcomes, step milestones, metrics, risks, Sep report section.
 
 ### Step 4 — Execute approved plan
 
@@ -145,12 +147,13 @@ Help draft your sections for the September ICT progress report. Founder owns the
 | Doc | Use |
 |-----|-----|
 | [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) | **10 grant sectors** — slugs and Moncho mapping |
-| [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) | Tables and JSON shapes |
-| [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) | Org quality rubric |
+| [`skills/sizing-audit.md`](../../skills/sizing-audit.md) | Track A sizing factors (jute included). Grant-ten is a different pack. |
+| [`DATABASE_SCHEMA_OVERVIEW.md`](../reference/DATABASE_SCHEMA_OVERVIEW.md) | Tables and JSON shapes |
+| [`SCORING_STANDARDS.md`](../reference/SCORING_STANDARDS.md) | Org quality rubric |
 | [`DASHBOARD_WALKTHROUGH.md`](DASHBOARD_WALKTHROUGH.md) | Analyst dashboard |
-| [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) | Data Ops role |
-| [`roles/GTM_OPS_ONBOARDING.md`](roles/GTM_OPS_ONBOARDING.md) | GTM Ops role |
-| [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](roles/TWO_MONTH_PLAN_TEMPLATE.md) | Plan for founder approval |
+| [`roles/DATA_OPS_ONBOARDING.md`](../../roles/DATA_OPS_ONBOARDING.md) | Data Ops role |
+| [`roles/GTM_OPS_ONBOARDING.md`](../../roles/GTM_OPS_ONBOARDING.md) | GTM Ops role |
+| [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](../../roles/TWO_MONTH_PLAN_TEMPLATE.md) | Plan for founder approval |
 
 Longer engineering / grant internal docs are **not** in this repo. Ask the founder when you need them.
 

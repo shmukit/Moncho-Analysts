@@ -38,7 +38,9 @@ Use this skill **every time** you are about to submit data. IDE agents must trea
 | `market_fact` | Stage for SML review | `staging_market_facts` → `market_facts` |
 | `expert` | Change request (workbench QA) | experts |
 
-**Market facts** do not go through the org change-request API. Required fields: `metric_key`, `country`, `year`, `value`, `unit`, `source_name`, plus **`sector_slug`** (Moncho sector, in `dimensions` or top-level) and **`fact_type`** (`trade`, `production`, `consumption`, `monetary`, `employment`, `growth`, `demographic`, `investment`, `policy`, `technology`, `research`, `other`). The API and reviewer agent reject untagged rows. See `samples/market_fact_sample.json`.
+**Market facts** do not go through the org change-request API. Required fields: `metric_key`, `country`, `year`, `value`, `unit`, `source_name`, plus **`sector_slug`** (Moncho sector, in `dimensions` or top-level) and **`fact_type`** (`trade`, `production`, `consumption`, `monetary`, `employment`, `growth`, `demographic`, `investment`, `policy`, `technology`, `research`, `other`). Also tag sizing factors with `dimensions.landscape_slug`, `dimensions.segment_slug`, `dimensions.sizing_method`, and `dimensions.variable_family`. The API and reviewer agent reject untagged rows. See `samples/market_fact_sample.json` (includes a jute fibre factor that is **not** `$820M`).
+
+Sizing-factor path: Discovery `sizing-readiness` then HITL stage. MCP tool `moncho_stage_market_facts` POSTs the same `POST /api/analyst/market-facts/stage` endpoint (max 50). It does **not** write live `market_facts` or TAM. Do not stage `tam_total` unless quoting an official published total. Never stage the jute `$820M` lump. Skill: `skills/sizing-audit.md`.
 
 **Batch limit:** max **50 JSON objects** per file or Bulk inject paste (50 orgs, 50 products, or 50 facts — not “50 lines”).
 
@@ -116,6 +118,8 @@ npm run submit -- --file data/pending/facts.json --type market_fact
 ```
 
 Or **Bulk inject** in the Analyst Dashboard: `/analyst/bulk-inject` (same types, max 50 objects).
+
+**MCP stage (HITL only):** `moncho_stage_market_facts` with the same JSON array. Auth is `MONCHO_AUTH_TOKEN`. Reviewers still approve before live `market_facts`.
 
 Requires `.env`: `MONCHO_API_URL`, `MONCHO_AUTH_TOKEN`.
 

@@ -9,4 +9,4 @@ Analyst-facing documentation. Keep IDE entry points at the repo root (`README.md
 | [`discovery/`](discovery/) | Analyst discovery MCP guide |
 | [`prd/`](prd/) | Workbench tool PRDs (e.g. product-image contact-sheet audit) |
 
-Operational folders outside `docs/`: `skills/` (incl. **`data_injection_planning.md`** for sector plans), `samples/`, `roles/`, `scripts/`, `data/`, `test/`.
+Operational folders outside `docs/`: `skills/` (incl. **`data_injection_planning.md`** for sector plans and **`sizing-audit.md`** for Track A factors), `sizing-templates/`, `samples/`, `roles/`, `scripts/`, `data/`, `test/`.

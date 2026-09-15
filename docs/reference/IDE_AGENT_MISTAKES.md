@@ -38,13 +38,14 @@ This is the analyst-repo twin of Moncho platform `IDE_AGENT_MISTAKES.md`. It cov
 |------|----------------|
 | Org scoring (5 dims) | [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md) |
 | Product gate + normalization | [`PRODUCT_ORG_RUBRICS.md`](PRODUCT_ORG_RUBRICS.md) |
-| SKU pricing (Dashboard) | [`SKU_PRICING_SUBMISSION_GUIDE.md`](SKU_PRICING_SUBMISSION_GUIDE.md) · [`skills/product_sku_submission.md`](skills/product_sku_submission.md) · [`skills/sku-pricing-canon.md`](skills/sku-pricing-canon.md) |
-| Sector / landscape / segment IDs | [`skills/taxonomy_mapping.md`](skills/taxonomy_mapping.md) · `GET /api/reference/taxonomy` |
-| Grant sector slugs | [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md) |
-| Discovery MCP / CLI | [`ANALYST_DISCOVERY_MCP.md`](ANALYST_DISCOVERY_MCP.md) |
-| JSON shapes | [`samples/`](samples/) · [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) |
-| Validation / submit | [`skills/validation_submission.md`](skills/validation_submission.md) |
-| **Data injection plans** | [`skills/data_injection_planning.md`](skills/data_injection_planning.md) |
+| SKU pricing (Dashboard) | [`SKU_PRICING_SUBMISSION_GUIDE.md`](SKU_PRICING_SUBMISSION_GUIDE.md) · [`skills/product_sku_submission.md`](../../skills/product_sku_submission.md) · [`skills/sku-pricing-canon.md`](../../skills/sku-pricing-canon.md) |
+| Sector / landscape / segment IDs | [`skills/taxonomy_mapping.md`](../../skills/taxonomy_mapping.md) · `GET /api/reference/taxonomy` |
+| Grant sector slugs | [`GRANT_TEN_SECTORS.md`](../onboarding/GRANT_TEN_SECTORS.md) |
+| Bottom-up sizing audit | [`skills/sizing-audit.md`](../../skills/sizing-audit.md) · [`sizing-templates/`](../../sizing-templates/) |
+| Discovery MCP / CLI | [`ANALYST_DISCOVERY_MCP.md`](../discovery/ANALYST_DISCOVERY_MCP.md) |
+| JSON shapes | [`samples/`](../../samples/) · [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md) |
+| Validation / submit | [`skills/validation_submission.md`](../../skills/validation_submission.md) |
+| **Data injection plans** | [`skills/data_injection_planning.md`](../../skills/data_injection_planning.md) |
 
 ---
 
@@ -164,11 +165,16 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | M-09 | **Use `hs-codes` for sector trade scope or expect `sector_hscode_links` on `coverage`** | 500 on broken hs-codes probes (fixed 2026-07-26) or empty scope when only coverage was queried | `hs-codes` = global HS taxonomy only. Governed sector ↔ HS edges: `resource=sector-hscode-links&sector_slug=<slug>`. Trade **values**: `market-facts&fact_type=trade`. |
 | M-11 | **Treat `competency_edges` as HS↔ISIC or skip Discovery crosswalk resources** | Wrong industry/skills joins for import-substitution / LinkedIn HS posts | Use `taxonomy-crosswalk-links` (HS→ISIC), `value-chain-hs-node-map` (HS→node), `hs-competency-supply` / `hs-competency-map` (derived HS↔degree/skill), `competencies` / `occupations` for skills. `competency_edges` is skills hierarchy only. Education→occupation is `education_occupation_map`. |
 | M-04 | **Commit `.env` or paste API keys into chat/PRs** | Key leak; rotate cost | Keep `MONCHO_AUTH_TOKEN` and search keys local only. |
-| M-05 | **Ignore MCP rate limits / invent DB credentials** | 429 loops; security fail | Read-only API + MCP only. Back off on 429. Never ask for Supabase keys. |
+| M-05 | **Ignore MCP rate limits / invent DB credentials** | 429 loops; security fail | Discovery lookups + HITL `moncho_stage_market_facts` only. Back off on 429. Never ask for Supabase keys. MCP does not write live TAM. |
 | M-06 | **Validate org via LinkedIn only** — `linkedin.com/company` or headcount as eligibility/credibility | Fake validity; weak evidence | **Website required** for validity. LinkedIn = supporting activity among other sources — never sole cite for a dim. |
 | M-07 | **Re-scrape HIES / bulletins without checking Moncho** | Duplicate `market_facts`; wasted PDF work | MCP/Dashboard/founder: list existing keys (e.g. `hies_2022` health tables) first; inject gaps only. |
 | M-12 | **Treat `coverage.organizations_by_sector_id` (or a 20-row `orgs` list) as directory size** | Intern said Agri has 63 orgs; website showed 691+ mapped names (mostly EPB stubs with null `sector_id`) | Report `coverage.organizations_on_segments`. Agri/RMG are segment-first. `orgs` is a sample, max 50. See `ANALYST_DISCOVERY_MCP.md` § coverage. |
 | M-13 | **Submit market facts without `sector_slug` and `fact_type`** | 400 at staging; reviewer `request_changes`; post-inject later has to infer columns (disk IO) | Every analyst fact must name a Moncho `sector_slug` and a Sherpa `fact_type`. Match `samples/market_fact_sample.json`. Do not dump untagged national macros. |
+| M-15 | **Use the wrong sizing method for the sector** | Finance sized from BSY production; agri sized from MFS ARPU; jute JDP sized from nationwide fibre export | Read `skills/sizing-audit.md` + the sector card. Call `sizing-readiness` `mode=template` before harvesting. |
+| M-16 | **Treat a sector lump as TAM** (`$19.4B` health, `$820M` jute, port `$4B` 2033) | Dishonest teaser; LUMP_NOT_BOTTOM_UP | Grade at **segment** grain. Do not sell or stage those lumps as SIZEABLE. |
+| M-17 | **Stage `metric_key=tam_total` (or the jute `$820M` row) as a factor** | Reviewer churn; false SIZEABLE | Stage production/price/ARPU/throughput factors. TAM writes stay founder-gated. |
+| M-18 | **Conclude sizing MISSING from `coverage.market_facts_with_sector_tag`** | False gap; re-harvest of tagged-elsewhere rows | Use `sizing-readiness` `mode=inventory`. Coverage undercounts untagged trade/LFS. |
+| M-19 | **Treat EPB org census as a size** | Hundreds of mapped jute orgs with no factor facts | Org counts are directory coverage, not TAM. |
 | M-14 | **Treat Cursor `process client is registered` / `mcp_auth` failure as a Moncho API outage** | Analysts stop; false 401 reports | Discovery REST is up. Do not call `mcp_auth` on this stdio server. Point Cursor `envFile` at `.env`. Fallback: curl or `npx tsx scripts/discovery/lookup.ts`. Fully quit Cursor + toggle MCP + new chat. Cloud Agent cannot use local `npx`. |
 
 ---
@@ -223,8 +229,8 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 
 ## Related
 
-- [`skills/data_injection_planning.md`](skills/data_injection_planning.md) — sector plan skeleton, scoring/value-chain/LinkedIn/product rules  
-- [`analyst_instructions.md`](analyst_instructions.md) — role and discovery sequence  
-- [`.cursorrules`](.cursorrules) — IDE must load this registry early  
-- [`roles/DATA_OPS_ONBOARDING.md`](roles/DATA_OPS_ONBOARDING.md) — Data Ops quality bar  
-- [`HANDBOOK.md`](HANDBOOK.md) — truth over invented quality  
+- [`skills/data_injection_planning.md`](../../skills/data_injection_planning.md) — sector plan skeleton, scoring/value-chain/LinkedIn/product rules  
+- [`analyst_instructions.md`](../../analyst_instructions.md) — role and discovery sequence  
+- [`.cursorrules`](../../.cursorrules) — IDE must load this registry early  
+- [`roles/DATA_OPS_ONBOARDING.md`](../../roles/DATA_OPS_ONBOARDING.md) — Data Ops quality bar  
+- [`HANDBOOK.md`](../onboarding/HANDBOOK.md) — truth over invented quality  

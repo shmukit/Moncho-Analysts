@@ -4,11 +4,13 @@
 
 **Reports to:** Founder. You research and produce JSON/SQL drafts; **founder reviews and injects**. No direct production merges.
 
+Grant-ten is **not** the paid Track A 7. Sizing-factor work defaults to [`skills/sizing-audit.md`](../skills/sizing-audit.md) (`bd-gtm-consultant-7`, jute required) unless you are explicitly on grant coverage.
+
 ---
 
 ## Ten priority sectors (grant scope)
 
-All discovery and data work covers these **10 sectors**. Grade each in your Coverage Snapshot (🟢/🟡/🔴).
+All **grant** discovery and data work covers these **10 sectors**. Grade each in your Coverage Snapshot (🟢/🟡/🔴). Do not treat this table as the paid consultant campaign.
 
 See [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md) for slugs and landscape counts. Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for live org/product coverage — you do **not** need database CLI access.
 
@@ -37,7 +39,7 @@ Pick **5 priority sectors** in your Coverage Snapshot (evidence-based). For each
 
 | Deliverable | Standard |
 |-------------|----------|
-| **Quality-scored organizations** | Each org scored with [`SCORING_STANDARDS.md`](../docs/reference/SCORING_STANDARDS.md) (five dimensions, 1–5 + rationale). Only map orgs above your agreed threshold. |
+| **Quality-scored organizations** | Each org scored with [`SCORING_STANDARDS.md`](../SCORING_STANDARDS.md) (five dimensions, 1–5 + rationale). Only map orgs above your agreed threshold. |
 | **Quality-scored products** | Name, category, description, source URL, pricing/spec where public. Reject thin listings. |
 | **Landscape positioning** | Orgs placed on correct segments via change requests or handoff JSON. |
 
@@ -59,7 +61,7 @@ Pick **5 priority sectors** in your Coverage Snapshot (evidence-based). For each
 
 Save your Coverage Snapshot notes in this workbench (branch + PR) or share the file with founder. Suggested filename: `SECTOR_DEPTH_BASELINE_<YYYY-MM>.md`.
 
-- [ ] Read [`DATABASE_SCHEMA_OVERVIEW.md`](../docs/reference/DATABASE_SCHEMA_OVERVIEW.md)
+- [ ] Read [`DATABASE_SCHEMA_OVERVIEW.md`](../DATABASE_SCHEMA_OVERVIEW.md)
 - [ ] Review [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md) landscape counts
 - [ ] Use [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) to spot-check org/product depth per grant sector
 - [ ] Ask founder only if you need a BD `market_facts` summary count (not available as a dashboard CLI)
@@ -75,7 +77,7 @@ Save your Coverage Snapshot notes in this workbench (branch + PR) or share the f
 
 ## Org scoring rubric
 
-Use [`SCORING_STANDARDS.md`](../docs/reference/SCORING_STANDARDS.md):
+Use [`SCORING_STANDARDS.md`](../SCORING_STANDARDS.md):
 
 1. Innovation & differentiation  
 2. Market traction & growth  
@@ -96,7 +98,7 @@ Document one-line rationale per dimension in research notes. Submit only orgs th
 | Completeness | Description + category + (price or spec) where available |
 | Evidence | Not duplicate/stale listing; logo or media when possible |
 
-Then score the **landscape template dimensions** in [`PRODUCT_ORG_RUBRICS.md`](../docs/reference/PRODUCT_ORG_RUBRICS.md) Part 3c. Submit each dim + one-line rationale on the product JSON, plus the average as `quality_score`. After apply, the average is `product_metrics.quality` and the dims are `metadata.scoring.dimensions`. Org scores (Part 1 / Part 7 shims) are a separate table.
+Then score the **landscape template dimensions** in [`PRODUCT_ORG_RUBRICS.md`](../PRODUCT_ORG_RUBRICS.md) Part 3c. Submit each dim + one-line rationale on the product JSON, plus the average as `quality_score`. After apply, the average is `product_metrics.quality` and the dims are `metadata.scoring.dimensions`. Org scores (Part 1 / Part 7 shims) are a separate table.
 
 ---
 

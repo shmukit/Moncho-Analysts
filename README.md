@@ -2,12 +2,17 @@
 
 Welcome to the Moncho Analyst Workbench. This repository contains the tools and instructions required for discovering and submitting market intelligence data to Moncho.ai.
 
+## Campaign vs grant (do not collapse)
+
+- **Paid Track A (default sizing audit):** BD × 7. Agri, **jute**, energy, finance, logistics, health, RMG. Pack `bd-gtm-consultant-7`. Skill: [`skills/sizing-audit.md`](skills/sizing-audit.md). Cards: [`sizing-templates/`](sizing-templates/).
+- **ICT grant ten:** finance, agri, education, ICT, energy, health, logistics, e-commerce, sports, RMG. **No jute.** Pack `bd-gtm-grant-10` only when you are on grant coverage work. [`docs/onboarding/GRANT_TEN_SECTORS.md`](docs/onboarding/GRANT_TEN_SECTORS.md) is **not** the paid 7.
+
 ## Repository layout
 
 **Root (start here)**
 - `README.md`, `AGENTS.md`, `instructions.md`, `analyst_instructions.md` — agent entry points
 - `.cursorrules` / `.cursor/rules/` — IDE contracts (submit gate, QA, discovery)
-- `skills/`, `samples/`, `roles/`, `scripts/`, `data/`, `test/`
+- `skills/`, `samples/`, `roles/`, `scripts/`, `data/`, `test/`, `sizing-templates/`
 
 **Docs** — see [`docs/README.md`](docs/README.md)
 - `docs/onboarding/` — handbook, ICT grant, sectors, dashboard, MCP setup
@@ -38,6 +43,7 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 - `scripts/submit_data.ts` — submit JSON (QA-gated)
 - `scripts/extraction/`, `scripts/discovery/` — discovery helpers
 - `skills/validation_submission.md` — submit ritual for IDE agents
+- `skills/sizing-audit.md` — bottom-up sizing audit (Track A including jute; factors only, no TAM writes)
 - `skills/product_sku_submission.md` — Dashboard SKU pricing checklist
 - `skills/product_image_audit.md` — visual product-media audit before submit
 - `samples/` — JSON schemas for Organizations, Products, Landscapes, Experts

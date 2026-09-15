@@ -6,6 +6,8 @@
  *   npx tsx scripts/discovery/lookup.ts coverage --sector_slug=ict-services
  *   npx tsx scripts/discovery/lookup.ts orgs --q=grameen --country=Bangladesh
  *   npx tsx scripts/discovery/lookup.ts market-facts --sector_slug=energy --mode=summary
+ *   npx tsx scripts/discovery/lookup.ts sizing-readiness --sector_slug=jute-natural-fibres --mode=template
+ *   npx tsx scripts/discovery/lookup.ts sizing-readiness --sector_slug=financial-services --country=Bangladesh --mode=inventory
  *   npx tsx scripts/discovery/lookup.ts analysis-structure --sector_slug=agriculture --home_mode=draft_report
  *   npx tsx scripts/discovery/lookup.ts hs-codes --q=6107 --level=6
  *   npx tsx scripts/discovery/lookup.ts sector-hscode-links --sector_slug=ict-services
@@ -25,7 +27,7 @@ async function main(): Promise<void> {
   if (!resource) {
     console.error('Usage: lookup.ts <resource> [--key=value ...]');
     console.error(
-      'Resources: taxonomy | coverage | orgs | products | pricing | needs | hs-codes | sector-hscode-links | taxonomy-standards | taxonomy-crosswalk-links | value-chain-hs-stage-map | competencies | occupations | market-facts | analysis-structure',
+      'Resources: taxonomy | coverage | orgs | products | pricing | needs | hs-codes | sector-hscode-links | taxonomy-standards | taxonomy-crosswalk-links | value-chain-hs-stage-map | competencies | occupations | market-facts | analysis-structure | sizing-readiness',
     );
     process.exit(1);
   }

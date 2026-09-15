@@ -1,10 +1,10 @@
 /**
  * Logo.dev URL builder and domain consistency checks.
- * Set LOGODEV_API_KEY in .env (from Analyst Dashboard).
+ * Set LOGO_DEV_API_KEY in .env (from Analyst Dashboard). LOGODEV_API_KEY is also accepted.
  */
 
 export function logoDevUrl(domain: string): string {
-  const key = process.env.LOGODEV_API_KEY;
+  const key = process.env.LOGO_DEV_API_KEY ?? process.env.LOGODEV_API_KEY;
   const clean = domain.replace(/^www\./, "");
   if (key) {
     return `https://img.logo.dev/${clean}?token=${key}`;

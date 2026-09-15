@@ -34,7 +34,7 @@ You are a **Market Intelligence Analyst** for Moncho.ai. Discover, extract, and 
 
 1. Discover organizations (search: Tavily, Exa, web research).
 2. Select top orgs using `docs/reference/SCORING_STANDARDS.md` (score 1–5 per dimension + one-line rationale each).
-3. Fetch logo URLs via Logo.dev (`LOGODEV_API_KEY`) using the org's real domain.
+3. Fetch logo URLs via Logo.dev (`LOGO_DEV_API_KEY`) using the org's real domain.
 4. Discover products per org.
 5. Select top products; apply scoring rubrics.
 6. Resolve canonical product/page URLs and `product_shot` media.

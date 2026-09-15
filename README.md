@@ -61,7 +61,8 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
    **Moncho API** (required for submission):
    ```bash
    MONCHO_API_URL="https://app.moncho.ai"
-   MONCHO_AUTH_TOKEN="your_copied_api_key_here" # copy from Analyst Dashboard → Workbench Access (see Walkthrough: DASHBOARD_WALKTHROUGH.md#3-managing-workbench-access-api-keys)
+   # Copy from Analyst Dashboard → Workbench Access (see Walkthrough: DASHBOARD_WALKTHROUGH.md#3-managing-workbench-access-api-keys)
+   MONCHO_AUTH_TOKEN="your_copied_api_key_here"
    ```
 
    **Discovery & enrichment APIs** (required for the IDE agent's discovery workflow):

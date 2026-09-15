@@ -491,7 +491,7 @@ function validateProductSchema(record: any): string[] {
     const wc = wordCount(record.product_description);
     if (wc > 80) errors.push(`product_description word count ${wc} (expected ≤80)`);
   }
-  if (record.hs_code !== undefined && !/^\d{4,10}$/.test(String(record.hs_code))) {
+  if (record.hs_code !== undefined && record.hs_code !== null && !/^\d{4,10}$/.test(String(record.hs_code))) {
     errors.push(`hs_code "${record.hs_code}" does not look like a valid HS code`);
   }
   return errors;
@@ -684,6 +684,8 @@ function validateAgainstSampleShape(
 
   for (const [key, sampleVal] of Object.entries(sampleShape)) {
     if (sampleVal === null || sampleVal === undefined) continue;
+    // Keys like `_comment` document the sample file itself, not a record field.
+    if (key.startsWith("_")) continue;
 
     if ((recordType === "product" || recordType === "product_media") && PRODUCT_BUNDLE_KEYS.has(key)) {
       continue;

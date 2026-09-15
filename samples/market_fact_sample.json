@@ -12,5 +12,23 @@
       "sector_slug": "healthcare",
       "table_ref": "3.1"
     }
+  },
+  {
+    "metric_key": "production_output",
+    "country": "Bangladesh",
+    "year": 2023,
+    "value": 1250000,
+    "unit": "MT",
+    "source_name": "Bangladesh Jute Mills Corporation",
+    "source_url": "https://bjmc.gov.bd/",
+    "fact_type": "production",
+    "dimensions": {
+      "sector_slug": "jute-natural-fibres",
+      "landscape_slug": "jute-processing-goods",
+      "segment_slug": "jute-raw-yarn",
+      "sizing_method": "production_x_price",
+      "variable_family": "stock",
+      "table_ref": "raw-fibre-output"
+    }
   }
 ]

@@ -2,7 +2,7 @@
 
 **Audience:** Contract analysts on the Moncho-Analysts workbench (Cursor, Antigravity, or any MCP client).
 
-This is Moncho's **first MCP server**. It gives your IDE agent read-only access to core platform data **without** a database key or `npm run db:*` commands.
+This is Moncho's **first MCP server**. It gives your IDE agent read access to core platform data **without** a database key or `npm run db:*` commands, plus **HITL-only** staging of market facts (not live TAM).
 
 ---
 
@@ -26,6 +26,7 @@ This is Moncho's **first MCP server**. It gives your IDE agent read-only access 
 | `competencies` | `competencies` | Skills/credentials (ESCO, O*NET, BTEB, UGC, …). Optional `source`, `competency_type`, `country`, `q`. |
 | `occupations` | `occupations` | Occupation catalog. Optional `q`, `country`. |
 | `market-facts` | `market_facts` | **Not** a full dump |
+| `sizing-readiness` | Method catalog + live grades | Requires `sector_slug`. Modes: `template` (default), `inventory` (needs `country`), `pointers`. Pack default `bd-gtm-consultant-7`. Grade cards only, not a fact dump. Jute inventory returns **three** segment cards. |
 | `analysis-structure` | Sherpa analysis plan (in-memory) | **Preview only** — section outline for sector + home workflow + depth (0 credits, no LLM) |
 
 ### Import-substitution / LinkedIn HS + skills workflow
@@ -79,6 +80,25 @@ Requires `sector_slug` (Moncho slug, e.g. `financial-services`, not grant `finan
 
 **Org gap:** `organizations_by_sector_id` and `organizations_on_segments` measure **different placements**. Sector-id-only orgs are tagged but not on a landscape cell. Segment-only orgs sit on the grid with a null `sector_id`. Empty segment graphs (0 `sector_segments` rows) cannot attach orgs. Do not treat EPB-like stubs as missing from MCP: they are in the directory census when mapped.
 
+### `sizing-readiness` (bottom-up factor inventory)
+
+Requires `sector_slug` (one Moncho slug per call). Optional `pack` (default **`bd-gtm-consultant-7`**, Track A including jute). Grant analysts pass `pack=bd-gtm-grant-10`.
+
+| mode | Returns |
+|------|---------|
+| `template` (default) | Method card from the CDRO catalog (no heavy DB) |
+| `inventory` | Per-segment grades + missing factor groups + matching `metric_key` counts. Requires `country`. Jute returns **three** segment cards. |
+| `pointers` | Known-data pointers + pack `preferred_domains` for missing families |
+
+Do not use `market-facts` search (max 25 rows) to grade ~314 segments. Do not treat `coverage.market_facts_with_sector_tag` as a sizing verdict. Inventory is aggregates, not a dump.
+
+Example:
+
+```bash
+npx tsx scripts/discovery/lookup.ts sizing-readiness --sector_slug=jute-natural-fibres --mode=template
+npx tsx scripts/discovery/lookup.ts sizing-readiness --sector_slug=jute-natural-fibres --country=Bangladesh --mode=inventory
+```
+
 ### `analysis-structure` (Sherpa preview)
 
 Preview which analysis sections Sherpa would plan for a sector before you run a report turn. Requires `sector_slug`; optional `home_mode` (default `draft_report`) and `depth` (`standard` or `deep`).
@@ -106,7 +126,7 @@ Limits apply per **analyst API key** (MCP, REST, and CLI scripts share the same 
 |--------|-------------:|-------|
 | 1 minute | 60 | All discovery calls (`lookup` + `check-duplicate`) |
 | 1 day | 500 | All discovery calls |
-| 1 minute | 20 | `market-facts` only (stricter burst cap) |
+| 1 minute | 20 | `market-facts` and `sizing-readiness` (stricter burst cap) |
 
 If you hit a limit, the API returns **429**. MCP and CLI scripts return **structured text** (not a tool crash) with retry timing and guidance:
 
@@ -136,6 +156,7 @@ Guidance: Minute burst limit reached (60/min). Wait for retry_after_sec, then re
 | `market-facts` (`mode=summary`) | aggregates only | sampled up to 5,000 matching rows |
 | `taxonomy` | full reference graph | cached |
 | `coverage` | counts only | no row list |
+| `sizing-readiness` | method card or grade cards | one sector; jute = 3 segment cards |
 | `analysis-structure` | one outline object | section count in `meta.count` |
 
 **Do not treat `coverage.organizations_on_segments = 0` as missing org data** until you confirm against the website API or `organization_to_segment_map`. The map stores `sector_segments.id` (junction PK), not `segments.id`. The public org directory and CMS use the junction id correctly; a prior Discovery MCP bug undercounted mapped orgs when filtering on canonical segment ids. Map reads must page past PostgREST's ~1000-row cap (`fetchAllRows`); Agri previously showed ~691 unique orgs on the website while ~784 distinct mapped orgs existed.
@@ -149,9 +170,7 @@ Pass `limit=50` on list resources when you need the maximum page size. If `meta.
 ## What it cannot do
 
 - Raw SQL or arbitrary table browse
-- **Write, edit, withdraw, or resubmit** change requests (no MCP mutate tools). **Can I edit pending data?** Yes, in the web app only: unclaimed pending rows on `/analyst/submissions/[id]`. MCP cannot mutate. Submissions go through the Moncho web app:
-  - New: `POST /api/analyst/change-requests`
-  - Author edit / withdraw / resubmit (same row): `PATCH /api/analyst/submissions/[id]` on `/analyst/submissions/[id]` (phone or desktop)
+- **Write live `market_facts` or TAM.** `moncho_stage_market_facts` is HITL only (`staging_market_facts`). Change-request edit / withdraw / resubmit stays web-only.
 - Service-role or Supabase credentials in the workbench repo
 - Unbounded `market_facts` export
 - Export **pending** or **pending_review** payloads (use My Work → Submissions in the app for backlog still under human review)
@@ -220,14 +239,16 @@ Add to `.cursor/mcp.json` in your **Moncho-Analysts** workspace (or user-level M
 
 | Tool | Purpose |
 |------|---------|
-| `moncho_discovery_lookup` | Read-only search on any resource above (including `analysis-structure`) |
+| `moncho_discovery_lookup` | Read lookup on any resource above (including `analysis-structure` and `sizing-readiness`) |
 | `moncho_analysis_structure_preview` | Sherpa section plan preview for sector + home workflow + depth |
 | `moncho_check_duplicate` | Org/product duplicate check — **required** before every organization CREATE, not optional. Any `isDuplicate: true` (including `suggestedAction: "review"`) will be hard-blocked (409) at submit. |
 | `moncho_list_my_rejected` | Export own `rejected` / `changes_requested` change requests and rejected staging facts for offline resubmit (no pending payloads) |
+| `moncho_stage_market_facts` | HITL stage of sizing factors (max 50). Does **not** write live TAM. |
 
 ### Example prompts (IDE)
 
 - "Use Moncho MCP: coverage for sector `ict-services`"
+- "sizing-readiness template then inventory for `jute-natural-fibres`"
 - "Preview Sherpa analysis structure for agriculture draft_report"
 - "Search orgs named Grameen in Bangladesh ICT"
 - "market_facts summary for sector_slug ict-services"
@@ -296,6 +317,7 @@ Duplicate guard: `POST /api/analyst/change-requests` returns **409** on **any** 
 
 ## Related docs
 
-- [`DATABASE_SCHEMA_OVERVIEW.md`](DATABASE_SCHEMA_OVERVIEW.md)
-- [`GRANT_TEN_SECTORS.md`](GRANT_TEN_SECTORS.md)
+- [`DATABASE_SCHEMA_OVERVIEW.md`](../reference/DATABASE_SCHEMA_OVERVIEW.md)
+- [`GRANT_TEN_SECTORS.md`](../onboarding/GRANT_TEN_SECTORS.md)
+- [`skills/sizing-audit.md`](../../skills/sizing-audit.md)
 - Engineering spec (Moncho-V1): `docs/04-ai-and-agents/specs/analyst-discovery-mcp.md`

@@ -14,7 +14,7 @@ A plan is **founder-reviewable** when it locks:
 1. **Scope** — sector slug, landscape slug(s), segment slug list (existing only)  
 2. **Org path** — sources, eligibility, dedupe, scoring (production dims)  
 3. **Product path** — template attributes, normalization unit, SKU cap, quality 1–5  
-4. **Market facts path** — 5–10 concrete facts after checking what Moncho already has  
+4. **Market facts path** — 5–10 concrete facts after checking what Moncho already has. For Track A sizing factors, follow [`sizing-audit.md`](sizing-audit.md) (pack `bd-gtm-consultant-7`, including jute). Do not write TAM.  
 5. **Value chain** — as map/placement notes, **not** as a quality score  
 
 If any of these are missing, the plan is incomplete.

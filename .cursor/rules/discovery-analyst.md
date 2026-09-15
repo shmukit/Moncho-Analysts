@@ -28,6 +28,8 @@ Products, Landscapes) into structured JSON matching the schemas in `samples/`.
    `skills/data_injection_planning.md` and `docs/reference/IDE_AGENT_MISTAKES.md`.
    Org score = production 5 dims only. Value chain is not scored. Website
    validates; LinkedIn is activity-only. Check Moncho for existing market facts first.
+   For Track A sizing factors (not TAM), read `skills/sizing-audit.md` and call
+   discovery `sizing-readiness` before harvesting. Default pack is `bd-gtm-consultant-7` (includes jute).
 1. **Plan first.** Before searching, write out your query strategy (which
    terms, which sources, which region/segment filters) and show it before
    executing.

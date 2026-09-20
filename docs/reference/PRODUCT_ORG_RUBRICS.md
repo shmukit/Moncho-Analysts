@@ -2,7 +2,7 @@
 
 How Moncho scores organizations and products in the current production system. Analysts should use these as the baseline. **Part 3c** lists the approved industry harvest cards (what object to price). Propose new template attributes in sector plans for founder review; do not invent a new `template_id` (A-03).
 
-**CMS:** Founders approve product rubrics and org scoring config in Admin → Rubrics. Spec: [`../03-product-and-design/PRD_CMS_RUBRICS.md`](../03-product-and-design/PRD_CMS_RUBRICS.md). Draft rubric JSON lives under `product-rubrics/`; org rules also in [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md).
+**CMS:** Founders approve product rubrics and org scoring config in Admin → Rubrics (Moncho-V1). Org rules also in [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md).
 
 **Strategy note:** products are first-class economic entities. Org score is **not** the average of product scores. Long-term moat = normalized SKUs + landscape templates + price history + graph links. Founders maintain the full product-intelligence strategy in the platform repo; analysts propose template attributes in sector plans and research notes for approval.
 

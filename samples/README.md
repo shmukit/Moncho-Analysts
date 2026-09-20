@@ -6,7 +6,8 @@ Use these samples as the exact format for bulk or single uploads. **Do not chang
 
 | File | Description | Target table(s) |
 |------|-------------|-----------------|
-| `organization_sample.json` | One organization with sector/segment mapping | `organizations`, `organization_to_segment_map` |
+| `organization_sample.json` | One organization (ID-based) with sector/segment mapping | `organizations`, `organization_to_segment_map` |
+| `organization_slug_sample.json` | Same entity using `sector_slug` / `segment_slugs` | `organizations`, `organization_to_segment_map` |
 | `landscape_sample.json` | Landscape with segments and TAM | `landscape_versions`, segments, TAM |
 | `expert_sample.json` | Expert profile and segment mapping | `experts`, `expert_to_segment_map` |
 | `product_sample.json` | Products and product images (two-table format) | `products`, `product_media` |

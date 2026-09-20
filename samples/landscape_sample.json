@@ -1,24 +1,14 @@
 {
-    "version_name": "Vietnam Fintech Map 2026",
-    "description": "A comprehensive view of the payment and lending ecosystem in Vietnam.",
-    "sector_id": 5,
+    "version_name": "Vietnam K-12 Education Map 2026",
+    "description": "Schema-only landscape example. Replace sector_id and segment ids from npm run reference:sync. Omit organizations until they exist in the database with real UUIDs.",
+    "sector_id": "8c234e2b-5c1e-4710-8937-3521cc061828",
     "status": "draft",
     "data_year": 2026,
     "classification": "public",
     "segments": [
         {
-            "id": 301,
-            "name": "E-Wallets",
-            "organizations": [
-                {
-                    "id": "uuid-v1",
-                    "name": "MoMo"
-                },
-                {
-                    "id": "uuid-v2",
-                    "name": "ZaloPay"
-                }
-            ]
+            "id": "c16085df-e8a1-415f-b468-2579d6615e3b",
+            "name": "K-12 Learning Platforms"
         }
     ],
     "tam_data": {

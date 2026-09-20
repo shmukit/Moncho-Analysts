@@ -86,11 +86,11 @@ The dashboard is your **Analyst Command Center** — awareness and orientation, 
 
 | Symptom | Likely cause | What to check |
 |---------|--------------|---------------|
-| **"Something went wrong!"** on `/analyst/dashboard` with console **Server Components render** error (message omitted in production) | Server Component threw during render | Local: reproduce with `npm run dev` and read the full stack. Common: missing import still used in JSX (see [IDE_AGENT_MISTAKES X-27](../06-operations/IDE_AGENT_MISTAKES.md)). Prod: Vercel function logs for the digest. |
+| **"Something went wrong!"** on `/analyst/dashboard` | Server Component threw during render | Report to founder with the URL and time. Do not invent a local `npm run dev` fix in this workbench. |
 | Console `POST /ingest/…` **`ERR_BLOCKED_BY_CLIENT`** | Ad blocker / tracking protection blocking PostHog | Harmless for dashboard render; not a root cause of the error boundary. |
 | `[UserContext] No client session` then **Server-side auth found** | Cookie hydration lag | Expected if the page still loads; only treat as auth failure if the page redirects to login. |
 
-> Formal UAC details: [ANALYST_DASHBOARD_UAC.md](../03-product-and-design/ANALYST_DASHBOARD_UAC.md).
+> Formal UAC details live in the Moncho-V1 platform repo (founder).
 
 ---
 
@@ -151,7 +151,7 @@ The left nav collapses to icons on narrow layouts. When collapsed, **hover a nav
 | **Review Queue** | `/analyst/review` | *[Senior Analysts/Admins only]* Evaluate pending submissions; claim unassigned rows; approve / reject. |
 | **Organizations** | `/analyst/organizations` | Search and browse the database (paginated: 20/50/100 rows). Organization names and **View** link open the public profile at `/organizations/{slug}`. Suggest inline edits for metadata, websites, descriptions, and rationales. |
 | **Reports** | `/analyst/reports` | View and manage rich Market Sizing / SML reports. |
-| **Data Terminal** | `/analyst/data-terminal` | Explore catalog tables, join analysis (Paid+), export under role limits. See [DATA_TERMINAL_V1.md](../03-product-and-design/DATA_TERMINAL_V1.md). |
+| **Data Terminal** | `/analyst/data-terminal` | Explore catalog tables, join analysis (Paid+), export under role limits. Platform spec lives in Moncho-V1. |
 | **Bulk inject** | `/analyst/bulk-inject` | Paste JSON batches as change requests for human review (not an automatic gap scan). |
 | **Products** | `/analyst/products` | Curate `product_metrics` rows (pricing, variants, segment placement). Paginated (20/50/100). Prices show compact K/M/B/T; organization pills link to `/organizations/{slug}` when available. |
 | **Metadata Manager**| `/analyst/metadata` | Sectors, segments, countries, taxonomy standards, and HS codes (read + suggest edits). |
@@ -246,7 +246,7 @@ Command Center shows a submission breakdown strip with counts and a link to subm
 
 ## 6. Data Terminal (quick reference)
 
-Route: **`/analyst/data-terminal`** (also available in CMS). Full product doc: [DATA_TERMINAL_V1.md](../03-product-and-design/DATA_TERMINAL_V1.md).
+Route: **`/analyst/data-terminal`** (also available in CMS). Platform spec lives in Moncho-V1.
 
 | Tab | What it does |
 |-----|----------------|
@@ -322,9 +322,9 @@ Legacy / orphan path may still show `reviewed` → `approved`. Treat **`complete
 - For metadata rows, set `metadata_type` on each object or use the Bulk inject default dropdown.
 - Organization **creates** need `name`; product **creates** need `product_name`.
 - Market fact rows need `metric_key`, `country`, `year`, `value`, `unit`, `source_name`, plus `sector_slug` and `fact_type`. Untagged rows are rejected at submit and by the reviewer agent.
-- IDE CLI: `npm run submit -- --file path.json --type organization|product|market_fact|metadata|landscape`
+- IDE CLI: `npm run submit -- --file path.json --type organization|product|market_fact|landscape|expert`
 
-For reviewer/admin integration buckets and the founder **operator loop** (batch agent triage → Review Queue → CMS Apply), see [REVIEW_QUEUE_PLAYBOOK.md](../06-operations/REVIEW_QUEUE_PLAYBOOK.md) § Operator loop.
+For reviewer/admin integration, founder docs live in Moncho-V1 (`REVIEW_QUEUE_PLAYBOOK.md`).
 
 ---
 

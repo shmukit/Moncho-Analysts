@@ -1,14 +1,20 @@
 {
-    "name": "Acme EdTech",
-    "website_url": "https://acme-edtech.com",
-    "description": "AI-powered learning platform scaling across Southeast Asia.",
-    "logo_url": "https://logo.dev/acme-edtech.com",
-    "founded_year": 2022,
-    "sector_id": 1,
-    "country_id": "ID",
-    "organization_type": "startup",
-    "segment_ids": [
-        101,
-        102
-    ]
+  "name": "Example LMS Co",
+  "website_url": "https://www.example.com",
+  "description": "This is a schema-only example organization for the analyst workbench. It models a K-12 learning platform with offline sync notes so new analysts can copy the field names without inventing a live company record.",
+  "logo_url": "https://www.example.com",
+  "founded_year": 2022,
+  "sector_id": "8c234e2b-5c1e-4710-8937-3521cc061828",
+  "country_id": "ID",
+  "organization_type": "private",
+  "segment_ids": ["c16085df-e8a1-415f-b468-2579d6615e3b"],
+  "innovation_rationale": "Shipped adaptive lesson plans used by 120 schools in Jakarta since 2024.",
+  "market_traction_rationale": "Reported 40% YoY revenue growth and 50,000 active student users in 2025.",
+  "competitiveness_rationale": "Only local LMS with Bahasa-first content aligned to the national K-12 curriculum.",
+  "product_depth_rationale": "Offers LMS, parent portal, and offline mobile sync across 3 product tiers.",
+  "social_proof_rationale": "Winner of EdTech Asia 2025 Best K-12 Platform award in Singapore.",
+  "source_urls": [
+    "https://www.example.com/",
+    "https://www.iana.org/domains/reserved"
+  ]
 }

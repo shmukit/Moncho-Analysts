@@ -7,7 +7,9 @@ Before running any workflow, read and use these repo assets so the agent underst
 | Asset | Purpose |
 |-------|---------|
 | **This file** | Entry point and workflow map |
-| [`README.md`](README.md) | Setup, env vars, npm scripts |
+| [`README.md`](README.md) | Setup, env vars, npm scripts (canonical) |
+| [`docs/README.md`](docs/README.md) | Topic owners: which file to trust |
+| [`docs/reference/IDE_AGENT_MISTAKES.md`](docs/reference/IDE_AGENT_MISTAKES.md) | Recurring wrong patterns |
 | [`analyst_instructions.md`](analyst_instructions.md) | Role, extraction rules, discovery workflow |
 | [`docs/onboarding/HANDBOOK.md`](docs/onboarding/HANDBOOK.md) | Onboarding, Mission 1, dashboard workflow |
 | [`docs/reference/SCORING_STANDARDS.md`](docs/reference/SCORING_STANDARDS.md) | 5-dimension scoring rubrics (1–5) |
@@ -34,7 +36,7 @@ You are a **Market Intelligence Analyst** for Moncho.ai. Discover, extract, and 
 
 1. Discover organizations (search: Tavily, Exa, web research).
 2. Select top orgs using `docs/reference/SCORING_STANDARDS.md` (score 1–5 per dimension + one-line rationale each).
-3. Fetch logo URLs via Logo.dev (`LOGODEV_API_KEY`) using the org's real domain.
+3. Fetch logo URLs via Logo.dev (`LOGO_DEV_API_KEY`) using the org's real domain.
 4. Discover products per org.
 5. Select top products; apply scoring rubrics.
 6. Resolve canonical product/page URLs and `product_shot` media.

@@ -101,7 +101,7 @@ OPENAI_API_KEY=your_openai_key
 TAVILY_API_KEY=your_tavily_key
 
 # Moncho API (for reference data and submission)
-MONCHO_API_URL=https://moncho.ai
+MONCHO_API_URL=https://app.moncho.ai
 MONCHO_AUTH_TOKEN=your_analyst_api_key
 ```
 

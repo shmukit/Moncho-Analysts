@@ -169,7 +169,7 @@ npx tsx scripts/utils/validate-analyst-data.ts data/pending/2026-01-25-onboardin
 
 The **Analyst Dashboard** (`/analyst/dashboard`) is the command center for awareness (market pulse, what's next, coverage). Day-to-day execution lives on **My Work** (`/analyst/work`).
 
-1. **Workbench Access (API Key)**: Copy your key from **Settings → Developer** (`/analyst/settings`) and save it in your local `.env` as `MONCHO_AUTH_TOKEN` for Hub 1 scripts. (Not on the dashboard itself.)
+1. **Workbench Access (API Key)**: Copy your key from **Settings → Developer** (`/analyst/settings`) and save it in your local `.env` as `MONCHO_AUTH_TOKEN`. Full env block: [`README.md`](../../README.md).
 2. **Curation Statistics**: Reputation and approved/completed contributions on the identity strip and public profile (`/a/[username]`).
 3. **Submissions**: Track change requests under **My Work → Submissions**. Chips: **Waiting for review**, **Needs your edits**, **Accepted, not live** (reviewer said yes, CMS has not published), **Live**, **Rejected**, **All**. **Live** means CMS published the row. **Pending edits:** open your unclaimed waiting-for-review row to Edit or Withdraw. Do not look for Edit on the public Organizations directory.
 4. **Sherpa AI turns**: Quota strip on dashboard and My Work (daily / monthly limits).

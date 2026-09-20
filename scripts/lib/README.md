@@ -62,7 +62,7 @@ Loads `.env` from repo root without overwriting shell-exported variables.
 
 Logo.dev URL builder and domain consistency checks for organization `logo_url` vs `website_url`.
 
-Requires `LOGODEV_API_KEY` or `LOGO_DEV_API_KEY` for authenticated Logo.dev URLs.
+Requires `LOGO_DEV_API_KEY` (or legacy `LOGODEV_API_KEY`) for authenticated Logo.dev URLs.
 
 ---
 

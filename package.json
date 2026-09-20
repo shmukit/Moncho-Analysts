@@ -1,12 +1,15 @@
 {
   "name": "moncho-analysts",
   "private": true,
+  "type": "module",
   "scripts": {
     "validate": "tsx scripts/utils/validate-analyst-data.ts",
     "qa": "tsx scripts/qa_agent.ts",
     "qa:mechanical": "tsx scripts/qa_reviewer.ts",
     "qa:deep": "tsx scripts/deep_fact_check.ts",
-    "qa:test": "tsx test/mock_deep_fact_check_v2.ts",
+    "qa:test": "tsx test/mock_deep_fact_check_v2.ts && tsx test/hygiene_and_duplicate_args.ts",
+    "qa:samples": "tsx test/qa_samples.ts",
+    "qa:gate-redteam": "tsx test/qa_gate_redteam.ts",
     "qa:batch": "tsx scripts/qa_batch.ts",
     "qa:gate": "tsx scripts/qa_agent.ts",
     "submit": "tsx scripts/submit_data.ts",
@@ -15,7 +18,8 @@
     "discover": "tsx scripts/extraction/run-discovery-agent.ts",
     "audit:product-images": "node scripts/utils/audit-product-images.mjs",
     "discovery:lookup": "tsx scripts/discovery/lookup.ts",
-    "discovery:duplicate": "tsx scripts/discovery/check-duplicate.ts"
+    "discovery:duplicate": "tsx scripts/discovery/check-duplicate.ts",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "ts-node": "^10.9.2",

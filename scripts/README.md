@@ -6,11 +6,13 @@ The system has two stages:
 
 | Stage | Script | What it does |
 |-------|--------|--------------|
-| **1 — Mechanical** | `qa_reviewer.ts` | Schema, live URL checks, duplicates, slugs, rationale quality, two-source warnings |
+| **1 — Mechanical** | `qa_reviewer.ts` | Schema, live URL checks, duplicates, slugs, rationale quality, two-source rule |
 | **2 — Agentic** | `deep_fact_check.ts` | Web search (Tavily/Exa) + LLM entailment on rationale claims |
 | **Orchestrator** | `qa_agent.ts` | Runs both stages and writes unified + executive reports |
 | **Bulk** | `qa_batch.ts` | Scale QA across folders or large chunked JSON files |
 | **Product images** | `utils/audit-product-images.mjs` | Contact-sheet visual triage for `product_shot` rows (`npm run audit:product-images`; not folded into `qa_agent`) |
+| **Sample parity** | `npm run qa:samples` | Every `samples/*.json` must pass Stage 1 |
+| **Red-team** | `npm run qa:gate-redteam` | Forbidden patterns from `IDE_AGENT_MISTAKES.md` must FAIL |
 
 See also: [`lib/README.md`](lib/README.md) for agentic internals, [`utils/README.md`](utils/README.md) for the validation entrypoint, [`../skills/product_image_audit.md`](../skills/product_image_audit.md) for the product-image ritual, and [`../.cursor/rules/qa-reviewer.md`](../.cursor/rules/qa-reviewer.md) for the QA agent contract.
 
@@ -137,11 +139,7 @@ npx tsx scripts/qa_agent.ts \
 | `landscape` | `samples/landscape_sample.json` |
 | `expert` | `samples/expert_sample.json` |
 
-Reference ID lists (never guess IDs):
-
-- `data/reference/valid-sector-ids.json`
-- `data/reference/valid-segment-ids.json`
-- `data/reference/taxonomy.json`
+Live IDs come from Discovery MCP `taxonomy`, not git. `npm run reference:sync` writes a **gitignored** local snapshot (`taxonomy.json`, `valid-sector-ids.json`, `valid-segment-ids.json`) so mechanical QA can reject guessed IDs.
 
 ---
 

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true
+  },
+  "include": ["scripts/**/*.ts", "test/**/*.ts"],
+  "exclude": [
+    "scripts/extraction/csv-to-json-converter.ts",
+    "scripts/extraction/enrich-organization-data.ts",
+    "scripts/extraction/parse-industry-pdf.ts",
+    "scripts/extraction/run-discovery-agent.ts",
+    "scripts/extraction/scrape-directory.ts"
+  ]
+}

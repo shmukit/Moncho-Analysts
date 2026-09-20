@@ -17,7 +17,7 @@ export async function tavilySearch(query: string): Promise<SearchResult[]> {
   if (!res.ok) {
     throw new Error(`Tavily search failed: HTTP ${res.status}`);
   }
-  const data = await res.json();
+  const data = (await res.json()) as { results?: Array<{ title?: string; url?: string; content?: string }> };
   return (data.results || []).map((r: { title?: string; url?: string; content?: string }) => ({
     title: r.title || "",
     url: r.url || "",
@@ -46,7 +46,7 @@ export async function exaSearch(query: string): Promise<SearchResult[]> {
   if (!res.ok) {
     throw new Error(`Exa search failed: HTTP ${res.status}`);
   }
-  const data = await res.json();
+  const data = (await res.json()) as { results?: Array<{ title?: string; url?: string; text?: string }> };
   return (data.results || []).map((r: { title?: string; url?: string; text?: string }) => ({
     title: r.title || "",
     url: r.url || "",

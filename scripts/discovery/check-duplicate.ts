@@ -1,21 +1,26 @@
 /**
  * Duplicate check CLI. Run before submitting a new org or product.
  * Usage:
- *   npx tsx scripts/discovery/check-duplicate.ts organization "Acme Ltd" https://acme.com
+ *   npm run discovery:duplicate -- organization "Acme Ltd" https://acme.com
  *   npx tsx scripts/discovery/check-duplicate.ts product "Flash Cards for Animals"
  */
-import { formatDiscoveryApiError } from './format-api-error';
+import { formatDiscoveryApiError } from './format-api-error.js';
+import { parseDuplicateArgs } from '../lib/duplicate_args.js';
 import { loadEnv } from '../lib/load_env.js';
+import { isPlaceholderSecret, missingTokenHelp, placeholderTokenHelp } from '../lib/secrets_hygiene.js';
 
 loadEnv();
 
 async function main(): Promise<void> {
-  const [entityType, entityName, websiteUrl] = process.argv.slice(2);
+  const parsed = parseDuplicateArgs(process.argv);
 
-  if (!entityType || !entityName) {
-    console.error('Usage: check-duplicate.ts <organization|product> <name> [website_url]');
+  if (!parsed) {
+    console.error('Usage: npm run discovery:duplicate -- organization "Acme Ltd" https://acme.com');
+    console.error('Quote names that contain spaces. Put `--` after the npm script name so the name and URL reach the CLI.');
     process.exit(1);
   }
+
+  const { entityType, entityName, websiteUrl } = parsed;
 
   if (entityType !== 'organization' && entityType !== 'product') {
     console.error('entity_type must be "organization" or "product"');
@@ -25,7 +30,11 @@ async function main(): Promise<void> {
   const baseUrl = (process.env.MONCHO_API_URL ?? 'https://app.moncho.ai').replace(/\/$/, '');
   const token = process.env.MONCHO_AUTH_TOKEN;
   if (!token) {
-    console.error('Set MONCHO_AUTH_TOKEN in your .env file');
+    console.error(missingTokenHelp());
+    process.exit(1);
+  }
+  if (isPlaceholderSecret(token)) {
+    console.error(placeholderTokenHelp());
     process.exit(1);
   }
 
@@ -53,12 +62,15 @@ async function main(): Promise<void> {
         response.headers.get('Retry-After'),
       ),
     );
+    if (response.status === 401) {
+      console.error('Fix: paste a real Analyst API key into MONCHO_AUTH_TOKEN. The README placeholder will always 401.');
+    }
     process.exit(1);
   }
   console.log(JSON.stringify(result, null, 2));
 }
 
 main().catch((err: unknown) => {
-  console.error(err);
+  console.error(err instanceof Error ? err.message : err);
   process.exit(1);
 });

@@ -1,3 +1,11 @@
 .env
+.env.*
+!.env.example
 node_modules/
 data/qa-reports/
+.cursor/mcp.json
+# Live taxonomy snapshot. Source of truth is Discovery MCP / GET /api/reference/taxonomy.
+# Generate locally with npm run reference:sync. Do not commit.
+data/reference/taxonomy.json
+data/reference/valid-sector-ids.json
+data/reference/valid-segment-ids.json

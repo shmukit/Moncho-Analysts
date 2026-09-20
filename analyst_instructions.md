@@ -72,8 +72,8 @@ Then extract into the `samples/` schemas, validate, and submit via `submit_data.
   "name": "Acme EdTech",
   "website_url": "https://acme.ed",
   "description": "Provider of AI-powered LMS...",
-  "sector_slug": "edtech",
-  "segment_slugs": ["lms", "ai-tutoring"],
+  "sector_slug": "k12-education",
+  "segment_slugs": ["k12-lms"],
   "founded_year": 2022
 }
 ```

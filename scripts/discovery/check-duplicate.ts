@@ -4,7 +4,7 @@
  *   npm run discovery:duplicate -- organization "Acme Ltd" https://acme.com
  *   npx tsx scripts/discovery/check-duplicate.ts product "Flash Cards for Animals"
  */
-import { formatDiscoveryApiError } from './format-api-error';
+import { formatDiscoveryApiError } from './format-api-error.js';
 import { parseDuplicateArgs } from '../lib/duplicate_args.js';
 import { loadEnv } from '../lib/load_env.js';
 import { isPlaceholderSecret, missingTokenHelp, placeholderTokenHelp } from '../lib/secrets_hygiene.js';

@@ -61,7 +61,7 @@ globalThis.fetch = async (url: string, opts: { body?: string; method?: string })
 };
 
 async function run() {
-  const mod = await import("../scripts/deep_fact_check.ts");
+  const mod = await import("../scripts/deep_fact_check.js");
 
   console.log("--- Test 1: real claim with strong evidence ---");
   const evidence1 = await mod.tavilySearch("Anthropic Series F funding");

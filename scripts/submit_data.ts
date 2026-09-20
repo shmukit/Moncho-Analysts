@@ -55,7 +55,13 @@ async function submitRecord(entityType: string, record: any, index: number) {
             body,
         });
 
-        const result = await response.json();
+        const result = (await response.json()) as {
+          ids?: unknown;
+          data?: { id?: string };
+          error?: string;
+          message?: string;
+          code?: string;
+        };
 
         if (response.ok) {
             if (isMarketFact) {

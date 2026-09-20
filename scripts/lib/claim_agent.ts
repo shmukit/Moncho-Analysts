@@ -131,7 +131,7 @@ Respond with ONLY JSON:
   });
   if (!res.ok) return null;
 
-  const data = await res.json();
+  const data = (await res.json()) as { content?: Array<{ type?: string; text?: string }> };
   const text = (data.content || []).find((b: { type?: string }) => b.type === "text")?.text || "";
   try {
     const parsed = JSON.parse(text.replace(/```json|```/g, "").trim());

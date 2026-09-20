@@ -45,9 +45,9 @@ function runCase(c: Case) {
     "--out",
     "data/qa-reports/",
     "--valid-sector-ids",
-    "data/reference/valid-sector-ids.json",
+    "test/fixtures/qa-redteam/valid-sector-ids.json",
     "--valid-segment-ids",
-    "data/reference/valid-segment-ids.json",
+    "test/fixtures/qa-redteam/valid-segment-ids.json",
   ];
   if (c.skipUrlCheck) args.push("--skip-url-check");
   const result = spawnSync("npx", args, { cwd: ROOT, encoding: "utf8", shell: true });

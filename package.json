@@ -1,6 +1,7 @@
 {
   "name": "moncho-analysts",
   "private": true,
+  "type": "module",
   "scripts": {
     "validate": "tsx scripts/utils/validate-analyst-data.ts",
     "qa": "tsx scripts/qa_agent.ts",
@@ -17,7 +18,8 @@
     "discover": "tsx scripts/extraction/run-discovery-agent.ts",
     "audit:product-images": "node scripts/utils/audit-product-images.mjs",
     "discovery:lookup": "tsx scripts/discovery/lookup.ts",
-    "discovery:duplicate": "tsx scripts/discovery/check-duplicate.ts"
+    "discovery:duplicate": "tsx scripts/discovery/check-duplicate.ts",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "ts-node": "^10.9.2",

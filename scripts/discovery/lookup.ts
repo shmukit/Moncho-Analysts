@@ -15,7 +15,7 @@
  *   npx tsx scripts/discovery/lookup.ts value-chain-hs-stage-map --hs_code=9607
  *   npx tsx scripts/discovery/lookup.ts competencies --source=bd_bteb --q=sewing
  */
-import { formatDiscoveryApiError } from './format-api-error';
+import { formatDiscoveryApiError } from './format-api-error.js';
 import { loadEnv } from '../lib/load_env.js';
 import { isPlaceholderSecret, missingTokenHelp, placeholderTokenHelp } from '../lib/secrets_hygiene.js';
 

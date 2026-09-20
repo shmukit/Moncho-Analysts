@@ -50,7 +50,11 @@ function existingCountrySlugs(): string[] {
 async function main() {
   console.log(`Fetching taxonomy from ${API_URL}/api/reference/taxonomy ...`);
   const response = await fetch(`${API_URL}/api/reference/taxonomy`);
-  const result = await response.json().catch(() => ({}));
+  const result = (await response.json().catch(() => ({}))) as {
+    error?: string;
+    sectors?: SectorRow[];
+    segments?: SegmentRow[];
+  };
 
   if (!response.ok) {
     console.error(

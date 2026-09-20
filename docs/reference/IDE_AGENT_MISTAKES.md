@@ -1,6 +1,6 @@
 # IDE agent mistakes registry (Analyst Workbench)
 
-**Last updated:** 2026-09-15  
+**Last updated:** 2026-09-20  
 **Owner:** Founder / Data Ops leads  
 **Repo:** [Moncho-Analysts](https://github.com/shmukit/Moncho-Analysts) (this workbench)  
 **Purpose:** Living list of **recurring mistakes IDE coding agents make** while discovering, scoring, and submitting Moncho data. Prune aggressively — keep short and current.
@@ -92,6 +92,7 @@ Overall: 4.0 / 5
 | T-03 | **Map by association label, not what is sold** — SREDA “EPC” or trade-association name → wrong landscape | Orgs land on Policy/Finance or wrong segment | Map by **product/program deployed** (see sector plan examples). Multi-segment is OK when evidenced. |
 | T-04 | **Use empty-shell grant slugs as live sectors** — e.g. treat `retail` / `logistics` as mapped when landscapes = 0 | Discovery against nothing; fake coverage | Read `GRANT_TEN_SECTORS.md`. Use verified Moncho slugs with landscapes (e.g. `port-and-maritime-sector` for logistics grant work). |
 | T-05 | **Whole-sector spray** — “inject healthcare” across 15 landscapes in one PR | Thin junk everywhere; no scatter plot value | Lock **one landscape** (e.g. `diagnostics-testing`) + named segments until founder expands scope. |
+| T-06 | **Org UPDATE with a partial `segment_slugs` list** — send only the cell you care about | Apply **replaces** every `organization_to_segment_map` row for that org; other maps (raw yarn, a health-sector jute cell, …) disappear | List **every** slug you want to keep. Omit `segment_slugs` / `segment_ids` to leave maps unchanged (`NULL` in `apply_organization_changes`). |
 
 ### Example (T-01)
 
@@ -168,7 +169,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 | M-05 | **Ignore MCP rate limits / invent DB credentials** | 429 loops; security fail | Discovery lookups + HITL `moncho_stage_market_facts` only. Back off on 429. Never ask for Supabase keys. MCP does not write live TAM. |
 | M-06 | **Validate org via LinkedIn only** — `linkedin.com/company` or headcount as eligibility/credibility | Fake validity; weak evidence | **Website required** for validity. LinkedIn = supporting activity among other sources — never sole cite for a dim. |
 | M-07 | **Re-scrape HIES / bulletins without checking Moncho** | Duplicate `market_facts`; wasted PDF work | MCP/Dashboard/founder: list existing keys (e.g. `hies_2022` health tables) first; inject gaps only. |
-| M-12 | **Treat `coverage.organizations_by_sector_id` (or a 20-row `orgs` list) as directory size** | Intern said Agri has 63 orgs; website showed 691+ mapped names (mostly EPB stubs with null `sector_id`) | Report `coverage.organizations_on_segments`. Agri/RMG are segment-first. `orgs` is a sample, max 50. See `ANALYST_DISCOVERY_MCP.md` § coverage. |
+| M-12 | **Treat `coverage.organizations_by_sector_id` (or a 20-row `orgs` list) as directory size** | Intern said Agri has 63 orgs; website showed 691+ mapped names (mostly EPB stubs with null `sector_id`). Jute can show 0 by sector_id and hundreds on segments. | Report `coverage.organizations_on_segments` (alias `org_census`). Agri, RMG, and jute are segment-first. `orgs` is a sample, max 50. See `ANALYST_DISCOVERY_MCP.md` § coverage. |
 | M-13 | **Submit market facts without `sector_slug` and `fact_type`** | 400 at staging; reviewer `request_changes`; post-inject later has to infer columns (disk IO) | Every analyst fact must name a Moncho `sector_slug` and a Sherpa `fact_type`. Match `samples/market_fact_sample.json`. Do not dump untagged national macros. |
 | M-15 | **Use the wrong sizing method for the sector** | Finance sized from BSY production; agri sized from MFS ARPU; jute JDP sized from nationwide fibre export | Read `skills/sizing-audit.md` + the sector card. Call `sizing-readiness` `mode=template` before harvesting. |
 | M-16 | **Treat a sector lump as TAM** (`$19.4B` health, `$820M` jute, port `$4B` 2033) | Dishonest teaser; LUMP_NOT_BOTTOM_UP | Grade at **segment** grain. Do not sell or stage those lumps as SIZEABLE. |

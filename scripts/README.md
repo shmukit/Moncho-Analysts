@@ -137,7 +137,7 @@ npx tsx scripts/qa_agent.ts \
 | `landscape` | `samples/landscape_sample.json` |
 | `expert` | `samples/expert_sample.json` |
 
-Reference ID lists (never guess IDs):
+Reference ID lists (never guess IDs). Refresh with `npm run reference:sync` (rewrites IDs **and** `taxonomy.json` slugs from the live API):
 
 - `data/reference/valid-sector-ids.json`
 - `data/reference/valid-segment-ids.json`

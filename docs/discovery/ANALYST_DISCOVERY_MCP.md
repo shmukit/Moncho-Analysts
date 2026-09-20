@@ -71,10 +71,11 @@ Requires `sector_slug` (Moncho slug, e.g. `financial-services`, not grant `finan
 | `products` | Deprecated alias of `products_live` (kept so older MCP clients still work) |
 | `pricing_rows_on_segments` | Distinct `product_metrics` rows on those same segments or published landscapes |
 | `organizations_by_sector_id` | Orgs with `metadata_organization.sector_id` set to this sector (placement tag only) |
+| `org_census` | Alias of `organizations_on_segments` (same integer). Prefer this when answering "how many orgs". |
 | `organizations_on_segments` | Distinct orgs in `organization_to_segment_map` using **`sector_segments.id`** (junction PK). **This is the public directory census** (`/sectors/{slug}/organizations`). |
 | `organizations_epb_like` | Subset of `organizations_on_segments` whose description starts with `EPB Exporter` or whose website is an EPB directory URL |
 
-**When asked how many orgs are in a sector, report `organizations_on_segments`, not `organizations_by_sector_id`.** Agri and RMG are segment-first: most directory orgs have a null `sector_id`. `resource=orgs` is a sample (default 20, max 50); do not infer sector size from the list length. `notes.directory_org_count` repeats this on every coverage payload.
+**When asked how many orgs are in a sector, report `org_census` / `organizations_on_segments`, not `organizations_by_sector_id`.** Agri, RMG, and jute are segment-first: most directory orgs have a null `sector_id`. `resource=orgs` is a sample (default 20, max 50); do not infer sector size from the list length. `notes.directory_org_count` repeats this on every coverage payload.
 
 **SKU depth:** use `resource=pricing` (or `products` with `sector_slug`) plus `coverage.products_live`. Do not treat an old `products: 0` snapshot as "no SKUs"; that field used to filter `products.created_by` against org ids, which almost always returned 0.
 

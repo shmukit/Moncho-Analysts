@@ -237,7 +237,10 @@ async function checkUrl(url: string, timeoutMs: number): Promise<UrlCheckResult>
     let res: Response;
     try {
       res = await fetch(url, { method: "HEAD", redirect: "follow", signal: controller.signal, headers });
-      if ([403, 405, 406, 501].includes(res.status)) {
+      const retryGet =
+        [403, 405, 406, 501].includes(res.status) ||
+        (res.status === 404 && new URL(url).hostname === "img.logo.dev");
+      if (retryGet) {
         res = await fetch(url, { method: "GET", redirect: "follow", signal: controller.signal, headers });
       }
     } finally {
@@ -491,7 +494,11 @@ function validateProductSchema(record: any): string[] {
     const wc = wordCount(record.product_description);
     if (wc > 80) errors.push(`product_description word count ${wc} (expected ≤80)`);
   }
-  if (record.hs_code !== undefined && !/^\d{4,10}$/.test(String(record.hs_code))) {
+  if (
+    record.hs_code !== undefined &&
+    record.hs_code !== null &&
+    !/^\d{4,10}$/.test(String(record.hs_code))
+  ) {
     errors.push(`hs_code "${record.hs_code}" does not look like a valid HS code`);
   }
   return errors;
@@ -683,6 +690,7 @@ function validateAgainstSampleShape(
   const slugTax = usesSlugTaxonomy(record);
 
   for (const [key, sampleVal] of Object.entries(sampleShape)) {
+    if (key.startsWith("_")) continue;
     if (sampleVal === null || sampleVal === undefined) continue;
 
     if ((recordType === "product" || recordType === "product_media") && PRODUCT_BUNDLE_KEYS.has(key)) {

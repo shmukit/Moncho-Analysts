@@ -6,7 +6,8 @@ Every analyst needs a `.env` in the repo root (never commit it). Minimum for sub
 
 ```bash
 MONCHO_API_URL="https://app.moncho.ai"
-MONCHO_AUTH_TOKEN="your_api_key_from_dashboard"   # Analyst Dashboard → Workbench Access
+# Analyst Dashboard → Workbench Access
+MONCHO_AUTH_TOKEN="your_api_key_from_dashboard"
 ```
 
 `MONCHO_AUTH_TOKEN` is **required** for `npm run submit`, authenticated reference fallback, and discovery MCP. Copy it from [Analyst Dashboard → Workbench Access](https://app.moncho.ai/analyst/dashboard).

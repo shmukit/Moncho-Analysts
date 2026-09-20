@@ -7,7 +7,9 @@ Before running any workflow, read and use these repo assets so the agent underst
 | Asset | Purpose |
 |-------|---------|
 | **This file** | Entry point and workflow map |
-| [`README.md`](README.md) | Setup, env vars, npm scripts |
+| [`README.md`](README.md) | Setup, env vars, npm scripts (canonical) |
+| [`docs/README.md`](docs/README.md) | Topic owners: which file to trust |
+| [`docs/reference/IDE_AGENT_MISTAKES.md`](docs/reference/IDE_AGENT_MISTAKES.md) | Recurring wrong patterns |
 | [`analyst_instructions.md`](analyst_instructions.md) | Role, extraction rules, discovery workflow |
 | [`docs/onboarding/HANDBOOK.md`](docs/onboarding/HANDBOOK.md) | Onboarding, Mission 1, dashboard workflow |
 | [`docs/reference/SCORING_STANDARDS.md`](docs/reference/SCORING_STANDARDS.md) | 5-dimension scoring rubrics (1–5) |

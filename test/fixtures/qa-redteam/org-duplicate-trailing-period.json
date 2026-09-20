@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Grameenphone.",
+    "website_url": "https://www.example.com",
+    "description": "This is a schema-only example organization for the analyst workbench. It models a K-12 learning platform with offline sync notes so new analysts can copy the field names without inventing a live company record.",
+    "sector_slug": "k12-education",
+    "segment_slugs": ["k12-lms"],
+    "hq_country_slug": "bangladesh",
+    "innovation_rationale": "Shipped adaptive lesson plans used by 120 schools in Jakarta since 2024.",
+    "market_traction_rationale": "Reported 40% YoY revenue growth and 50,000 active student users in 2025.",
+    "competitiveness_rationale": "Only local LMS with Bahasa-first content aligned to the national K-12 curriculum.",
+    "product_depth_rationale": "Offers LMS, parent portal, and offline mobile sync across 3 product tiers.",
+    "social_proof_rationale": "Winner of EdTech Asia 2025 Best K-12 Platform award in Singapore.",
+    "source_urls": ["https://www.example.com/", "https://www.iana.org/domains/reserved"]
+  },
+  {
+    "name": "Grameenphone",
+    "website_url": "https://www.example.com",
+    "description": "Second copy of the same organisation with the trailing period stripped from the name. The mechanical gate must treat this as a likely duplicate of the first record in the batch and fail the pair.",
+    "sector_slug": "k12-education",
+    "segment_slugs": ["k12-lms"],
+    "hq_country_slug": "bangladesh",
+    "innovation_rationale": "Shipped adaptive lesson plans used by 120 schools in Jakarta since 2024.",
+    "market_traction_rationale": "Reported 40% YoY revenue growth and 50,000 active student users in 2025.",
+    "competitiveness_rationale": "Only local LMS with Bahasa-first content aligned to the national K-12 curriculum.",
+    "product_depth_rationale": "Offers LMS, parent portal, and offline mobile sync across 3 product tiers.",
+    "social_proof_rationale": "Winner of EdTech Asia 2025 Best K-12 Platform award in Singapore.",
+    "source_urls": ["https://www.example.com/", "https://www.iana.org/domains/reserved"]
+  }
+]

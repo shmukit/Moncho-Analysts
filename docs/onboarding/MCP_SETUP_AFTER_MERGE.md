@@ -94,7 +94,11 @@ npx tsx scripts/discovery/lookup.ts coverage --sector_slug=ict-services
 npx tsx scripts/discovery/check-duplicate.ts organization "Acme Ltd" https://acme.com
 ```
 
-Or: `npm run discovery:lookup -- coverage --sector_slug=ict-services`
+Or:
+```bash
+npm run discovery:lookup -- coverage --sector_slug=ict-services
+npm run discovery:duplicate -- organization "Acme Ltd" https://acme.com
+```
 
 The CLIs load `.env` via `scripts/lib/load_env.ts` (same helper as submit). They do not use the `dotenv` npm package.
 

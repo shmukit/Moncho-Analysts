@@ -8,7 +8,13 @@ Mock tests for the **agentic fact-check** layer (Stage 2). No live API keys requ
 
 ```bash
 npm run qa:test
+npm run qa:samples
+npm run qa:gate-redteam
 ```
+
+- `qa:test` — mock Stage 2 fact-check plus env/token hygiene and duplicate CLI argv parsing
+- `qa:samples` — every `samples/*.json` must pass mechanical QA
+- `qa:gate-redteam` — forbidden patterns from `IDE_AGENT_MISTAKES.md` must FAIL
 
 Runs `mock_deep_fact_check_v2.ts`.
 

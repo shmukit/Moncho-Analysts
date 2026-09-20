@@ -3,6 +3,13 @@ import path from "path";
 import { spawnSync } from "child_process";
 import { fileURLToPath } from "url";
 import { loadEnv } from "./lib/load_env.js";
+import {
+  isPlaceholderSecret,
+  missingTokenHelp,
+  placeholderTokenHelp,
+  tokenLooksCorrupt,
+} from "./lib/secrets_hygiene.js";
+import { validateMarketFactRecord } from "./lib/validate_market_fact.js";
 
 loadEnv();
 
@@ -59,7 +66,11 @@ async function submitRecord(entityType: string, record: any, index: number) {
                 console.log('Request ID:', result.data?.id);
             }
         } else {
-            console.error(`Failed for record #${index + 1}:`, result.error || result);
+            const errText = result.error || result.message || JSON.stringify(result);
+            console.error(`Failed for record #${index + 1}: ${errText}`);
+            if (response.status === 401) {
+                console.error(isPlaceholderSecret(AUTH_TOKEN) ? placeholderTokenHelp() : "The API rejected this token. Regenerate it at Analyst Dashboard → Settings → Developer and update MONCHO_AUTH_TOKEN in .env.");
+            }
             if (result.code === 'SUBMISSION_CAP_REACHED') {
                 console.error('Hint: trial ended — ask founder for earned access or get one submission approved and applied.');
             }
@@ -69,57 +80,9 @@ async function submitRecord(entityType: string, record: any, index: number) {
     }
 }
 
-const MARKET_FACT_TYPES = new Set([
-    'production',
-    'consumption',
-    'monetary',
-    'trade',
-    'employment',
-    'growth',
-    'demographic',
-    'investment',
-    'policy',
-    'technology',
-    'research',
-    'other',
-]);
-
-function strField(value: unknown): string {
-    return typeof value === 'string' ? value.trim() : '';
-}
-
-function validateMarketFactRecord(record: any, index: number): string | null {
-    const required = ['metric_key', 'country', 'year', 'value', 'unit', 'source_name'] as const;
-    for (const field of required) {
-        if (record[field] == null || (typeof record[field] === 'string' && !String(record[field]).trim())) {
-            return `Record ${index + 1}: missing required field ${field}`;
-        }
-    }
-    const dimensions =
-        record.dimensions != null && typeof record.dimensions === 'object' && !Array.isArray(record.dimensions)
-            ? record.dimensions
-            : {};
-    const sectorSlug = (
-        strField(record.sector_slug) ||
-        strField(dimensions.sector_slug) ||
-        strField(dimensions.sector)
-    )
-        .toLowerCase()
-        .replace(/\s+/g, '-');
-    if (!sectorSlug) {
-        return `Record ${index + 1}: sector_slug is required (top-level or dimensions.sector_slug)`;
-    }
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(sectorSlug)) {
-        return `Record ${index + 1}: sector_slug "${sectorSlug}" must be kebab-case (e.g. ict-services)`;
-    }
-    const factType = (strField(record.fact_type) || strField(dimensions.fact_type)).toLowerCase();
-    if (!factType) {
-        return `Record ${index + 1}: fact_type is required (top-level or dimensions.fact_type)`;
-    }
-    if (!MARKET_FACT_TYPES.has(factType)) {
-        return `Record ${index + 1}: fact_type "${factType}" is not allowed`;
-    }
-    return null;
+function firstMarketFactError(record: any, index: number): string | null {
+    const errors = validateMarketFactRecord(record, index);
+    return errors[0] ?? null;
 }
 
 function runQaGate(filePath: string, entityType: string): boolean {
@@ -141,12 +104,9 @@ async function submitData() {
   const skipQa = args.includes("--skip-qa");
 
   if (filePathArg === -1 || typeArg === -1) {
-    console.error("Error: Missing arguments. Use --file <path> --type <organization|product|market_fact|landscape|expert>");
-    process.exit(1);
-  }
-
-  if (!AUTH_TOKEN) {
-    console.error("Error: MONCHO_AUTH_TOKEN not set in .env");
+    console.error("Missing --file and/or --type.");
+    console.error("Example: npm run submit -- --file data/pending/orgs.json --type organization");
+    console.error("Types: organization | product | market_fact | landscape | expert");
     process.exit(1);
   }
 
@@ -154,34 +114,60 @@ async function submitData() {
   const entityType = args[typeArg + 1];
 
   if (!fs.existsSync(filePath)) {
-    console.error(`Error: File not found at ${filePath}`);
+    console.error(`File not found: ${filePath}`);
+    console.error(`Looked from current directory: ${process.cwd()}`);
+    console.error("Fix: pass a path relative to the repo root, e.g. samples/product_sample.json");
     process.exit(1);
   }
 
-  const jsonData = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  let jsonData: unknown;
+  try {
+    jsonData = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error(`Could not parse JSON in ${filePath}: ${message}`);
+    console.error("Fix: remove comments (// or /* */), trailing commas, and unquoted keys. JSON cannot contain those.");
+    process.exit(1);
+  }
   const payload = Array.isArray(jsonData) ? jsonData : [jsonData];
 
   if (payload.length > 50) {
-    console.error("Error: Maximum 50 records per batch.");
+    console.error("Error: Maximum 50 records per batch. Split the file and submit again.");
     process.exit(1);
   }
 
-  if (!skipQa && entityType !== "market_fact") {
+  if (!AUTH_TOKEN) {
+    console.error(missingTokenHelp());
+    process.exit(1);
+  }
+  if (isPlaceholderSecret(AUTH_TOKEN)) {
+    console.error(placeholderTokenHelp());
+    process.exit(1);
+  }
+  if (tokenLooksCorrupt(AUTH_TOKEN)) {
+    console.error("MONCHO_AUTH_TOKEN still contains a # comment or a hidden character.");
+    console.error("Fix: put the token on its own line in .env. Move notes like `# copied from dashboard` to the previous line.");
+    process.exit(1);
+  }
+
+  if (!skipQa) {
     const ok = runQaGate(filePath, entityType);
     if (!ok) {
       console.error("\nSubmit blocked — fix mechanical QA failures first (or use --skip-qa for admin override).");
       process.exit(1);
     }
-  } else if (entityType === "market_fact") {
+  } else {
+    console.warn("WARNING: --skip-qa: submitting without mechanical QA gate (admin override).");
+  }
+
+  if (entityType === "market_fact") {
     for (let i = 0; i < payload.length; i++) {
-      const err = validateMarketFactRecord(payload[i], i);
+      const err = firstMarketFactError(payload[i], i);
       if (err) {
         console.error(`Error: ${err}`);
         process.exit(1);
       }
     }
-  } else {
-    console.warn("WARNING: --skip-qa: submitting without mechanical QA gate (admin override).");
   }
 
   for (let i = 0; i < payload.length; i++) {

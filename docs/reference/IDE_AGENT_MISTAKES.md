@@ -186,7 +186,7 @@ Or omit IDs/slugs if unresolved — never guess numbers.
 |----|---------------|----------------|------------------|
 | S-01 | **Generate SQL or “migrations”** | Out of scope; dangerous | JSON change requests only via `scripts/submit_data.ts` / Dashboard. |
 | S-02 | **Invent `id` for new orgs/products** | Collisions / reject | Omit `id` on create; include real `id` only when updating. |
-| S-03 | **Submit without `validate_data.ts` / schema match** | Noise in review queue | Match `samples/*`; run validate; then submit. |
+| S-03 | **Submit without `validate-analyst-data.ts` / schema match** | Noise in review queue | Match `samples/*`; run `npx tsx scripts/utils/validate-analyst-data.ts` then submit. |
 | S-04 | **Fabricate websites, prices, or certifications** | Trust destroyer; ban risk | Missing evidence → omit field or reject candidate. Never invent URLs. |
 | S-05 | **Push straight to `main`** | Breaks shared workbench | Branch + PR. Founder merges. |
 | S-06 | **Treat 403 weekly limit as “API key dead”** after trial | Analyst stops; false outage | Key works. Post-trial cap = 3 pending/week until **earned** or Paid. Use Bulk inject or `--type` per entity; ask founder for earned grant. |

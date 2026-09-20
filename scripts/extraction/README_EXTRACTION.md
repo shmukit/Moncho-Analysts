@@ -73,12 +73,12 @@ OPENAI_API_KEY=your_openai_key
 TAVILY_API_KEY=your_tavily_key
 
 # Moncho API Access (Required for reference data and submission)
-MONCHO_API_URL=https://moncho.ai
+MONCHO_API_URL=https://app.moncho.ai
 MONCHO_AUTH_TOKEN=your_analyst_api_key
 ```
 
 ### How to get your MONCHO_AUTH_TOKEN:
-1. Log in to [moncho.ai](https://moncho.ai).
+1. Log in to [app.moncho.ai](https://app.moncho.ai).
 2. Go to your **Analyst Profile**.
 3. Copy your **API Key**.
 

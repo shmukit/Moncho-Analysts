@@ -2,17 +2,7 @@
 
 ## Environment (required)
 
-Every analyst needs a `.env` in the repo root (never commit it). Minimum for submit + reference sync:
-
-```bash
-MONCHO_API_URL="https://app.moncho.ai"
-# Analyst Dashboard → Workbench Access
-MONCHO_AUTH_TOKEN="your_api_key_from_dashboard"
-```
-
-`MONCHO_AUTH_TOKEN` is **required** for `npm run submit`, authenticated reference fallback, and discovery MCP. Copy it from [Analyst Dashboard → Workbench Access](https://app.moncho.ai/analyst/dashboard).
-
-Optional for discovery / agentic QA: `TAVILY_API_KEY`, `EXA_API_KEY`, `LOGO_DEV_API_KEY`, `ANTHROPIC_API_KEY` (see `README.md`).
+Copy `.env.example` to `.env`. Env var names, dashboard path, and inline-comment rules live in [`README.md`](README.md) (do not restate them here). `MONCHO_AUTH_TOKEN` is required for `npm run submit` and discovery CLI/MCP.
 
 ## Git branches (required)
 

@@ -17,6 +17,7 @@
  */
 import { formatDiscoveryApiError } from './format-api-error';
 import { loadEnv } from '../lib/load_env.js';
+import { isPlaceholderSecret, missingTokenHelp, placeholderTokenHelp } from '../lib/secrets_hygiene.js';
 
 loadEnv();
 
@@ -25,7 +26,8 @@ async function main(): Promise<void> {
   const resource = args[0];
 
   if (!resource) {
-    console.error('Usage: lookup.ts <resource> [--key=value ...]');
+    console.error('Usage: npm run discovery:lookup -- taxonomy');
+    console.error('Example: npm run discovery:lookup -- coverage --sector_slug=ict-services');
     console.error(
       'Resources: taxonomy | coverage | orgs | products | pricing | needs | hs-codes | sector-hscode-links | taxonomy-standards | taxonomy-crosswalk-links | value-chain-hs-stage-map | competencies | occupations | market-facts | analysis-structure | sizing-readiness',
     );
@@ -35,7 +37,11 @@ async function main(): Promise<void> {
   const baseUrl = (process.env.MONCHO_API_URL ?? 'https://app.moncho.ai').replace(/\/$/, '');
   const token = process.env.MONCHO_AUTH_TOKEN;
   if (!token) {
-    console.error('Set MONCHO_AUTH_TOKEN in your .env file');
+    console.error(missingTokenHelp());
+    process.exit(1);
+  }
+  if (isPlaceholderSecret(token)) {
+    console.error(placeholderTokenHelp());
     process.exit(1);
   }
 
@@ -58,6 +64,9 @@ async function main(): Promise<void> {
         response.headers.get('Retry-After'),
       ),
     );
+    if (response.status === 401) {
+      console.error('Fix: paste a real Analyst API key into MONCHO_AUTH_TOKEN. The README placeholder will always 401.');
+    }
     process.exit(1);
   }
   console.log(JSON.stringify(body, null, 2));

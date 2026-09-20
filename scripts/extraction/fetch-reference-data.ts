@@ -1,17 +1,9 @@
-import path from 'path';
-import { readFileSync, existsSync } from 'fs';
+import { loadEnv } from '../lib/load_env.js';
+import { isPlaceholderSecret, missingTokenHelp, placeholderTokenHelp } from '../lib/secrets_hygiene.js';
 
-// Load .env from repo root (optional)
-const envPath = path.resolve(__dirname, '../../.env');
-if (existsSync(envPath)) {
-    const content = readFileSync(envPath, 'utf8');
-    for (const line of content.split('\n')) {
-        const match = line.match(/^\s*([^#=]+)=(.*)$/);
-        if (match) process.env[match[1].trim()] = match[2].trim().replace(/^["']|["']$/g, '');
-    }
-}
+loadEnv();
 
-const API_URL = process.env.MONCHO_API_URL || 'https://moncho.ai';
+const API_URL = process.env.MONCHO_API_URL || 'https://app.moncho.ai';
 const AUTH_TOKEN = process.env.MONCHO_AUTH_TOKEN;
 
 /**
@@ -19,15 +11,14 @@ const AUTH_TOKEN = process.env.MONCHO_AUTH_TOKEN;
  * Uses public GET /api/reference/taxonomy (no auth). Fallback: GET /api/analyst/reference-data (requires MONCHO_AUTH_TOKEN).
  */
 async function fetchReferenceData() {
-    console.log(`🌐 Fetching reference taxonomy from ${API_URL}...`);
+    console.log(`Fetching reference taxonomy from ${API_URL}/api/reference/taxonomy ...`);
 
-    // Prefer public reference taxonomy (no auth required)
     let response = await fetch(`${API_URL}/api/reference/taxonomy`);
     let result: any;
 
     if (!response.ok) {
-        if (AUTH_TOKEN) {
-            console.log('   Trying analyst reference endpoint with auth...');
+        if (AUTH_TOKEN && !isPlaceholderSecret(AUTH_TOKEN)) {
+            console.log('Public taxonomy failed. Trying authenticated /api/analyst/reference-data ...');
             response = await fetch(`${API_URL}/api/analyst/reference-data`, {
                 headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` },
             });
@@ -37,31 +28,34 @@ async function fetchReferenceData() {
     result = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-        console.error('❌ Failed:', result?.error || response.statusText);
-        if (!AUTH_TOKEN && response.status === 401) {
-            console.log('💡 Tip: Set MONCHO_AUTH_TOKEN in .env to use the analyst reference endpoint as fallback.');
+        console.error(
+            `Failed to fetch taxonomy from ${API_URL}/api/reference/taxonomy (${response.status} ${result?.error || response.statusText}).`,
+        );
+        console.error('Fix: check MONCHO_API_URL (should be https://app.moncho.ai) and your network.');
+        if (!AUTH_TOKEN || isPlaceholderSecret(AUTH_TOKEN)) {
+            console.error(AUTH_TOKEN ? placeholderTokenHelp() : missingTokenHelp());
         }
         process.exit(1);
     }
 
-    console.log('\n✅ Sectors:');
+    console.log('\nSectors:');
     (result.sectors || []).forEach((s: any) => console.log(`   - ${s.name} (id: ${s.id}, slug: ${s.slug})`));
 
-    console.log('\n✅ Segments:');
+    console.log('\nSegments:');
     (result.segments || []).forEach((s: any) => {
         const sectorSlugs = (s.sectors || []).map((x: any) => x.slug).join(', ');
         console.log(`   - ${s.name} (id: ${s.id}, slug: ${s.slug}${sectorSlugs ? `, sectors: ${sectorSlugs}` : ''})`);
     });
 
     if (result.landscapes?.length) {
-        console.log('\n✅ Landscapes (sample):');
+        console.log('\nLandscapes (sample):');
         (result.landscapes as any[]).slice(0, 15).forEach((l: any) =>
             console.log(`   - ${l.version_name} (id: ${l.id}, slug: ${l.slug}, sector: ${l.sector_slug})`)
         );
         if (result.landscapes.length > 15) console.log(`   ... and ${result.landscapes.length - 15} more`);
     }
 
-    console.log('\n💡 Use these ids/slugs in your extraction JSON. See skills/taxonomy_mapping.md.');
+    console.log('\nUse these ids/slugs in your extraction JSON. See skills/taxonomy_mapping.md.');
 }
 
 fetchReferenceData();

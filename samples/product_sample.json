@@ -20,19 +20,19 @@
     {
       "product_name": "Gazi Flash Cards Animals",
       "group_label": "Gazi-Flash-001",
-      "image_url": "https://example.com/images/gazi-flash-cards.jpg",
+      "image_url": "https://www.w3.org/Icons/valid-xhtml10",
       "media_type": "product_shot"
     },
     {
       "product_name": "Gazi Flash Cards Animals",
       "group_label": "Gazi-Flash-001",
-      "image_url": "https://example.com/images/gazi-flash-logo.png",
+      "image_url": "https://www.w3.org/Icons/valid-html401",
       "media_type": "logo"
     },
     {
       "product_name": "Mystery Of Chemistry",
       "group_label": "Gazi-Chem-001",
-      "image_url": "https://example.com/images/mystery-chemistry-box.jpg",
+      "image_url": "https://www.w3.org/Icons/valid-xhtml11",
       "media_type": "product_shot"
     }
   ]

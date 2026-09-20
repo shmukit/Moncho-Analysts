@@ -33,7 +33,7 @@
 
 **Target slugs** (`*-bd`) are grant naming only — **not** in `metadata_sector` yet.
 
-**Sherpa Gold certification** uses the Moncho slug column above plus pilot slugs in [`PILOT_GOLD_SECTORS.md`](./PILOT_GOLD_SECTORS.md). See [`gold-sectors.ts`](../../src/lib/sherpa/fixtures/gold-sectors.ts).
+**Sherpa Gold certification** and grant-ten mapping notes live in the Moncho-V1 platform repo (founder). Analysts use the Moncho slug column above.
 
 ---
 
@@ -54,7 +54,7 @@
 
 ### Live gap snapshot (2026-09-06)
 
-Read-only `npm run analyst:audit-grant-sector-gap`. Counts use canonical `product_metrics.segment_id` and org maps on `sector_segments.id`.
+Read-only founder command in **Moncho-V1**: `npm run analyst:audit-grant-sector-gap`. Analysts should use Discovery MCP / `npm run discovery:lookup -- coverage --sector_slug=<moncho-slug>` instead.
 
 | Grant sector | Orgs (sector_id / on segments) | sector_id only | segment only | Products live | Pricing rows | Quality |
 |--------------|--------------------------------:|----------------:|-------------:|--------------:|-------------:|---------|

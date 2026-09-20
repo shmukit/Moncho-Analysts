@@ -39,7 +39,7 @@ Pick **5 priority sectors** in your Coverage Snapshot (evidence-based). For each
 
 | Deliverable | Standard |
 |-------------|----------|
-| **Quality-scored organizations** | Each org scored with [`SCORING_STANDARDS.md`](../SCORING_STANDARDS.md) (five dimensions, 1–5 + rationale). Only map orgs above your agreed threshold. |
+| **Quality-scored organizations** | Each org scored with [`SCORING_STANDARDS.md`](../docs/reference/SCORING_STANDARDS.md) (five dimensions, 1–5 + rationale). Only map orgs above your agreed threshold. |
 | **Quality-scored products** | Name, category, description, source URL, pricing/spec where public. Reject thin listings. |
 | **Landscape positioning** | Orgs placed on correct segments via change requests or handoff JSON. |
 
@@ -61,7 +61,7 @@ Pick **5 priority sectors** in your Coverage Snapshot (evidence-based). For each
 
 Save your Coverage Snapshot notes in this workbench (branch + PR) or share the file with founder. Suggested filename: `SECTOR_DEPTH_BASELINE_<YYYY-MM>.md`.
 
-- [ ] Read [`DATABASE_SCHEMA_OVERVIEW.md`](../DATABASE_SCHEMA_OVERVIEW.md)
+- [ ] Read [`DATABASE_SCHEMA_OVERVIEW.md`](../docs/reference/DATABASE_SCHEMA_OVERVIEW.md)
 - [ ] Review [`GRANT_TEN_SECTORS.md`](../docs/onboarding/GRANT_TEN_SECTORS.md) landscape counts
 - [ ] Use [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) to spot-check org/product depth per grant sector
 - [ ] Ask founder only if you need a BD `market_facts` summary count (not available as a dashboard CLI)
@@ -77,7 +77,7 @@ Save your Coverage Snapshot notes in this workbench (branch + PR) or share the f
 
 ## Org scoring rubric
 
-Use [`SCORING_STANDARDS.md`](../SCORING_STANDARDS.md):
+Use [`SCORING_STANDARDS.md`](../docs/reference/SCORING_STANDARDS.md):
 
 1. Innovation & differentiation  
 2. Market traction & growth  

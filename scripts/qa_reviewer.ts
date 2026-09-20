@@ -37,6 +37,8 @@ import * as path from "path";
 import { fileURLToPath } from "url";
 import { loadEnv } from "./lib/load_env.js";
 import { validateLogoDomain } from "./lib/logo_dev.js";
+import { looksLikeSecretInField, redactSecrets } from "./lib/secrets_hygiene.js";
+import { isMarketFactRecord, validateMarketFactRecord } from "./lib/validate_market_fact.js";
 
 loadEnv();
 
@@ -45,7 +47,7 @@ loadEnv();
 // ---------------------------------------------------------------------------
 type Args = {
   file: string;
-  type?: "organization" | "product" | "landscape" | "expert" | "auto";
+  type?: "organization" | "product" | "landscape" | "expert" | "market_fact" | "auto";
   db?: string;
   sample?: string;
   validSectorIds?: string;
@@ -54,6 +56,7 @@ type Args = {
   timeout: number;
   out: string;
   deepCheck: boolean;
+  skipUrlCheck: boolean;
 };
 
 function parseArgs(argv: string[]): Args {
@@ -64,7 +67,9 @@ function parseArgs(argv: string[]): Args {
   const has = (name: string) => argv.includes(`--${name}`);
   const file = get("file");
   if (!file) {
-    console.error("Missing required --file <path>");
+    console.error(
+      "Missing --file <path>. Example: npx tsx scripts/qa_reviewer.ts --file samples/organization_slug_sample.json --type organization",
+    );
     process.exit(1);
   }
   return {
@@ -78,6 +83,7 @@ function parseArgs(argv: string[]): Args {
     timeout: parseInt(get("timeout", "8000")!, 10),
     out: get("out", "data/qa-reports/")!,
     deepCheck: has("deep-check"),
+    skipUrlCheck: has("skip-url-check"),
   };
 }
 
@@ -304,9 +310,35 @@ function expandInputRecords(parsed: unknown, forcedType?: string): any[] {
   return parsed ? [parsed] : [];
 }
 
-function detectType(record: any): "organization" | "product" | "product_media" | "landscape" | "expert" | "unknown" {
+const GENERIC_PRODUCT_NAMES = new Set([
+  "inverters",
+  "lab tests",
+  "products",
+  "services",
+  "kits",
+  "tickets",
+  "sponsorship",
+]);
+
+const AGGREGATOR_HOSTS = [
+  "daraz.com",
+  "amazon.",
+  "price.com",
+  "pricelist.",
+  "alibaba.",
+  "made-in-china.",
+];
+
+function isHardUrlFail(res?: UrlCheckResult): boolean {
+  if (!res || res.ok) return false;
+  if (res.status === 403 || res.status === 429 || res.status === 999) return false;
+  return true;
+}
+
+function detectType(record: any): "organization" | "product" | "product_media" | "landscape" | "expert" | "market_fact" | "unknown" {
   if (record.__record_kind === "product_media") return "product_media";
   if (record.__record_kind === "product") return "product";
+  if (isMarketFactRecord(record)) return "market_fact";
   if (record.product_name && record.image_url && record.group_label) return "product_media";
   if (record.product_name !== undefined) return "product";
   if (record.version_name !== undefined) return "landscape";
@@ -334,21 +366,52 @@ const ORG_RATIONALE_FIELDS = [
 ];
 
 function checkTwoSourceRule(record: any): string[] {
-  const warnings: string[] = [];
+  const errors: string[] = [];
   const hasRationales = ORG_RATIONALE_FIELDS.some((f) => record[f]);
-  if (!hasRationales) return warnings;
+  if (!hasRationales) return errors;
   const urls = record.source_urls;
   if (!Array.isArray(urls) || urls.length < 2) {
-    warnings.push(
-      "two-source rule: provide `source_urls` with at least 2 independent URLs supporting key claims (per analyst_instructions)"
+    errors.push(
+      "two-source rule: provide `source_urls` with at least 2 independent https:// URLs (required by analyst_instructions when scoring rationales are present)",
     );
   } else {
     const valid = urls.filter((u: unknown) => typeof u === "string" && /^https:\/\//i.test(u));
     if (valid.length < 2) {
-      warnings.push("two-source rule: `source_urls` must contain at least 2 valid https:// URLs");
+      errors.push("two-source rule: `source_urls` must contain at least 2 valid https:// URLs");
     }
   }
-  return warnings;
+  return errors;
+}
+
+function collectSecretFieldErrors(record: any): string[] {
+  const errors: string[] = [];
+  const walk = (value: unknown, path: string) => {
+    if (typeof value === "string" && looksLikeSecretInField(value)) {
+      errors.push(`${path} looks like an API key or token — never paste .env values into JSON`);
+    } else if (Array.isArray(value)) {
+      value.forEach((v, i) => walk(v, `${path}[${i}]`));
+    } else if (value && typeof value === "object") {
+      for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+        if (k.startsWith("_")) continue;
+        walk(v, path ? `${path}.${k}` : k);
+      }
+    }
+  };
+  walk(record, "");
+  return errors;
+}
+
+function aggregatorHostWarning(url: unknown): string | null {
+  if (typeof url !== "string") return null;
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    if (AGGREGATOR_HOSTS.some((h) => host.includes(h))) {
+      return `source URL host "${host}" looks like an aggregator — use the official org/product page (P-03)`;
+    }
+  } catch {
+    return null;
+  }
+  return null;
 }
 
 const ISO_COUNTRY_RE = /^[A-Z]{2}$/;
@@ -384,6 +447,8 @@ function validateOrganizationSchema(
     errors.push("missing/invalid `website_url`");
   } else if (!/^https:\/\//i.test(record.website_url)) {
     errors.push("`website_url` must start with https://");
+  } else if (/linkedin\.com/i.test(record.website_url)) {
+    errors.push("`website_url` is a LinkedIn URL — M-06 requires the organization's own website");
   }
   if (!record.description || typeof record.description !== "string") {
     errors.push("missing `description`");
@@ -469,10 +534,10 @@ function validateOrganizationSchema(
     errors.push("`id` present but record not marked as an update (__is_update) — new records must omit id");
   }
 
-  // SCORING_STANDARDS.md — flag missing dimension rationales (soft, not structural fail)
+  // SCORING_STANDARDS.md — five dimension rationales are required on org submits
   for (const field of ORG_RATIONALE_FIELDS) {
     if (!record[field]) {
-      warnings.push(`missing \`${field}\` (required for Moncho 5-dimension scoring rubric)`);
+      errors.push(`missing \`${field}\` (required by SCORING_STANDARDS.md)`);
     }
   }
 
@@ -501,6 +566,14 @@ function validateProductSchema(record: any): string[] {
   ) {
     errors.push(`hs_code "${record.hs_code}" does not look like a valid HS code`);
   }
+  if (typeof record.product_name === "string" && GENERIC_PRODUCT_NAMES.has(record.product_name.trim().toLowerCase())) {
+    errors.push(
+      `product_name "${record.product_name}" is a category, not a named SKU (P-05). Use a model, test, or ticket tier name.`,
+    );
+  }
+  const productUrl = record.source_url || record.product_url || record.metadata?.source_url;
+  const agg = aggregatorHostWarning(productUrl);
+  if (agg) errors.push(agg);
   return errors;
 }
 
@@ -758,10 +831,16 @@ async function main() {
   const slugSets = loadSlugSets();
   if (args.validSectorIds && !validSectorIds) console.log(`--valid-sector-ids ${args.validSectorIds} not found — skipping sector_id cross-check`);
   if (args.validSegmentIds && !validSegmentIds) console.log(`--valid-segment-ids ${args.validSegmentIds} not found — skipping segment_id cross-check`);
+  if (!slugSets.sectorSlugs || !slugSets.segmentSlugs) {
+    console.error(
+      "data/reference/taxonomy.json is missing. Look up live slugs via Discovery MCP, then run npm run reference:sync (local snapshot, not committed).",
+    );
+  }
 
   // Collect all URLs to check across the batch (dedup identical URLs to avoid re-fetching)
   const urlToCheck = new Map<string, Promise<UrlCheckResult>>();
   function scheduleCheck(url: string | undefined) {
+    if (args.skipUrlCheck) return;
     if (!url) return;
     if (!urlToCheck.has(url)) {
       urlToCheck.set(url, checkUrl(url, args.timeout));
@@ -779,7 +858,11 @@ async function main() {
   }
   // Run with bounded concurrency
   const urls = [...urlToCheck.keys()];
-  console.log(`Checking ${urls.length} unique URL(s) with concurrency=${args.concurrency}...`);
+  console.log(
+    args.skipUrlCheck
+      ? "Skipping live URL checks (--skip-url-check)."
+      : `Checking ${urls.length} unique URL(s) with concurrency=${args.concurrency}...`,
+  );
   const checkResults = await mapWithConcurrency(urls, args.concurrency, (u) => checkUrl(u, args.timeout));
   const urlResultMap = new Map<string, UrlCheckResult>(urls.map((u, i) => [u, checkResults[i]]));
 
@@ -808,12 +891,12 @@ async function main() {
       schemaWarnings = org.warnings;
       checks.schema_variant = org.schema_variant;
       if (slugSets.sectorSlugs && record.sector_slug && !slugSets.sectorSlugs.has(record.sector_slug)) {
-        schemaWarnings.push(`sector_slug "${record.sector_slug}" not in reference taxonomy — confirm or leave empty`);
+        schemaErrors.push(`sector_slug "${record.sector_slug}" not in reference taxonomy — run npm run reference:sync and use a live slug`);
       }
       if (slugSets.segmentSlugs && record.segment_slugs) {
         for (const s of record.segment_slugs as string[]) {
           if (!slugSets.segmentSlugs!.has(s)) {
-            schemaWarnings.push(`segment_slug "${s}" not in reference taxonomy — confirm or leave empty`);
+            schemaErrors.push(`segment_slug "${s}" not in reference taxonomy — run npm run reference:sync and use a live slug`);
           }
         }
       }
@@ -822,19 +905,23 @@ async function main() {
       }
       if (record.logo_url && record.website_url) {
         const logoErr = validateLogoDomain(String(record.logo_url), String(record.website_url));
-        if (logoErr) schemaWarnings.push(logoErr);
+        if (logoErr) schemaErrors.push(logoErr);
       }
-      schemaWarnings.push(...checkTwoSourceRule(record));
+      schemaErrors.push(...checkTwoSourceRule(record));
+      schemaErrors.push(...collectSecretFieldErrors(record));
     } else if (recordType === "product") {
       schemaErrors = validateProductSchema(record);
+      schemaErrors.push(...collectSecretFieldErrors(record));
     } else if (recordType === "product_media") {
       schemaErrors = validateProductMediaSchema(record, productNames);
     } else if (recordType === "landscape") {
       schemaErrors = validateLandscapeSchema(record, validSectorIds, validSegmentIds);
     } else if (recordType === "expert") {
       schemaErrors = validateExpertSchema(record, validSegmentIds);
+    } else if (recordType === "market_fact") {
+      schemaErrors = validateMarketFactRecord(record, idx);
     } else {
-      schemaErrors = ["unable to determine record type (organization/product/landscape/expert)"];
+      schemaErrors = ["unable to determine record type (organization/product/landscape/expert/market_fact)"];
     }
 
     if (sampleShape) {
@@ -932,16 +1019,19 @@ async function main() {
     }
 
     // Overall status
-    const websiteHardDown = checks.url_website && !checks.url_website.ok && checks.url_website.status !== 403;
-    const linkedinHardDown =
-      checks.url_linkedin &&
-      !checks.url_linkedin.ok &&
-      checks.url_linkedin.status !== 403 &&
-      checks.url_linkedin.status !== 999;
+    const websiteHardDown = isHardUrlFail(checks.url_website);
+    const linkedinHardDown = isHardUrlFail(checks.url_linkedin);
+    const logoHardDown = Array.isArray(checks.url_logos) && checks.url_logos.some((r: UrlCheckResult | undefined) => isHardUrlFail(r));
+    const imageHardDown =
+      isHardUrlFail(checks.url_image) ||
+      (Array.isArray(checks.url_product_media) &&
+        checks.url_product_media.some((r: UrlCheckResult | undefined) => isHardUrlFail(r)));
     const hasFail =
       checks.schema === "fail" ||
       websiteHardDown ||
       linkedinHardDown ||
+      logoHardDown ||
+      imageHardDown ||
       duplicateOf !== null;
     const hasFlag = reasons.length > 0 && !hasFail;
 
@@ -971,12 +1061,14 @@ async function main() {
   const outPath = path.join(args.out, `${baseName}-qa-report.json`);
   fs.writeFileSync(
     outPath,
-    JSON.stringify({ file: args.file, generated_at: new Date().toISOString(), batch_warning: batchWarning, summary: {
+    redactSecrets(
+      JSON.stringify({ file: args.file, generated_at: new Date().toISOString(), batch_warning: batchWarning, summary: {
       total: report.length,
       pass: report.filter(r => r.status === "PASS").length,
       flagged: report.filter(r => r.status === "FLAGGED").length,
       fail: report.filter(r => r.status === "FAIL").length,
-    }, records: report }, null, 2)
+    }, records: report }, null, 2),
+    ) + "\n",
   );
 
   // Console summary

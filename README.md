@@ -56,12 +56,12 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
    npm install
    ```
 3. **Configure Environment**  
-   Create a `.env` file in the repo root (do not commit it). Add the following variables:
+   Copy `.env.example` to `.env` in the repo root (do not commit `.env`). Comments must sit on their own `#` lines, never after the token.
 
    **Moncho API** (required for submission):
    ```bash
    MONCHO_API_URL="https://app.moncho.ai"
-   # copy from Analyst Dashboard → Workbench Access (see Walkthrough: DASHBOARD_WALKTHROUGH.md#3-managing-workbench-access-api-keys)
+   # Analyst Dashboard → Settings → Developer (Workbench Access)
    MONCHO_AUTH_TOKEN="your_copied_api_key_here"
    ```
 
@@ -87,11 +87,11 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 
 4. **Cursor Discovery MCP** (optional; same API key): copy [`.cursor/mcp.json.example`](.cursor/mcp.json.example) to `.cursor/mcp.json`. Cursor reads `MONCHO_AUTH_TOKEN` from `.env` via `envFile`. Do not call `mcp_auth`. Full steps: [`docs/onboarding/MCP_SETUP_AFTER_MERGE.md`](docs/onboarding/MCP_SETUP_AFTER_MERGE.md). If MCP fails, REST or `npx tsx scripts/discovery/lookup.ts coverage --sector_slug=ict-services`.
 
-5. **Sync reference taxonomy IDs** (required once per clone, and after taxonomy changes):
+5. **Sync a local taxonomy snapshot for QA** (required once per clone; gitignored):
    ```bash
    npm run reference:sync
    ```
-   This writes `data/reference/valid-sector-ids.json` and `valid-segment-ids.json` from the live Moncho API. QA uses these to catch guessed sector/segment IDs.
+   Live slugs and IDs come from Discovery MCP (`taxonomy`), not from git. This command writes a local snapshot under `data/reference/` so mechanical QA can reject guessed IDs. Do not commit those JSON files. Re-run whenever QA says a slug is "not in reference taxonomy".
 
 ## Workflow
 1. **Agent context**: Have your IDE agent read `instructions.md`, `README.md`, `docs/reference/IDE_AGENT_MISTAKES.md`, `analyst_instructions.md`, `skills/validation_submission.md`, and `samples/` so it understands schemas and the QA gate.
@@ -109,6 +109,7 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
    ```
    See `skills/product_image_audit.md`. Optional deep fact-check (Tavily/Exa): add `--deep-check` to `qa_agent.ts`.
    Reports land in `data/qa-reports/` (gitignored). Fix every `FAIL` before submit.
+   After editing anything in `samples/`, run `npm run qa:samples`. Samples must pass the same gate.
 5. **Submit** (re-runs Stage 1 mechanical QA for org/product/landscape/expert; max 50 JSON objects per batch):
    ```bash
    npm run submit -- --file data/pending/orgs.json --type organization
@@ -129,10 +130,7 @@ Grant KPIs and deeper engineering docs stay with the founder. Use this workbench
 | 2 — Agentic | `scripts/deep_fact_check.ts` | Tavily/Exa search + Anthropic LLM entailment on rationales |
 | Orchestrator | `scripts/qa_agent.ts` | Runs both stages + unified report + executive summary |
 
-**Reference ID enforcement** (never guess sector/segment IDs):
-- `data/reference/valid-sector-ids.json`
-- `data/reference/valid-segment-ids.json`
-- Refresh with `npm run reference:sync`
+**Reference ID enforcement** (never guess sector/segment IDs): look up live taxonomy via MCP. Then `npm run reference:sync` for a local, gitignored snapshot that QA reads.
 
 **Run examples:**
 ```bash
@@ -150,6 +148,10 @@ npx tsx scripts/qa_agent.ts --file data/pending/your-file.json --deep-check --on
 
 # Verify agent logic (no API keys)
 npm run qa:test
+# Samples must pass the same mechanical gate
+npm run qa:samples
+# Forbidden-pattern fixtures
+npm run qa:gate-redteam
 ```
 
 **Reports in `data/qa-reports/`** (local only, not committed):

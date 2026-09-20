@@ -8,6 +8,9 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { loadEnv } from "./lib/load_env.js";
+
+loadEnv();
 
 const API_URL = process.env.MONCHO_API_URL || "https://app.moncho.ai";
 const OUT_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../data/reference");
@@ -50,7 +53,10 @@ async function main() {
   const result = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    console.error("Failed to fetch taxonomy:", result?.error || response.statusText);
+    console.error(
+      `Failed to fetch taxonomy from ${API_URL}/api/reference/taxonomy (${response.status} ${result?.error || response.statusText}).`,
+    );
+    console.error("Fix: MONCHO_API_URL should be https://app.moncho.ai. This command does not need an API key.");
     process.exit(1);
   }
 
@@ -83,13 +89,28 @@ async function main() {
     country_slugs: existingCountrySlugs(),
   };
 
+  const PLACEHOLDER_SLUGS = new Set(["edtech", "fintech"]);
+  if (sectors.length < 20) {
+    console.error(
+      `reference:sync wrote only ${sectors.length} sector(s). Live Moncho taxonomy has 100+. QA will reject real slugs. Re-run when the API is reachable.`,
+    );
+    process.exit(1);
+  }
+  const slugSet = new Set(sectorSlugs.map((s) => s.toLowerCase()));
+  if ([...PLACEHOLDER_SLUGS].every((s) => slugSet.has(s)) && sectors.length <= 8) {
+    console.error(
+      "taxonomy.json still looks like the old EdTech/Fintech placeholder. Delete data/reference/taxonomy.json and re-run npm run reference:sync.",
+    );
+    process.exit(1);
+  }
+
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.writeFileSync(path.join(OUT_DIR, "valid-sector-ids.json"), JSON.stringify(sectorIds, null, 2) + "\n");
   fs.writeFileSync(path.join(OUT_DIR, "valid-segment-ids.json"), JSON.stringify(segmentIds, null, 2) + "\n");
   fs.writeFileSync(TAXONOMY_PATH, JSON.stringify(taxonomy, null, 2) + "\n");
 
   console.log(
-    `Wrote ${sectorIds.length} sector IDs, ${segmentIds.length} segment IDs, and taxonomy.json (${sectorSlugs.length} sector slugs, ${segmentSlugs.length} segment slugs) to data/reference/`,
+    `Wrote ${sectorIds.length} sector IDs, ${segmentIds.length} segment IDs, and taxonomy.json (${sectorSlugs.length} sector slugs, ${segmentSlugs.length} segment slugs) to data/reference/ (gitignored; do not commit). Live lookup stays Discovery MCP.`,
   );
 }
 

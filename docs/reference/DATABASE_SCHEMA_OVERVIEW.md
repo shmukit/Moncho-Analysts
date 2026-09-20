@@ -81,7 +81,7 @@ Use the [Analyst Dashboard](https://app.moncho.ai/analyst/dashboard) for browsin
 2. Score with [`SCORING_STANDARDS.md`](SCORING_STANDARDS.md).
 3. Validate locally (mechanical QA in the workbench).
 4. Submit via one of:
-   - **IDE CLI**: `npm run submit -- --file path.json --type organization|product|market_fact|metadata|landscape`
+   - **IDE CLI**: `npm run submit -- --file path.json --type organization|product|market_fact|landscape|expert`
    - **Bulk inject** (browser): `/analyst/bulk-inject` — same entity types, max **50 JSON objects per batch**
 5. **Organizations / products / metadata / landscapes** → change requests in `audit_logs` (review queue → CMS apply).
 6. **Market facts** → `staging_market_facts` (`pending_review`); **Review Queue → Staged market facts** promotes to live `market_facts`. AI/agent rows in the same table are reviewed in CMS → AI Scraping.

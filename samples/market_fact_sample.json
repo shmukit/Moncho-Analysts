@@ -6,7 +6,7 @@
     "value": 1200,
     "unit": "count",
     "source_name": "BBS Economic Census 2024",
-    "source_url": "https://example.com/report",
+    "source_url": "https://www.example.com/",
     "fact_type": "demographic",
     "dimensions": {
       "sector_slug": "healthcare",

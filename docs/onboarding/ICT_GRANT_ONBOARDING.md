@@ -61,6 +61,8 @@ September report frames work as **Phase 1 in progress**, not finished.
 **Data Ops:** use the Analyst Dashboard for live data. No database CLI access required.  
 **GTM:** optional; no extra tooling required beyond what Moncho already has.
 
+Intern batch 2: same Day 0 table, smaller volume. Extra reading: [`roles/INTERN_BATCH_2.md`](../../roles/INTERN_BATCH_2.md).
+
 ---
 
 ## 4. What we need from you (Day 0)
@@ -154,6 +156,9 @@ Help draft your sections for the September ICT progress report. Founder owns the
 | [`roles/DATA_OPS_ONBOARDING.md`](../../roles/DATA_OPS_ONBOARDING.md) | Data Ops role |
 | [`roles/GTM_OPS_ONBOARDING.md`](../../roles/GTM_OPS_ONBOARDING.md) | GTM Ops role |
 | [`roles/TWO_MONTH_PLAN_TEMPLATE.md`](../../roles/TWO_MONTH_PLAN_TEMPLATE.md) | Plan for founder approval |
+| [`roles/INTERN_BATCH_2.md`](../../roles/INTERN_BATCH_2.md) | Intern batch 2 (smaller harvest) |
+| [`roles/INTERN_MARKET_SIZING_BRIEF.md`](../../roles/INTERN_MARKET_SIZING_BRIEF.md) | Sizing factors only, no TAM |
+| [`roles/INTERN_VALUE_CHAIN_BRIEF.md`](../../roles/INTERN_VALUE_CHAIN_BRIEF.md) | Chain grammar, draft only |
 
 Longer engineering / grant internal docs are **not** in this repo. Ask the founder when you need them.
 

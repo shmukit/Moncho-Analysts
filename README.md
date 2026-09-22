@@ -35,6 +35,15 @@ If you are joining as **Data Ops** or **GTM Ops** on the Bangladesh ICT grant, s
 
 Grant KPIs and deeper engineering docs stay with the founder. Use this workbench for day-to-day instructions.
 
+## Intern batch 2
+
+Same dashboard and workbench as grant Data Ops, smaller harvest. Start at [`roles/INTERN_BATCH_2.md`](roles/INTERN_BATCH_2.md), then:
+
+- [`roles/INTERN_MARKET_SIZING_BRIEF.md`](roles/INTERN_MARKET_SIZING_BRIEF.md)
+- [`roles/INTERN_VALUE_CHAIN_BRIEF.md`](roles/INTERN_VALUE_CHAIN_BRIEF.md)
+
+Do not treat this track as a license to write TAM or publish value-chain nodes.
+
 ## Tools and pipeline
 
 - `scripts/utils/validate-analyst-data.ts` — mechanical QA (required before submit)
